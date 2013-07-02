@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>EA271B82-B019-4068-9922-28EA79874550</string>
+	<key>IDESourceControlProjectName</key>
+	<string>NPBoston</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7F5CD51A-62CE-4242-B8A4-60A8B51E45BE</key>
+		<string>ssh://bitbucket.org/tonyd256/npboston_ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>NPBoston.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7F5CD51A-62CE-4242-B8A4-60A8B51E45BE</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://bitbucket.org/tonyd256/npboston_ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7F5CD51A-62CE-4242-B8A4-60A8B51E45BE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7F5CD51A-62CE-4242-B8A4-60A8B51E45BE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>NPBoston</string>
+		</dict>
+	</array>
+</dict>
+</plist>

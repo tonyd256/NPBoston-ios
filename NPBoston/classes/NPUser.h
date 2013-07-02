@@ -1,0 +1,22 @@
+//
+//  NPUser.h
+//  NPBoston
+//
+//  Created by Tony DiPasquale on 6/12/13.
+//  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface NPUser : NSObject
+
+@property (strong, nonatomic) NSString *objectId;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *email;
+@property (strong, nonatomic) NSString *fid;
+@property (assign, nonatomic) BOOL admin;
+
++ (NPUser *)userWithObject:(id)object;
+- (NPUser *)initWithObject:(id)object;
+
+@end
