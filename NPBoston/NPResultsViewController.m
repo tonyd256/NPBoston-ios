@@ -138,7 +138,7 @@
         cell.commentsText.text = result.comment;
         cell.commentsText.contentInset = UIEdgeInsetsMake(-8,0,0,0);
         
-        int h = [result.comment sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:CGSizeMake(260, 999) lineBreakMode:UILineBreakModeWordWrap].height;
+        int h = [result.comment sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:CGSizeMake(260, 999) lineBreakMode:NSLineBreakByWordWrapping].height;
         
         [cell.commentsText setFrame:CGRectMake(cell.commentsText.frame.origin.x, cell.commentsText.frame.origin.y, cell.commentsText.frame.size.width, h)];
         
@@ -154,7 +154,7 @@
     
     if ([result.comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) return 118;
     
-    return [result.comment sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:CGSizeMake(260, 999) lineBreakMode:UILineBreakModeWordWrap].height + 136;
+    return [result.comment sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:CGSizeMake(260, 999) lineBreakMode:NSLineBreakByWordWrapping].height + 136;
 }
 
 #pragma mark - Table view delegate

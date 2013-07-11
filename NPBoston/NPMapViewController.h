@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "NPWorkout.h"
 
 @interface NPMapViewController : UIViewController <UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) IBOutlet MKMapView *map;
 
-@property (strong, nonatomic) NSNumber *lat;
-@property (strong, nonatomic) NSNumber *lng;
-@property (strong, nonatomic) NSString *workoutId;
+@property (strong, nonatomic) NPWorkout *workout;
+
+- (IBAction)openAction:(id)sender;
 
 @end

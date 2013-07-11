@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NPWorkout.h"
 
 @interface NPVerbalViewController : UITableViewController
 
-@property (strong, nonatomic) NSArray *verbals;
+@property (strong, nonatomic) NPWorkout *workout;
 
 @end

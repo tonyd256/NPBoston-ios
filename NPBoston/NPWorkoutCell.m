@@ -16,13 +16,6 @@
 
 @implementation NPWorkoutCell
 
-@synthesize titleLabel = _titleLabel;
-@synthesize subtitleLabel = _subtitleLabel;
-@synthesize verbalButton = _verbalButton;
-@synthesize locationMap = _locationMap;
-@synthesize resultsButton = _resultsButton;
-@synthesize cellView = _cellView;
-@synthesize topView = _topView;
 @synthesize workout = _workout;
 @synthesize userID = _userID;
 @synthesize userName = _userName;
@@ -49,31 +42,22 @@
     maskLayer.path = maskPath.CGPath;
     self.cellView.layer.mask = maskLayer;
     
-    self.topView.layer.borderColor = [UIColor colorWithRed:(170/255.0) green:(170/255.0) blue:(170/255.0) alpha:1].CGColor;
-    self.topView.layer.borderWidth = 0.5;
+    self.actionsView.layer.borderColor = [UIColor colorWithRed:(170/255.0) green:(170/255.0) blue:(170/255.0) alpha:1].CGColor;
+    self.actionsView.layer.borderWidth = 0.5;
     self.locationMap.layer.borderColor = [UIColor colorWithRed:(170/255.0) green:(170/255.0) blue:(170/255.0) alpha:1].CGColor;
     self.locationMap.layer.borderWidth = 0.5;
-    
-    UITapGestureRecognizer *tapView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
-    tapView.numberOfTapsRequired = 1;
-    [self.topView addGestureRecognizer:tapView];
     
     UITapGestureRecognizer *tapMap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapped:)];
     tapMap.numberOfTapsRequired = 1;
     [self.locationMap addGestureRecognizer:tapMap];
     
-    NSMutableAttributedString *verbalString = [[NSMutableAttributedString alloc] initWithString:[[NSString fontAwesomeIconStringForEnum:FAIconOk] stringByAppendingString:@" Verbal"]];
+    NSMutableAttributedString *verbalString = [[NSMutableAttributedString alloc] initWithString:[[NSString fontAwesomeIconStringForEnum:FAIconOk] stringByAppendingString:@" Commit"]];
     [verbalString addAttribute:NSFontAttributeName value:[UIFont fontWithName:kFontAwesomeFamilyName size:12] range:NSMakeRange(0, [[NSString fontAwesomeIconStringForEnum:FAIconOk] length])];
     [self.verbalButton setAttributedTitle:verbalString forState:UIControlStateNormal];
     
-    NSMutableAttributedString *resultsString = [[NSMutableAttributedString alloc] initWithString:[[NSString fontAwesomeIconStringForEnum:FAIconEdit] stringByAppendingString:@" Results"]];
+    NSMutableAttributedString *resultsString = [[NSMutableAttributedString alloc] initWithString:[[NSString fontAwesomeIconStringForEnum:FAIconEdit] stringByAppendingString:@" Record"]];
     [resultsString addAttribute:NSFontAttributeName value:[UIFont fontWithName:kFontAwesomeFamilyName size:12] range:NSMakeRange(0, [[NSString fontAwesomeIconStringForEnum:FAIconEdit] length])];
     [self.resultsButton setAttributedTitle:resultsString forState:UIControlStateNormal];
-    
-    NSMutableAttributedString *webString = [[NSMutableAttributedString alloc] initWithString:[[NSString fontAwesomeIconStringForEnum:FAIconGlobe] stringByAppendingString:@" Web"]];
-    [webString addAttribute:NSFontAttributeName value:[UIFont fontWithName:kFontAwesomeFamilyName size:12] range:NSMakeRange(0, [[NSString fontAwesomeIconStringForEnum:FAIconGlobe] length])];
-    [self.webButton setAttributedTitle:webString forState:UIControlStateNormal];
-    self.webButton.titleLabel.textColor = [UIColor grayColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -113,10 +97,6 @@
                     [[Mixpanel sharedInstance] track:@"verbal failed" properties:@{@"error": @"server side"}];
                 } else {
                     [[Mixpanel sharedInstance] track:@"verbal succeeded"];
-                    NSMutableDictionary *verbal = [[NSMutableDictionary alloc] init];
-                    [verbal setValue:self.userID forKey:@"uid"];
-                    [verbal setValue:self.userName forKey:@"name"];
-                    [self.workout.verbals addObject:verbal];
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
@@ -135,13 +115,6 @@
                     [[Mixpanel sharedInstance] track:@"verbal removal failed" properties:@{@"error": @"server side"}];
                 } else {
                     [[Mixpanel sharedInstance] track:@"verbal removal succeeded"];
-                    
-                    for (NSMutableDictionary *dict in self.workout.verbals) {
-                        if ([[dict valueForKey:@"uid"] isEqualToString:self.userID]) {
-                            [self.workout.verbals removeObject:dict];
-                            break;
-                        }
-                    }
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
@@ -158,39 +131,19 @@
     }
 }
 
-- (IBAction)webButtonAction:(UIButton *)sender
-{
-    // open to url link
-    NSURL *url;
-    if (self.workout.url) {
-        url = [NSURL URLWithString:self.workout.url];
-    } else {
-        url = [NSURL URLWithString:@"http://november-project.com/category/blog/"];
-    }
-    
-    [[Mixpanel sharedInstance] track:@"web tapped"];
-    [[UIApplication sharedApplication] openURL:url];
+- (IBAction)viewResultsAction:(id)sender {
+    [[Mixpanel sharedInstance] track:@"results tapped"];
+    [self.delegate showResultsWithWorkout:self.workout];
 }
 
-- (void)viewTapped:(UITapGestureRecognizer *)sender
-{
-    [self.delegate showDetailsWithWorkout:self.workout];
+- (IBAction)viewVerbalsAction:(id)sender {
+    [[Mixpanel sharedInstance] track:@"verbals tapped"];
+    [self.delegate showVerbalsWithWorkout:self.workout];
 }
 
 - (void)mapTapped:(UITapGestureRecognizer *)sender
 {
     [[Mixpanel sharedInstance] track:@"map tapped"];
-    if (self.workout.lat) {
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0) {
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://maps.apple.com/?q=%f,%f", [self.workout.lat floatValue], [self.workout.lng floatValue]]];
-            [[UIApplication sharedApplication] openURL:url];
-        } else {
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://maps.google.com/?q=%f,%f", [self.workout.lat floatValue], [self.workout.lng floatValue]]];
-            [[UIApplication sharedApplication] openURL:url];
-        }
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"The location hasn't been posted yet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-    }
+    [self.delegate showMapWithWorkout:self.workout];
 }
 @end

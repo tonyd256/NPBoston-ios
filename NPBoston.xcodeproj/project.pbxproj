@@ -15,8 +15,6 @@
 		EA8DBBA21734A39C002DD7CC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8DBBA11734A39C002DD7CC /* Security.framework */; };
 		EA8DBBA61734A6D6002DD7CC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8DBBA51734A6D6002DD7CC /* FacebookSDK.framework */; };
 		EA8DBBA81734A6EC002DD7CC /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA8DBBA71734A6EC002DD7CC /* FacebookSDKResources.bundle */; };
-		EA8DBBAC1735616F002DD7CC /* NPWorkoutEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8DBBAB1735616F002DD7CC /* NPWorkoutEditorViewController.m */; };
-		EA8DBBAF17358CDB002DD7CC /* NPMapPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8DBBAE17358CDB002DD7CC /* NPMapPickerViewController.m */; };
 		EAAC393B171F6B1400EE670B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAC393A171F6B1400EE670B /* UIKit.framework */; };
 		EAAC393D171F6B1400EE670B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAC393C171F6B1400EE670B /* Foundation.framework */; };
 		EAAC393F171F6B1400EE670B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAC393E171F6B1400EE670B /* CoreGraphics.framework */; };
@@ -57,7 +55,6 @@
 		EAF27755172EA25C002A7C7B /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAF2774F172EA25C002A7C7B /* FontAwesome.ttf */; };
 		EAF27756172EA25C002A7C7B /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF27751172EA25C002A7C7B /* NSString+FontAwesome.m */; };
 		EAF27757172EA25C002A7C7B /* UIFont+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF27753172EA25C002A7C7B /* UIFont+FontAwesome.m */; };
-		EAF2775A172EDB55002A7C7B /* NPWorkoutDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF27759172EDB55002A7C7B /* NPWorkoutDetailsViewController.m */; };
 		EAF2775E172EDD67002A7C7B /* NPMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF2775D172EDD67002A7C7B /* NPMapViewController.m */; };
 		EAF27761172EDEB9002A7C7B /* NPVerbalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF27760172EDEB9002A7C7B /* NPVerbalViewController.m */; };
 		EAF27764172EE08E002A7C7B /* NPVerbalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF27763172EE08E002A7C7B /* NPVerbalCell.m */; };
@@ -94,10 +91,6 @@
 		EA8DBBA11734A39C002DD7CC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		EA8DBBA51734A6D6002DD7CC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		EA8DBBA71734A6EC002DD7CC /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = ../../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle; sourceTree = "<group>"; };
-		EA8DBBAA1735616F002DD7CC /* NPWorkoutEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPWorkoutEditorViewController.h; sourceTree = "<group>"; };
-		EA8DBBAB1735616F002DD7CC /* NPWorkoutEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPWorkoutEditorViewController.m; sourceTree = "<group>"; };
-		EA8DBBAD17358CDB002DD7CC /* NPMapPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPMapPickerViewController.h; sourceTree = "<group>"; };
-		EA8DBBAE17358CDB002DD7CC /* NPMapPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPMapPickerViewController.m; sourceTree = "<group>"; };
 		EAAC3937171F6B1400EE670B /* NPBoston.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NPBoston.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAAC393A171F6B1400EE670B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EAAC393C171F6B1400EE670B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -148,8 +141,6 @@
 		EAF27751172EA25C002A7C7B /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
 		EAF27752172EA25C002A7C7B /* UIFont+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+FontAwesome.h"; sourceTree = "<group>"; };
 		EAF27753172EA25C002A7C7B /* UIFont+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontAwesome.m"; sourceTree = "<group>"; };
-		EAF27758172EDB55002A7C7B /* NPWorkoutDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPWorkoutDetailsViewController.h; sourceTree = "<group>"; };
-		EAF27759172EDB55002A7C7B /* NPWorkoutDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPWorkoutDetailsViewController.m; sourceTree = "<group>"; };
 		EAF2775C172EDD67002A7C7B /* NPMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPMapViewController.h; sourceTree = "<group>"; };
 		EAF2775D172EDD67002A7C7B /* NPMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPMapViewController.m; sourceTree = "<group>"; };
 		EAF2775F172EDEB9002A7C7B /* NPVerbalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPVerbalViewController.h; sourceTree = "<group>"; };
@@ -212,10 +203,6 @@
 			children = (
 				EAF27771172F02A5002A7C7B /* NPSubmitResultsViewController.h */,
 				EAF27772172F02A5002A7C7B /* NPSubmitResultsViewController.m */,
-				EA8DBBAA1735616F002DD7CC /* NPWorkoutEditorViewController.h */,
-				EA8DBBAB1735616F002DD7CC /* NPWorkoutEditorViewController.m */,
-				EA8DBBAD17358CDB002DD7CC /* NPMapPickerViewController.h */,
-				EA8DBBAE17358CDB002DD7CC /* NPMapPickerViewController.m */,
 			);
 			name = "Editing Views";
 			sourceTree = "<group>";
@@ -350,8 +337,6 @@
 		EAF2775B172EDD13002A7C7B /* Detail Views */ = {
 			isa = PBXGroup;
 			children = (
-				EAF27758172EDB55002A7C7B /* NPWorkoutDetailsViewController.h */,
-				EAF27759172EDB55002A7C7B /* NPWorkoutDetailsViewController.m */,
 				EAF2775C172EDD67002A7C7B /* NPMapViewController.h */,
 				EAF2775D172EDD67002A7C7B /* NPMapViewController.m */,
 				EAF2775F172EDEB9002A7C7B /* NPVerbalViewController.h */,
@@ -547,7 +532,6 @@
 				EAF27754172EA25C002A7C7B /* FAImageView.m in Sources */,
 				EAF27756172EA25C002A7C7B /* NSString+FontAwesome.m in Sources */,
 				EAF27757172EA25C002A7C7B /* UIFont+FontAwesome.m in Sources */,
-				EAF2775A172EDB55002A7C7B /* NPWorkoutDetailsViewController.m in Sources */,
 				EAF2775E172EDD67002A7C7B /* NPMapViewController.m in Sources */,
 				EAF27761172EDEB9002A7C7B /* NPVerbalViewController.m in Sources */,
 				EAF27764172EE08E002A7C7B /* NPVerbalCell.m in Sources */,
@@ -556,8 +540,6 @@
 				EAF2778017315FE4002A7C7B /* NPResult.m in Sources */,
 				EA8DBB9D1731A6A7002DD7CC /* NPResultsViewController.m in Sources */,
 				EA8DBBA01731B49D002DD7CC /* NPResultCell.m in Sources */,
-				EA8DBBAC1735616F002DD7CC /* NPWorkoutEditorViewController.m in Sources */,
-				EA8DBBAF17358CDB002DD7CC /* NPMapPickerViewController.m in Sources */,
 				EA71E0B81768C3FE00E89CA9 /* NPUser.m in Sources */,
 				EA71E0BB1770098000E89CA9 /* NPVerbal.m in Sources */,
 			);

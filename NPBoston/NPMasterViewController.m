@@ -14,7 +14,9 @@
 
 #import "NPAppDelegate.h"
 #import "NPLoginViewController.h"
-#import "NPWorkoutDetailsViewController.h"
+#import "NPResultsViewController.h"
+#import "NPVerbalViewController.h"
+#import "NPMapViewController.h"
 #import "NPAPIClient.h"
 #import "SVProgressHUD.h"
 #import "NSString+FontAwesome.h"
@@ -220,14 +222,22 @@
 
 #pragma mark - NPWorkoutCell Delegate
 
-- (void)showDetailsWithWorkout:(NPWorkout *)workout
-{
+- (void)showMapWithWorkout:(NPWorkout *)workout {
     selectedWorkout = workout;
-    [self performSegueWithIdentifier:@"WorkoutDetailSegue" sender:self];
+    [self performSegueWithIdentifier:@"ViewMapSegue" sender:self];
 }
 
-- (void)submitResultsWithIndexPath:(NSIndexPath *)indexPath
-{
+- (void)showResultsWithWorkout:(NPWorkout *)workout {
+    selectedWorkout = workout;
+    [self performSegueWithIdentifier:@"ViewResultsSegue" sender:self];
+}
+
+- (void)showVerbalsWithWorkout:(NPWorkout *)workout {
+    selectedWorkout = workout;
+    [self performSegueWithIdentifier:@"ViewVerbalsSegue" sender:self];
+}
+
+- (void)submitResultsWithIndexPath:(NSIndexPath *)indexPath {
     selectedWorkout = [_objects objectAtIndex:indexPath.row];
     selectedIndexPath = indexPath;
     [self performSegueWithIdentifier:@"SubmitResultsSegue" sender:self];
@@ -258,14 +268,19 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"WorkoutDetailSegue"]) {
-        NPWorkoutDetailsViewController *view = [segue destinationViewController];
-        view.title = selectedWorkout.title;
-        view.workout = selectedWorkout;
-    } else if ([[segue identifier] isEqualToString:@"SubmitResultsSegue"]) {
+    if ([[segue identifier] isEqualToString:@"SubmitResultsSegue"]) {
         NPSubmitResultsViewController *view = [segue destinationViewController];
         view.workout = selectedWorkout;
         view.delegate = self;
+    } else if ([[segue identifier] isEqualToString:@"ViewResultsSegue"]) {
+        NPResultsViewController *view = [segue destinationViewController];
+        view.workout = selectedWorkout;
+    } else if ([[segue identifier] isEqualToString:@"ViewVerbalsSegue"]) {
+        NPVerbalViewController *view = [segue destinationViewController];
+        view.workout = selectedWorkout;
+    } else if ([[segue identifier] isEqualToString:@"ViewMapSegue"]) {
+        NPMapViewController *view = [segue destinationViewController];
+        view.workout = selectedWorkout;
     }
 }
 @end

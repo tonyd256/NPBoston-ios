@@ -9,14 +9,19 @@
 #import "NPVerbalViewController.h"
 #import "NPVerbalCell.h"
 #import "Mixpanel.h"
+#import "SVProgressHUD.h"
+#import "NPAPIClient.h"
+#import "NPVerbal.h"
 
 @interface NPVerbalViewController ()
 
 @end
 
-@implementation NPVerbalViewController
+@implementation NPVerbalViewController {
+    NSMutableArray *verbals;
+}
 
-@synthesize verbals = _verbals;
+@synthesize workout = _workout;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -36,13 +41,38 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.parentViewController.navigationItem.rightBarButtonItem = nil;
+    // get verbals
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)getVerbals
+{
+    if (!self.workout || !self.workout.objectId) return;
+    
+    [[Mixpanel sharedInstance] track:@"verbals request attempted"];
+    [SVProgressHUD showWithStatus:@"Loading..."];
+    [[NPAPIClient sharedClient] getPath:[NSString stringWithFormat:@"workouts/%@/verbals", self.workout.objectId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *data = [responseObject valueForKey:@"data"];
+        verbals = [[NSMutableArray alloc] init];
+        
+        for (id object in data) {
+            [verbals addObject:[NPVerbal verbalWithObject:object]];
+        }
+        
+        [self.tableView reloadData];
+        [SVProgressHUD dismiss];
+        [[Mixpanel sharedInstance] track:@"verbals request succeeded"];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        verbals = [[NSMutableArray alloc] init];
+        NSLog(@"Error: %@", error);
+        [SVProgressHUD dismiss];
+        [[Mixpanel sharedInstance] track:@"verbals request failed" properties:@{@"error": error.localizedDescription}];
+    }];
 }
 
 #pragma mark - Table view data source
@@ -56,15 +86,15 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.verbals count];
+    return [verbals count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NPVerbalCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VerbalCell" forIndexPath:indexPath];
     
-    cell.nameLabel.text = [[self.verbals objectAtIndex:indexPath.row] valueForKey:@"name"];
-    cell.profilePic.profileID = [[self.verbals objectAtIndex:indexPath.row] valueForKey:@"uid"];
+    cell.nameLabel.text = [(NPVerbal *)[verbals objectAtIndex:indexPath.row] name];
+    cell.profilePic.profileID = [(NPVerbal *)[verbals objectAtIndex:indexPath.row] fid];
     
     return cell;
 }
