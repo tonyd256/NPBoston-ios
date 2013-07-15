@@ -68,8 +68,9 @@
             [[Mixpanel sharedInstance] track:@"workout types request succeeded"];
             [SVProgressHUD dismiss];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error: %@", error);
-            [[Mixpanel sharedInstance] track:@"workout types request failed"];
+            AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
+            NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
+            [[Mixpanel sharedInstance] track:@"workout types request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
             [SVProgressHUD dismiss];
         }];
     } else {
@@ -417,9 +418,11 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
             [SVProgressHUD dismiss];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
+            NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
-            [[Mixpanel sharedInstance] track:@"result save failed" properties:@{@"error": error.localizedDescription}];
+            [[Mixpanel sharedInstance] track:@"result save failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
         }];
     } else {
         [[NPAPIClient sharedClient] postPath:[NSString stringWithFormat:@"workouts/%@/results", self.workout.objectId] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -434,9 +437,11 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
             [SVProgressHUD dismiss];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
+            NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
-            [[Mixpanel sharedInstance] track:@"result save failed" properties:@{@"error": error.localizedDescription}];
+            [[Mixpanel sharedInstance] track:@"result save failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
         }];
     }
 }

@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>FacebookAppID</key>
-	<string>188733467942113</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -29,7 +27,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>com.tstormlabs.npboston</string>
+	<string>com.tstormlabs.novproject</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -51,6 +49,10 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0.7</string>
+	<key>FacebookAppID</key>
+	<string>188733467942113</string>
+	<key>FacebookDisplayName</key>
+	<string>November Project</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>

@@ -30,6 +30,7 @@
     NPUser *user;
     NPWorkout *selectedWorkout;
     NSIndexPath *selectedIndexPath;
+    NSDateFormatter *dateFormatter;
 }
 @end
 
@@ -47,8 +48,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionStateChanged:) name:FBSessionStateChangedNotification object:nil];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if (![defaults valueForKey:@"user"]) {
+    if (![defaults objectForKey:@"user"]) {
         [self performSegueWithIdentifier:@"LoginViewSegue" sender:self];
+    } else {
+        user = (NPUser *)[NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:@"user"]];
     }
     
     [[Mixpanel sharedInstance] track:@"master view loaded"];
@@ -61,9 +64,18 @@
         [defaults synchronize];
         [[Mixpanel sharedInstance] track:@"workout types request succeeded"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        [[Mixpanel sharedInstance] track:@"workout types request failed"];
+        AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
+        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
+        [[Mixpanel sharedInstance] track:@"workout types request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
     }];
+    
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"E - MMM dd, yyyy - hh:mma"];
+    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+    
+    if (user) {
+        [self getWorkouts];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,52 +86,33 @@
 
 - (void)sessionStateChanged:(NSNotification *)notification {
     if (FBSession.activeSession.isOpen) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-        [[Mixpanel sharedInstance] track:@"facebook user request attempted"];
-        [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id fbUser, NSError *error) {
-            
-            if (!error) {
-                [[Mixpanel sharedInstance] track:@"facebook user request succeeded"];
-                // save user info
-                [[Mixpanel sharedInstance] track:@"facebook user login attempted"];
-                [[NPAPIClient sharedClient] postPath:@"user/facebook" parameters:@{
-                    @"name": [fbUser valueForKey:@"name"],
-                    @"fid": [fbUser valueForKey:@"id"],
-                    @"email": [fbUser valueForKey:@"email"]}
-                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                        user = [NPUser userWithObject:[responseObject valueForKey:@"data"]];
-                        
-                        [defaults setObject:user forKey:@"user"];                        
-                        [defaults synchronize];
-                        
-                        [[Mixpanel sharedInstance] identify:user.objectId];
-                        [[[Mixpanel sharedInstance] people] set:@"$name" to:user.name];
-                        [[[Mixpanel sharedInstance] people] set:@"$gender" to:[fbUser valueForKey:@"gender"]];
-                        [[Mixpanel sharedInstance] track:@"facebook user login succeeded"];
-                        
-                        [self getWorkouts];
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        NSLog(@"Error: %@", error);
-                        [[Mixpanel sharedInstance] track:@"facebook user login failed" properties:@{@"error": error.localizedDescription}];
-                    }];
+        [[NPAPIClient sharedClient] postPath:@"users/facebook" parameters:@{
+            @"access_token": FBSession.activeSession.accessTokenData.accessToken}
+            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NPUser *u = [NPUser userWithObject:[responseObject objectForKey:@"data"]];
                 
-            } else {
-                NSLog(@"FB Error: %@", error);
-                [[Mixpanel sharedInstance] track:@"facebook user request failed" properties:@{@"error": error.localizedDescription}];
-            }
-        }];
+                [[NPAPIClient sharedClient] setToken:[[responseObject objectForKey:@"data"] valueForKey:@"token"]];
+                
+                [[Mixpanel sharedInstance] track:@"facebook user login succeeded"];
+                [self userLoggedIn:u];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
+                NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
+                [[Mixpanel sharedInstance] track:@"facebook user login failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
+            }];
     }
 }
 
 - (void)userLoggedIn:(NPUser *)u
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:u forKey:@"user"];
     user = u;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:user] forKey:@"user"];
+    [defaults synchronize];
     
     [[Mixpanel sharedInstance] identify:user.objectId];
     [[[Mixpanel sharedInstance] people] set:@"$name" to:user.name];
+    [[[Mixpanel sharedInstance] people] set:@"$gender" to:user.gender];
     
     [self getWorkouts];
 }
@@ -128,7 +121,7 @@
 {
     [[Mixpanel sharedInstance] track:@"workouts request attempted"];
     [SVProgressHUD showWithStatus:@"Loading..."];
-    [[NPAPIClient sharedClient] getPath:@"workouts" parameters:@{@"uid": user.objectId} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[NPAPIClient sharedClient] getPath:@"workouts" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *data = [responseObject valueForKey:@"data"];
         _objects = [[NSMutableArray alloc] init];
         
@@ -141,9 +134,10 @@
         [[Mixpanel sharedInstance] track:@"workouts request succeeded"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         _objects = [[NSMutableArray alloc] init];
-        NSLog(@"Error: %@", error);
+        AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
+        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
         [SVProgressHUD dismiss];
-        [[Mixpanel sharedInstance] track:@"workouts request failed" properties:@{@"error": error.localizedDescription}];
+        [[Mixpanel sharedInstance] track:@"workouts request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
     }];
 }
 
@@ -168,8 +162,23 @@
     }
     
     NPWorkout *workout = _objects[indexPath.row];
-    cell.titleLabel.text = workout.title;
-    cell.subtitleLabel.text = workout.subtitle;
+    [cell.titleLabel setText:workout.title];
+    [cell.subtitleLabel setText:[dateFormatter stringFromDate:workout.date]];
+    
+    if ([workout.details stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
+        [cell.detailsLabel setHidden:YES];
+        
+        [cell.cellView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(6)-[titleLabel]-(2)-[subtitleLabel]-(210)-(<=6)-[viewVerbalsButton][actionsView(==44)]|" options:0 metrics:nil views:@{@"titleLabel": cell.titleLabel, @"subtitleLabel": cell.subtitleLabel, @"actionsView": cell.actionsView, @"viewVerbalsButton": cell.viewVerbalsButton}]];
+    } else {
+        [cell.detailsLabel setHidden:NO];
+        [cell.detailsLabel setText:workout.details];
+        
+        int h = [workout.details sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(240, 999) lineBreakMode:NSLineBreakByWordWrapping].height;
+        
+        [cell.cellView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(6)-[titleLabel]-(2)-[subtitleLabel]-(210)-[detailsLabel(==%d)]-(<=6)-[viewVerbalsButton][actionsView(==44)]|", h] options:0 metrics:nil views:@{@"titleLabel": cell.titleLabel, @"subtitleLabel": cell.subtitleLabel, @"detailsLabel": cell.detailsLabel, @"actionsView": cell.actionsView, @"viewVerbalsButton": cell.viewVerbalsButton}]];
+    }
+    
+    [cell.actionsView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[verbalButton(==44)]|" options:0 metrics:nil views:@{@"verbalButton": cell.verbalButton}]];
     
     CLLocationCoordinate2D coor;
     MKCoordinateRegion region;
@@ -183,8 +192,8 @@
         [point setCoordinate:coor];
         [cell.locationMap addAnnotation:point];
         
-        span.latitudeDelta = .003;
-        span.longitudeDelta = .003;
+        span.latitudeDelta = .02;
+        span.longitudeDelta = .02;
     } else {
         coor.latitude = 42.358431;
         coor.longitude = -71.059773;
@@ -198,20 +207,32 @@
     cell.locationMap.scrollEnabled = NO;
     cell.locationMap.zoomEnabled = NO;
     
-    cell.verbalButton.titleLabel.textColor = [UIColor grayColor];
-    cell.resultsButton.titleLabel.textColor = [UIColor grayColor];
+    [cell.viewVerbalsButton setTitle:[NSString stringWithFormat:@"(%d) Verbals", [workout.verbalsCount integerValue]] forState:UIControlStateNormal];
+    [cell.viewResultsButton setTitle:[NSString stringWithFormat:@"(%d) Results", [workout.resultsCount integerValue]] forState:UIControlStateNormal];
+    
+    [cell.verbalButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [cell.resultsButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
     if (workout.verbal) {
-        cell.verbalButton.titleLabel.textColor = [UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1];
+        [cell.verbalButton setTitleColor:[UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1] forState:UIControlStateNormal];
     }
     
     if (workout.result) {
-        cell.resultsButton.titleLabel.textColor = [UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1];
+        [cell.resultsButton setTitleColor:[UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1] forState:UIControlStateNormal];
     }
 
     cell.workout = workout;
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NPWorkout *workout = _objects[indexPath.row];
+    
+    if ([workout.details stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) return 387;
+    
+    return [workout.details sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(240, 999) lineBreakMode:NSLineBreakByWordWrapping].height + 387;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -247,7 +268,7 @@
 
 - (void)resultsSaved
 {
-    [(NPWorkoutCell *)[self.tableView cellForRowAtIndexPath:selectedIndexPath] resultsButton].titleLabel.textColor = [UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1];
+    [[(NPWorkoutCell *)[self.tableView cellForRowAtIndexPath:selectedIndexPath] resultsButton] setTitleColor:[UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1] forState:UIControlStateNormal];
     
     [[Mixpanel sharedInstance] track:@"workouts request attempted"];
     [[NPAPIClient sharedClient] getPath:@"workouts" parameters:@{@"uid": user.objectId} success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -261,8 +282,9 @@
         [self.tableView reloadData];
         [[Mixpanel sharedInstance] track:@"workouts request succeeded"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        [[Mixpanel sharedInstance] track:@"workouts request failed" properties:@{@"error": error.localizedDescription}];
+        AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
+        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
+        [[Mixpanel sharedInstance] track:@"workouts request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
     }];
 }
 

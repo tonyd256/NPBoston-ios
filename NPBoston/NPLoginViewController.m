@@ -66,6 +66,28 @@
     @"]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
     @"9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
     @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+    
+    [self.loginView setAlpha:0.0];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // first blank animation fixes autolayout problems
+    [UIView animateWithDuration:0 animations:nil completion:^(BOOL finished) {
+        [UIView animateWithDuration:0 animations:^{
+            CGRect lFrame = self.loginView.frame;
+            self.loginView.frame = CGRectMake(0, lFrame.origin.y-30, lFrame.size.width, lFrame.size.height);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.4 delay:1.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self.loginView.alpha = 1.0;
+                CGRect lFrame = self.loginView.frame;
+                self.loginView.frame = CGRectMake(0, lFrame.origin.y+30, lFrame.size.width, lFrame.size.height);
+            } completion:^(BOOL finished) {
+                
+            }];
+        }];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -123,8 +145,9 @@
         [SVProgressHUD dismiss];
         [self dismissViewControllerAnimated:YES completion:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        [[Mixpanel sharedInstance] track:@"login failed" properties:@{@"error": error.localizedDescription}];
+        AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
+        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
+        [[Mixpanel sharedInstance] track:@"login failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
         [SVProgressHUD dismiss];
     }];
 }
@@ -187,14 +210,16 @@
     success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NPUser *user = [NPUser userWithObject:[responseObject valueForKey:@"data"]];
         
+        [[NPAPIClient sharedClient] setToken:[[responseObject objectForKey:@"data"] valueForKey:@"token"]];
         [self.delegate userLoggedIn:user];
         
         [[Mixpanel sharedInstance] track:@"signup succeeded"];
         [SVProgressHUD dismiss];
         [self dismissViewControllerAnimated:YES completion:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        [[Mixpanel sharedInstance] track:@"signup failed" properties:@{@"error": error.localizedDescription}];
+        AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
+        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
+        [[Mixpanel sharedInstance] track:@"signup failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
         [SVProgressHUD dismiss];
     }];
 }

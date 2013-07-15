@@ -8,7 +8,6 @@
 
 #import "NPWorkoutCell.h"
 #import <QuartzCore/QuartzCore.h>
-#import "TTTAttributedLabel.h"
 #import "NSString+FontAwesome.h"
 #import "NPAPIClient.h"
 #import "WCAlertView.h"
@@ -69,7 +68,7 @@
 
 - (IBAction)resultsButtonAction:(UIButton *)sender
 {
-    if ([[NSDate date] timeIntervalSince1970] < [self.workout.date integerValue]) {
+    if ([[NSDate date] timeIntervalSince1970] < [self.workout.date timeIntervalSince1970]) {
         [WCAlertView showAlertWithTitle:@"Hold On!" message:@"You are trying to post a workout result before the workout has started.  Are you sure you want to do this?" customizationBlock:nil completionBlock:^(NSUInteger buttonIndex, WCAlertView *alertView) {
             if (buttonIndex == 0) {
                 [self.delegate submitResultsWithIndexPath:[(UITableView *)self.superview indexPathForCell:self]];
@@ -83,7 +82,8 @@
 
 - (IBAction)verbalButtonAction:(UIButton *)sender
 {
-    if ([[NSDate date] timeIntervalSince1970] < [self.workout.date integerValue]) {
+    // if the current date is sooner than the workout date
+    if ([[NSDate date] timeIntervalSince1970] < [self.workout.date timeIntervalSince1970]) {
         // make request to server for verbal
         if ([self.verbalButton.titleLabel.textColor isEqual:[UIColor grayColor]]) {
             self.verbalButton.titleLabel.textColor = [UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1];
@@ -99,11 +99,12 @@
                     [[Mixpanel sharedInstance] track:@"verbal succeeded"];
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@", error);
+                AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
+                NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
                 self.verbalButton.titleLabel.textColor = [UIColor grayColor];
-                [[Mixpanel sharedInstance] track:@"verbal failed" properties:@{@"error": error.localizedDescription}];
+                [[Mixpanel sharedInstance] track:@"verbal failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
             }];
-        } else if ([[NSDate date] timeIntervalSince1970] < ([self.workout.date integerValue] - 32400)) {
+        } else if ([[NSDate date] timeIntervalSince1970] < ([self.workout.date timeIntervalSince1970] - 32400)) {
             self.verbalButton.titleLabel.textColor = [UIColor grayColor];
             
             [[Mixpanel sharedInstance] track:@"verbal removal attempted"];
@@ -117,12 +118,13 @@
                     [[Mixpanel sharedInstance] track:@"verbal removal succeeded"];
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@", error);
+                AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
+                NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
                 self.verbalButton.titleLabel.textColor = [UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1];
-                [[Mixpanel sharedInstance] track:@"verbal removal failed" properties:@{@"error": error.localizedDescription}];
+                [[Mixpanel sharedInstance] track:@"verbal removal failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
             }];
-        } else if ([[NSDate date] timeIntervalSince1970] > ([self.workout.date integerValue] - 32400) && [[NSDate date] timeIntervalSince1970] < [self.workout.date integerValue]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Nice Try" message:@"You can't take back a verbal within 9 hours of the workout!" delegate:nil cancelButtonTitle:@"I'll Be There!" otherButtonTitles:nil];
+        } else if ([[NSDate date] timeIntervalSince1970] > ([self.workout.date timeIntervalSince1970] - 21600) && [[NSDate date] timeIntervalSince1970] < [self.workout.date timeIntervalSince1970]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Nice Try" message:@"You can't take back a verbal within 6 hours of the workout!" delegate:nil cancelButtonTitle:@"I'll Be There!" otherButtonTitles:nil];
             [alert show];
         }
     } else {

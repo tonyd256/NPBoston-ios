@@ -69,9 +69,10 @@
         [[Mixpanel sharedInstance] track:@"verbals request succeeded"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         verbals = [[NSMutableArray alloc] init];
-        NSLog(@"Error: %@", error);
+        AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
+        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
         [SVProgressHUD dismiss];
-        [[Mixpanel sharedInstance] track:@"verbals request failed" properties:@{@"error": error.localizedDescription}];
+        [[Mixpanel sharedInstance] track:@"verbals request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
     }];
 }
 

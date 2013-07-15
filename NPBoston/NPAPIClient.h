@@ -7,8 +7,11 @@
 //
 
 #import "AFHTTPClient.h"
+#import "AFJSONRequestOperation.h"
 
 @interface NPAPIClient : AFHTTPClient
+
+@property (strong, nonatomic) NSString *token;
 
 + (NPAPIClient *)sharedClient;
 

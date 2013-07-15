@@ -71,9 +71,10 @@
         [[Mixpanel sharedInstance] track:@"results request succeeded"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         results = [[NSMutableArray alloc] init];
-        NSLog(@"Error: %@", error);
+        AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
+        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
         [SVProgressHUD dismiss];
-        [[Mixpanel sharedInstance] track:@"results request failed" properties:@{@"error": error.localizedDescription}];
+        [[Mixpanel sharedInstance] track:@"results request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
     }];
 }
 

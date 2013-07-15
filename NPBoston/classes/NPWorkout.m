@@ -19,11 +19,14 @@
 @synthesize time = _time;
 @synthesize amount = _amount;
 @synthesize date = _date;
+@synthesize location = _location;
 @synthesize lat = _lat;
 @synthesize lng = _lng;
 @synthesize url = _url;
 @synthesize verbal = _verbal;
 @synthesize result = _result;
+@synthesize verbalsCount = _verbalsCount;
+@synthesize resultsCount = _resultsCount;
 
 + (NPWorkout *)workoutWithObject:(id)object
 {
@@ -40,7 +43,15 @@
         self.type = [[object objectForKey:@"type"] valueForKey:@"type"];
         self.time = [object valueForKey:@"time"];
         self.amount = [object valueForKey:@"amount"];
-        self.date = [object valueForKey:@"date"];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm"];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        self.date = [dateFormatter dateFromString:(NSString *)[[object valueForKey:@"date"] substringToIndex:16]];
+        
+        self.location = [object valueForKey:@"location"];
+        self.verbalsCount = [object valueForKey:@"verbalsCount"];
+        self.resultsCount = [object valueForKey:@"resultsCount"];
         
         if ([[object valueForKey:@"lat"] isEqual:[NSNull null]]) {
             self.lat = nil;

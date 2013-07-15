@@ -19,10 +19,13 @@
 @property (strong, nonatomic) NSString *type;
 @property (strong, nonatomic) NSNumber *time;
 @property (strong, nonatomic) NSNumber *amount;
-@property (strong, nonatomic) NSNumber *date;
+@property (strong, nonatomic) NSDate *date;
+@property (strong, nonatomic) NSString *location;
 @property (strong, nonatomic) NSNumber *lat;
 @property (strong, nonatomic) NSNumber *lng;
 @property (strong, nonatomic) NSString *url;
+@property (strong, nonatomic) NSNumber *verbalsCount;
+@property (strong, nonatomic) NSNumber *resultsCount;
 @property (strong, nonatomic) NPVerbal *verbal;
 @property (strong, nonatomic) NPResult *result;
 

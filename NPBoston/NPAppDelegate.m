@@ -26,7 +26,7 @@ NSString *const FBSessionStateChangedNotification = @"com.tstormlabs.npboston:FB
 #endif
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"private" ofType:@"plist"];
-    NSDictionary *private = [[NSArray arrayWithContentsOfFile:path] objectAtIndex:0];
+    NSDictionary *private = [NSDictionary dictionaryWithContentsOfFile:path];
     
     [TestFlight takeOff:[private valueForKey:@"TestFlightKey"]];
     
@@ -86,6 +86,27 @@ NSString *const FBSessionStateChangedNotification = @"com.tstormlabs.npboston:FB
         case FBSessionStateOpen:
             if (!error) {
                 NSLog(@"User Session Found");
+            } else {
+                NSString *alertMessage, *alertTitle;
+                if (error.fberrorShouldNotifyUser) {
+                    alertTitle = @"Something Went Wrong";
+                    alertMessage = error.fberrorUserMessage;
+                } else if (error.fberrorCategory == FBErrorCategoryUserCancelled) {
+                    NSLog(@"User cancelled FB login");
+                    [[Mixpanel sharedInstance] track:@"login cancelled facebook"];
+                } else if (error.fberrorCategory == FBErrorCategoryAuthenticationReopenSession) {
+                    alertTitle = @"Session Error";
+                    alertMessage = @"Your current session is no longer valid. Please log in again.";
+                } else {
+                    alertTitle = @"Unknown Facebook Error";
+                    alertMessage = @"Try again later";
+                    [[Mixpanel sharedInstance] track:@"login error facebook" properties:@{@"error": error.localizedDescription}];
+                    NSLog(@"FB error: %@", error);
+                }
+                
+                if (alertMessage) {
+                    [[[UIAlertView alloc] initWithTitle:alertTitle message:alertMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                }
             }
             break;
             
@@ -108,7 +129,7 @@ NSString *const FBSessionStateChangedNotification = @"com.tstormlabs.npboston:FB
 
 - (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI
 {
-    return [FBSession openActiveSessionWithReadPermissions:@[@"email"] allowLoginUI:allowLoginUI completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+    return [FBSession openActiveSessionWithReadPermissions:@[@"email", @"user_location"] allowLoginUI:allowLoginUI completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
         [self sessionStateChanged:session state:state error:error];
     }];
 }

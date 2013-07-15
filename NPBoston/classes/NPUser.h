@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NPUser : NSObject
+@interface NPUser : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *objectId;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *email;
+@property (strong, nonatomic) NSString *gender;
+@property (strong, nonatomic) NSString *location;
 @property (strong, nonatomic) NSString *fid;
 @property (assign, nonatomic) BOOL admin;
 

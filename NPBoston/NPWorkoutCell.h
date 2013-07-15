@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "TTTAttributedLabel.h"
 #import "NPWorkout.h"
 
 @protocol NPWorkoutCellDelegate <NSObject>
