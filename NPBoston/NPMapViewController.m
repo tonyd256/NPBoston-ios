@@ -55,6 +55,7 @@
     region.center = coor;
     region.span = span;
     [self.map setRegion:region];
+    [self.map setShowsUserLocation:YES];
     
     [[Mixpanel sharedInstance] track:@"map view loaded"];
 }

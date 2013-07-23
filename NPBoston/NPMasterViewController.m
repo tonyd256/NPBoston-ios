@@ -123,7 +123,7 @@
 {
     [[Mixpanel sharedInstance] track:@"workouts request attempted"];
     [SVProgressHUD showWithStatus:@"Loading..."];
-    [[NPAPIClient sharedClient] getPath:@"workouts" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[NPAPIClient sharedClient] getPath:@"workouts" parameters:@{@"location": user.location} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *data = [responseObject valueForKey:@"data"];
         _objects = [[NSMutableArray alloc] init];
         

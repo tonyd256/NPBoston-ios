@@ -204,7 +204,7 @@
                             <outlet property="delegate" destination="12" id="15"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Workouts" id="36"/>
+                    <navigationItem key="navigationItem" title="November Project" id="36"/>
                     <connections>
                         <segue destination="P6G-oz-7A0" kind="modal" identifier="LoginViewSegue" animates="NO" id="gy3-8k-nN6"/>
                         <segue destination="QwY-Lx-Pgc" kind="modal" identifier="SubmitResultsSegue" modalTransitionStyle="coverVertical" id="cAV-Jh-8Xa"/>
