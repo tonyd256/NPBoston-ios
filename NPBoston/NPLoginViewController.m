@@ -14,6 +14,7 @@
 #import "NPAPIClient.h"
 #import "NPUser.h"
 #import "WCAlertView.h"
+#import <MapKit/MapKit.h>
 
 @interface NPLoginViewController () {
     NSString *emailRegEx;
@@ -41,6 +42,9 @@
     
     if ([[UIScreen mainScreen] bounds].size.height == 568) {
         [self.backgroundImage setImage:[UIImage imageNamed:@"Default-568h@2x.png"]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-20)-[background]|" options:0 metrics:nil views:@{@"background": self.backgroundImage}]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[background]|" options:0 metrics:nil views:@{@"background": self.backgroundImage}]];
+        [self.backgroundImage setContentMode:UIViewContentModeScaleToFill];
     }
     
     self.signupButton.layer.cornerRadius = 3.0;
@@ -149,6 +153,8 @@
         NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
         [[Mixpanel sharedInstance] track:@"login failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
         [SVProgressHUD dismiss];
+        
+        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
@@ -195,7 +201,7 @@
         return;
     }
     
-    if ([self.passConfirmText.text isEqualToString:self.passSignupText.text]) {
+    if (![self.passConfirmText.text isEqualToString:self.passSignupText.text]) {
         WCAlertView *alert = [[WCAlertView alloc] initWithTitle:@"Hold On!" message:@"The passwords don't match." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         return;
@@ -204,9 +210,31 @@
     [[Mixpanel sharedInstance] track:@"signup attempted"];
     [SVProgressHUD showWithStatus:@"Signing up..."];
     
+    NSString *location;
+    switch (self.locSelector.selectedSegmentIndex) {
+        case 0:
+            location = @"BOS";
+            break;
+        
+        case 1:
+            location = @"MSN";
+            break;
+            
+        case 2:
+            location = @"SF";
+            break;
+            
+        default:
+            location = @"BOS";
+            break;
+    }
+    
     [[NPAPIClient sharedClient] postPath:@"users" parameters:@{@"email": self.emailSignupText.text,
                                                                @"pass": self.passSignupText.text,
-                                                               @"name": self.nameText.text}
+                                                               @"name": self.nameText.text,
+                                                               @"location": location,
+     @"gender": self.genderSelector.selectedSegmentIndex == 0 ? @"male" : @"female"}
+     
     success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NPUser *user = [NPUser userWithObject:[responseObject valueForKey:@"data"]];
         
@@ -218,9 +246,11 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
-        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
+        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);        
         [[Mixpanel sharedInstance] track:@"signup failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
         [SVProgressHUD dismiss];
+        
+        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
@@ -239,8 +269,14 @@
     [UIView animateWithDuration:0.25 animations:^{
         CGRect sFrame = self.signupView.frame;
         CGRect lFrame = self.loginView.frame;
-        self.loginView.frame = CGRectMake(lFrame.origin.x, lFrame.origin.y - size.height, lFrame.size.width, lFrame.size.height);
-        self.signupView.frame = CGRectMake(sFrame.origin.x, sFrame.origin.y - size.height, sFrame.size.width, sFrame.size.height);
+        
+        if ([[UIScreen mainScreen] bounds].size.height == 568) {
+            self.loginView.frame = CGRectMake(lFrame.origin.x, lFrame.origin.y - size.height - 50, lFrame.size.width, lFrame.size.height);
+            self.signupView.frame = CGRectMake(sFrame.origin.x, sFrame.origin.y - size.height, sFrame.size.width, sFrame.size.height);
+        } else {
+            self.loginView.frame = CGRectMake(lFrame.origin.x, lFrame.origin.y - size.height, lFrame.size.width, lFrame.size.height);
+            self.signupView.frame = CGRectMake(sFrame.origin.x, sFrame.origin.y - size.height + 80, sFrame.size.width, sFrame.size.height);
+        }
     }];
 }
 

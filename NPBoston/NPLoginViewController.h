@@ -33,6 +33,8 @@
 @property (strong, nonatomic) IBOutlet UITextField *emailSignupText;
 @property (strong, nonatomic) IBOutlet UITextField *passSignupText;
 @property (strong, nonatomic) IBOutlet UITextField *passConfirmText;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *genderSelector;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *locSelector;
 @property (strong, nonatomic) IBOutlet UIButton *signupSubmitButton;
 @property (strong, nonatomic) IBOutlet UIButton *cancelButton;
 

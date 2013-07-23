@@ -324,7 +324,7 @@
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Full Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bpi-oa-wrg">
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="208" id="nYz-kl-GZK"/>
+                                            <constraint firstAttribute="width" constant="208" id="Ra8-AV-C00"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
@@ -376,25 +376,48 @@
                                             <action selector="cancelAction:" destination="P6G-oz-7A0" eventType="touchUpInside" id="qY2-FR-rCr"/>
                                         </connections>
                                     </button>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ooN-oW-05t">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="161" id="VhY-Lq-eIa"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Male"/>
+                                            <segment title="Female"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ch1-zX-2ac">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="198" id="pm0-eX-mhe"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="BOS"/>
+                                            <segment title="MSN"/>
+                                            <segment title="SF"/>
+                                        </segments>
+                                    </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="V1o-Pa-LRh" firstAttribute="trailing" secondItem="mfU-3f-ipt" secondAttribute="trailing" type="default" id="0Wv-qv-XgJ"/>
                                     <constraint firstItem="CCE-zL-fIB" firstAttribute="leading" secondItem="mfU-3f-ipt" secondAttribute="leading" type="default" id="2z5-GS-goE"/>
+                                    <constraint firstItem="ooN-oW-05t" firstAttribute="top" secondItem="CCE-zL-fIB" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="3mV-Kz-HJi"/>
+                                    <constraint firstItem="wd8-e3-scd" firstAttribute="top" secondItem="Ch1-zX-2ac" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="3qN-l2-zMG"/>
                                     <constraint firstItem="CCE-zL-fIB" firstAttribute="trailing" secondItem="mfU-3f-ipt" secondAttribute="trailing" type="default" id="Doe-Tk-qPn"/>
-                                    <constraint firstAttribute="bottom" secondItem="NPy-HQ-2vl" secondAttribute="bottom" constant="31" id="ONF-G1-knw"/>
-                                    <constraint firstItem="wd8-e3-scd" firstAttribute="top" secondItem="CCE-zL-fIB" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="PZ2-EP-q0S"/>
+                                    <constraint firstItem="NPy-HQ-2vl" firstAttribute="top" secondItem="Ch1-zX-2ac" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="HK9-ok-We5"/>
+                                    <constraint firstAttribute="bottom" secondItem="wd8-e3-scd" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="Jqg-yB-vQc"/>
+                                    <constraint firstItem="bpi-oa-wrg" firstAttribute="centerX" secondItem="SHv-kH-rpb" secondAttribute="centerX" type="default" id="Ont-Yf-mWK"/>
+                                    <constraint firstItem="ooN-oW-05t" firstAttribute="centerX" secondItem="Ch1-zX-2ac" secondAttribute="centerX" type="default" id="Ovk-qb-DHN"/>
                                     <constraint firstItem="NPy-HQ-2vl" firstAttribute="leading" secondItem="CCE-zL-fIB" secondAttribute="leading" type="default" id="PeQ-5R-98E"/>
-                                    <constraint firstItem="bpi-oa-wrg" firstAttribute="centerX" secondItem="SHv-kH-rpb" secondAttribute="centerX" type="default" id="Pvq-dG-Foo"/>
                                     <constraint firstItem="wd8-e3-scd" firstAttribute="trailing" secondItem="CCE-zL-fIB" secondAttribute="trailing" type="default" id="auR-sH-0hT"/>
                                     <constraint firstItem="mfU-3f-ipt" firstAttribute="top" secondItem="V1o-Pa-LRh" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="bjV-wb-dVU"/>
-                                    <constraint firstItem="bpi-oa-wrg" firstAttribute="leading" secondItem="V1o-Pa-LRh" secondAttribute="leading" type="default" id="d09-ti-9Sa"/>
-                                    <constraint firstItem="V1o-Pa-LRh" firstAttribute="top" secondItem="bpi-oa-wrg" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="hBX-V5-WfM"/>
-                                    <constraint firstItem="V1o-Pa-LRh" firstAttribute="trailing" secondItem="bpi-oa-wrg" secondAttribute="trailing" type="default" id="iDh-3R-sE3"/>
+                                    <constraint firstItem="V1o-Pa-LRh" firstAttribute="top" secondItem="bpi-oa-wrg" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="caH-cO-VHv"/>
+                                    <constraint firstItem="V1o-Pa-LRh" firstAttribute="trailing" secondItem="bpi-oa-wrg" secondAttribute="trailing" type="default" id="gfE-8Z-Pfa"/>
+                                    <constraint firstItem="V1o-Pa-LRh" firstAttribute="leading" secondItem="bpi-oa-wrg" secondAttribute="leading" type="default" id="kxE-uC-r4a"/>
+                                    <constraint firstItem="Ch1-zX-2ac" firstAttribute="top" secondItem="ooN-oW-05t" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="mIi-ya-4LY"/>
+                                    <constraint firstAttribute="bottom" secondItem="NPy-HQ-2vl" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="n9y-wq-clf"/>
                                     <constraint firstItem="CCE-zL-fIB" firstAttribute="top" secondItem="mfU-3f-ipt" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="uRO-v5-O4f"/>
                                     <constraint firstItem="V1o-Pa-LRh" firstAttribute="leading" secondItem="mfU-3f-ipt" secondAttribute="leading" type="default" id="uxS-jc-aYf"/>
-                                    <constraint firstItem="NPy-HQ-2vl" firstAttribute="top" secondItem="CCE-zL-fIB" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="w4s-r6-hv4"/>
-                                    <constraint firstItem="NPy-HQ-2vl" firstAttribute="bottom" secondItem="wd8-e3-scd" secondAttribute="bottom" type="default" id="zWA-ma-BOo"/>
+                                    <constraint firstItem="CCE-zL-fIB" firstAttribute="centerX" secondItem="ooN-oW-05t" secondAttribute="centerX" type="default" id="v1z-FY-uFG"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -402,13 +425,13 @@
                         <constraints>
                             <constraint firstItem="udN-cD-V9o" firstAttribute="bottom" secondItem="gHA-An-1Pu" secondAttribute="bottom" type="default" id="2OU-Wf-8xh"/>
                             <constraint firstItem="z09-BK-aW5" firstAttribute="top" secondItem="gHA-An-1Pu" secondAttribute="top" type="default" id="3Gk-y7-vNf"/>
-                            <constraint firstItem="SHv-kH-rpb" firstAttribute="leading" secondItem="gHA-An-1Pu" secondAttribute="leading" constant="320" id="911-5n-SoJ"/>
+                            <constraint firstItem="z09-BK-aW5" firstAttribute="leading" secondItem="gHA-An-1Pu" secondAttribute="leading" type="default" id="9o8-gr-tbh"/>
                             <constraint firstItem="SHv-kH-rpb" firstAttribute="top" secondItem="gHA-An-1Pu" secondAttribute="top" type="default" id="CPc-QS-lA3"/>
-                            <constraint firstItem="z09-BK-aW5" firstAttribute="leading" secondItem="gHA-An-1Pu" secondAttribute="leading" type="default" id="HvE-M6-EK4"/>
                             <constraint firstItem="udN-cD-V9o" firstAttribute="leading" secondItem="gHA-An-1Pu" secondAttribute="leading" type="default" id="IXk-F9-FVe"/>
+                            <constraint firstItem="SHv-kH-rpb" firstAttribute="leading" secondItem="gHA-An-1Pu" secondAttribute="leading" constant="320" id="aMA-aF-M1N"/>
+                            <constraint firstItem="z09-BK-aW5" firstAttribute="trailing" secondItem="gHA-An-1Pu" secondAttribute="trailing" type="default" id="aja-mb-OcK"/>
                             <constraint firstItem="z09-BK-aW5" firstAttribute="bottom" secondItem="gHA-An-1Pu" secondAttribute="bottom" type="default" id="bnV-VR-lPt"/>
-                            <constraint firstItem="z09-BK-aW5" firstAttribute="trailing" secondItem="gHA-An-1Pu" secondAttribute="trailing" type="default" id="fHr-Cm-7xS"/>
-                            <constraint firstAttribute="trailing" secondItem="SHv-kH-rpb" secondAttribute="trailing" constant="-320" id="i8z-m7-cDf"/>
+                            <constraint firstAttribute="trailing" secondItem="SHv-kH-rpb" secondAttribute="trailing" constant="-320" id="nNe-fj-bcq"/>
                             <constraint firstItem="SHv-kH-rpb" firstAttribute="bottom" secondItem="gHA-An-1Pu" secondAttribute="bottom" type="default" id="vId-Zl-q1o"/>
                         </constraints>
                     </view>
@@ -419,6 +442,8 @@
                         <outlet property="emailText" destination="j1s-E8-W1S" id="6r9-bs-N9r"/>
                         <outlet property="facebookButton" destination="GsJ-aJ-kMy" id="lxt-Ld-cIk"/>
                         <outlet property="fbLoginButton" destination="GsJ-aJ-kMy" id="hTf-Ki-MJb"/>
+                        <outlet property="genderSelector" destination="ooN-oW-05t" id="hAO-au-lrL"/>
+                        <outlet property="locSelector" destination="Ch1-zX-2ac" id="6Jx-9g-lZN"/>
                         <outlet property="loginButton" destination="pR3-UT-wnP" id="Z66-c1-DPT"/>
                         <outlet property="loginView" destination="z09-BK-aW5" id="ogk-hG-9n5"/>
                         <outlet property="nameText" destination="bpi-oa-wrg" id="1ez-ko-xJ9"/>
@@ -821,6 +846,8 @@
                 <relationship kind="outlet" name="emailText" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="facebookButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="fbLoginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="genderSelector" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="locSelector" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="loginView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="nameText" candidateClass="UITextField"/>

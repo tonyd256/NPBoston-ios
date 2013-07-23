@@ -99,6 +99,8 @@
                 AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
                 NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
                 [[Mixpanel sharedInstance] track:@"facebook user login failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
+                
+                [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }];
     }
 }
@@ -138,6 +140,8 @@
         NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
         [SVProgressHUD dismiss];
         [[Mixpanel sharedInstance] track:@"workouts request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
+        
+        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
@@ -303,6 +307,9 @@
     } else if ([[segue identifier] isEqualToString:@"ViewMapSegue"]) {
         NPMapViewController *view = [segue destinationViewController];
         view.workout = selectedWorkout;
+    } else if ([[segue identifier] isEqualToString:@"LoginViewSegue"]) {
+        NPLoginViewController *view = [segue destinationViewController];
+        view.delegate = self;
     }
 }
 @end
