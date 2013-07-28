@@ -52,6 +52,25 @@
 		EAD314C7179F050800F59885 /* NPSimpleResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */; };
 		EAD314CA179F0CDF00F59885 /* NPSimpleResultsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */; };
 		EAD314CD179F759600F59885 /* NPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314CC179F759600F59885 /* NPUtils.m */; };
+		EAD314F917A5E28C00F59885 /* NPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D017A5E28B00F59885 /* NPLoginViewController.m */; };
+		EAD314FA17A5E28C00F59885 /* NPMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D217A5E28B00F59885 /* NPMapViewController.m */; };
+		EAD314FB17A5E28C00F59885 /* NPMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D417A5E28B00F59885 /* NPMasterViewController.m */; };
+		EAD314FC17A5E28C00F59885 /* NPResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D617A5E28B00F59885 /* NPResultsViewController.m */; };
+		EAD314FD17A5E28C00F59885 /* NPSubmitResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D817A5E28B00F59885 /* NPSubmitResultsViewController.m */; };
+		EAD314FE17A5E28C00F59885 /* NPVerbalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314DA17A5E28B00F59885 /* NPVerbalViewController.m */; };
+		EAD314FF17A5E28C00F59885 /* NPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314DD17A5E28C00F59885 /* NPAPIClient.m */; };
+		EAD3150017A5E28C00F59885 /* NPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314DF17A5E28C00F59885 /* NPUtils.m */; };
+		EAD3150117A5E28C00F59885 /* FAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314E317A5E28C00F59885 /* FAImageView.m */; };
+		EAD3150217A5E28C00F59885 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAD314E417A5E28C00F59885 /* FontAwesome.ttf */; };
+		EAD3150317A5E28C00F59885 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314E617A5E28C00F59885 /* NSString+FontAwesome.m */; };
+		EAD3150417A5E28C00F59885 /* UIFont+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314E817A5E28C00F59885 /* UIFont+FontAwesome.m */; };
+		EAD3150517A5E28C00F59885 /* NPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314EB17A5E28C00F59885 /* NPResult.m */; };
+		EAD3150617A5E28C00F59885 /* NPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314ED17A5E28C00F59885 /* NPUser.m */; };
+		EAD3150717A5E28C00F59885 /* NPVerbal.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314EF17A5E28C00F59885 /* NPVerbal.m */; };
+		EAD3150817A5E28C00F59885 /* NPWorkout.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314F117A5E28C00F59885 /* NPWorkout.m */; };
+		EAD3150917A5E28C00F59885 /* NPResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314F417A5E28C00F59885 /* NPResultCell.m */; };
+		EAD3150A17A5E28C00F59885 /* NPVerbalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314F617A5E28C00F59885 /* NPVerbalCell.m */; };
+		EAD3150B17A5E28C00F59885 /* NPWorkoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314F817A5E28C00F59885 /* NPWorkoutCell.m */; };
 		EAE5EF70178236810091940B /* private.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAE5EF6E178236810091940B /* private.plist */; };
 		EAF27749172E129A002A7C7B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF27748172E129A002A7C7B /* CoreText.framework */; };
 		EAF27754172EA25C002A7C7B /* FAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF2774E172EA25C002A7C7B /* FAImageView.m */; };
@@ -141,6 +160,43 @@
 		EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPSimpleResultsCell.m; path = simple/NPSimpleResultsCell.m; sourceTree = "<group>"; };
 		EAD314CB179F759500F59885 /* NPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPUtils.h; sourceTree = "<group>"; };
 		EAD314CC179F759600F59885 /* NPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPUtils.m; sourceTree = "<group>"; };
+		EAD314CF17A5E28B00F59885 /* NPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPLoginViewController.h; sourceTree = "<group>"; };
+		EAD314D017A5E28B00F59885 /* NPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPLoginViewController.m; sourceTree = "<group>"; };
+		EAD314D117A5E28B00F59885 /* NPMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPMapViewController.h; sourceTree = "<group>"; };
+		EAD314D217A5E28B00F59885 /* NPMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPMapViewController.m; sourceTree = "<group>"; };
+		EAD314D317A5E28B00F59885 /* NPMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPMasterViewController.h; sourceTree = "<group>"; };
+		EAD314D417A5E28B00F59885 /* NPMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPMasterViewController.m; sourceTree = "<group>"; };
+		EAD314D517A5E28B00F59885 /* NPResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPResultsViewController.h; sourceTree = "<group>"; };
+		EAD314D617A5E28B00F59885 /* NPResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPResultsViewController.m; sourceTree = "<group>"; };
+		EAD314D717A5E28B00F59885 /* NPSubmitResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPSubmitResultsViewController.h; sourceTree = "<group>"; };
+		EAD314D817A5E28B00F59885 /* NPSubmitResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPSubmitResultsViewController.m; sourceTree = "<group>"; };
+		EAD314D917A5E28B00F59885 /* NPVerbalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPVerbalViewController.h; sourceTree = "<group>"; };
+		EAD314DA17A5E28B00F59885 /* NPVerbalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPVerbalViewController.m; sourceTree = "<group>"; };
+		EAD314DC17A5E28C00F59885 /* NPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPAPIClient.h; sourceTree = "<group>"; };
+		EAD314DD17A5E28C00F59885 /* NPAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPAPIClient.m; sourceTree = "<group>"; };
+		EAD314DE17A5E28C00F59885 /* NPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPUtils.h; sourceTree = "<group>"; };
+		EAD314DF17A5E28C00F59885 /* NPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPUtils.m; sourceTree = "<group>"; };
+		EAD314E217A5E28C00F59885 /* FAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAImageView.h; sourceTree = "<group>"; };
+		EAD314E317A5E28C00F59885 /* FAImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAImageView.m; sourceTree = "<group>"; };
+		EAD314E417A5E28C00F59885 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		EAD314E517A5E28C00F59885 /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
+		EAD314E617A5E28C00F59885 /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
+		EAD314E717A5E28C00F59885 /* UIFont+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+FontAwesome.h"; sourceTree = "<group>"; };
+		EAD314E817A5E28C00F59885 /* UIFont+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontAwesome.m"; sourceTree = "<group>"; };
+		EAD314EA17A5E28C00F59885 /* NPResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPResult.h; sourceTree = "<group>"; };
+		EAD314EB17A5E28C00F59885 /* NPResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPResult.m; sourceTree = "<group>"; };
+		EAD314EC17A5E28C00F59885 /* NPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPUser.h; sourceTree = "<group>"; };
+		EAD314ED17A5E28C00F59885 /* NPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPUser.m; sourceTree = "<group>"; };
+		EAD314EE17A5E28C00F59885 /* NPVerbal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPVerbal.h; sourceTree = "<group>"; };
+		EAD314EF17A5E28C00F59885 /* NPVerbal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPVerbal.m; sourceTree = "<group>"; };
+		EAD314F017A5E28C00F59885 /* NPWorkout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPWorkout.h; sourceTree = "<group>"; };
+		EAD314F117A5E28C00F59885 /* NPWorkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPWorkout.m; sourceTree = "<group>"; };
+		EAD314F317A5E28C00F59885 /* NPResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPResultCell.h; sourceTree = "<group>"; };
+		EAD314F417A5E28C00F59885 /* NPResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPResultCell.m; sourceTree = "<group>"; };
+		EAD314F517A5E28C00F59885 /* NPVerbalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPVerbalCell.h; sourceTree = "<group>"; };
+		EAD314F617A5E28C00F59885 /* NPVerbalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPVerbalCell.m; sourceTree = "<group>"; };
+		EAD314F717A5E28C00F59885 /* NPWorkoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPWorkoutCell.h; sourceTree = "<group>"; };
+		EAD314F817A5E28C00F59885 /* NPWorkoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPWorkoutCell.m; sourceTree = "<group>"; };
 		EAE5EF6F178236810091940B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/private.plist; sourceTree = "<group>"; };
 		EAF27748172E129A002A7C7B /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		EAF2774D172EA25C002A7C7B /* FAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAImageView.h; sourceTree = "<group>"; };
@@ -262,7 +318,12 @@
 		EAAC3940171F6B1400EE670B /* NPBoston */ = {
 			isa = PBXGroup;
 			children = (
-				EAF2777A17315ED3002A7C7B /* classes */,
+				EAD314CE17A5E28B00F59885 /* controllers */,
+				EAD314DB17A5E28B00F59885 /* helpers */,
+				EAD314E017A5E28C00F59885 /* libs */,
+				EAD314E917A5E28C00F59885 /* models */,
+				EAD314F217A5E28C00F59885 /* views */,
+				EAF2777A17315ED3002A7C7B /* models */,
 				EAF2774C172EA25C002A7C7B /* FontAwesome */,
 				EAAC3972171F793700EE670B /* images */,
 				EAAC3949171F6B1400EE670B /* NPAppDelegate.h */,
@@ -343,6 +404,86 @@
 			name = "Simple Flow";
 			sourceTree = "<group>";
 		};
+		EAD314CE17A5E28B00F59885 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EAD314CF17A5E28B00F59885 /* NPLoginViewController.h */,
+				EAD314D017A5E28B00F59885 /* NPLoginViewController.m */,
+				EAD314D117A5E28B00F59885 /* NPMapViewController.h */,
+				EAD314D217A5E28B00F59885 /* NPMapViewController.m */,
+				EAD314D317A5E28B00F59885 /* NPMasterViewController.h */,
+				EAD314D417A5E28B00F59885 /* NPMasterViewController.m */,
+				EAD314D517A5E28B00F59885 /* NPResultsViewController.h */,
+				EAD314D617A5E28B00F59885 /* NPResultsViewController.m */,
+				EAD314D717A5E28B00F59885 /* NPSubmitResultsViewController.h */,
+				EAD314D817A5E28B00F59885 /* NPSubmitResultsViewController.m */,
+				EAD314D917A5E28B00F59885 /* NPVerbalViewController.h */,
+				EAD314DA17A5E28B00F59885 /* NPVerbalViewController.m */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		EAD314DB17A5E28B00F59885 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EAD314DC17A5E28C00F59885 /* NPAPIClient.h */,
+				EAD314DD17A5E28C00F59885 /* NPAPIClient.m */,
+				EAD314DE17A5E28C00F59885 /* NPUtils.h */,
+				EAD314DF17A5E28C00F59885 /* NPUtils.m */,
+			);
+			path = helpers;
+			sourceTree = "<group>";
+		};
+		EAD314E017A5E28C00F59885 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				EAD314E117A5E28C00F59885 /* FontAwesome */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		EAD314E117A5E28C00F59885 /* FontAwesome */ = {
+			isa = PBXGroup;
+			children = (
+				EAD314E217A5E28C00F59885 /* FAImageView.h */,
+				EAD314E317A5E28C00F59885 /* FAImageView.m */,
+				EAD314E417A5E28C00F59885 /* FontAwesome.ttf */,
+				EAD314E517A5E28C00F59885 /* NSString+FontAwesome.h */,
+				EAD314E617A5E28C00F59885 /* NSString+FontAwesome.m */,
+				EAD314E717A5E28C00F59885 /* UIFont+FontAwesome.h */,
+				EAD314E817A5E28C00F59885 /* UIFont+FontAwesome.m */,
+			);
+			path = FontAwesome;
+			sourceTree = "<group>";
+		};
+		EAD314E917A5E28C00F59885 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				EAD314EA17A5E28C00F59885 /* NPResult.h */,
+				EAD314EB17A5E28C00F59885 /* NPResult.m */,
+				EAD314EC17A5E28C00F59885 /* NPUser.h */,
+				EAD314ED17A5E28C00F59885 /* NPUser.m */,
+				EAD314EE17A5E28C00F59885 /* NPVerbal.h */,
+				EAD314EF17A5E28C00F59885 /* NPVerbal.m */,
+				EAD314F017A5E28C00F59885 /* NPWorkout.h */,
+				EAD314F117A5E28C00F59885 /* NPWorkout.m */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		EAD314F217A5E28C00F59885 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				EAD314F317A5E28C00F59885 /* NPResultCell.h */,
+				EAD314F417A5E28C00F59885 /* NPResultCell.m */,
+				EAD314F517A5E28C00F59885 /* NPVerbalCell.h */,
+				EAD314F617A5E28C00F59885 /* NPVerbalCell.m */,
+				EAD314F717A5E28C00F59885 /* NPWorkoutCell.h */,
+				EAD314F817A5E28C00F59885 /* NPWorkoutCell.m */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
 		EAF2774C172EA25C002A7C7B /* FontAwesome */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,7 +515,7 @@
 			name = "Detail Views";
 			sourceTree = "<group>";
 		};
-		EAF2777A17315ED3002A7C7B /* classes */ = {
+		EAF2777A17315ED3002A7C7B /* models */ = {
 			isa = PBXGroup;
 			children = (
 				EAF2777B17315EFE002A7C7B /* NPWorkout.h */,
@@ -386,7 +527,7 @@
 				EA71E0B91770097F00E89CA9 /* NPVerbal.h */,
 				EA71E0BA1770097F00E89CA9 /* NPVerbal.m */,
 			);
-			name = classes;
+			name = models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -477,6 +618,7 @@
 				EAF27770172EEF1A002A7C7B /* tab-verbal@2x.png in Resources */,
 				EA8DBBA81734A6EC002DD7CC /* FacebookSDKResources.bundle in Resources */,
 				EAE5EF70178236810091940B /* private.plist in Resources */,
+				EAD3150217A5E28C00F59885 /* FontAwesome.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,6 +710,24 @@
 				EAD314C7179F050800F59885 /* NPSimpleResultsViewController.m in Sources */,
 				EAD314CA179F0CDF00F59885 /* NPSimpleResultsCell.m in Sources */,
 				EAD314CD179F759600F59885 /* NPUtils.m in Sources */,
+				EAD314F917A5E28C00F59885 /* NPLoginViewController.m in Sources */,
+				EAD314FA17A5E28C00F59885 /* NPMapViewController.m in Sources */,
+				EAD314FB17A5E28C00F59885 /* NPMasterViewController.m in Sources */,
+				EAD314FC17A5E28C00F59885 /* NPResultsViewController.m in Sources */,
+				EAD314FD17A5E28C00F59885 /* NPSubmitResultsViewController.m in Sources */,
+				EAD314FE17A5E28C00F59885 /* NPVerbalViewController.m in Sources */,
+				EAD314FF17A5E28C00F59885 /* NPAPIClient.m in Sources */,
+				EAD3150017A5E28C00F59885 /* NPUtils.m in Sources */,
+				EAD3150117A5E28C00F59885 /* FAImageView.m in Sources */,
+				EAD3150317A5E28C00F59885 /* NSString+FontAwesome.m in Sources */,
+				EAD3150417A5E28C00F59885 /* UIFont+FontAwesome.m in Sources */,
+				EAD3150517A5E28C00F59885 /* NPResult.m in Sources */,
+				EAD3150617A5E28C00F59885 /* NPUser.m in Sources */,
+				EAD3150717A5E28C00F59885 /* NPVerbal.m in Sources */,
+				EAD3150817A5E28C00F59885 /* NPWorkout.m in Sources */,
+				EAD3150917A5E28C00F59885 /* NPResultCell.m in Sources */,
+				EAD3150A17A5E28C00F59885 /* NPVerbalCell.m in Sources */,
+				EAD3150B17A5E28C00F59885 /* NPWorkoutCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

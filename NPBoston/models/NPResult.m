@@ -10,44 +10,33 @@
 
 @implementation NPResult
 
-@synthesize objectId = _objectId;
-@synthesize uid = _uid;
-@synthesize userName = _userName;
-@synthesize wid = _wid;
-@synthesize type = _type;
-@synthesize time = _time;
-@synthesize amount = _amount;
-@synthesize pr = _pr;
-@synthesize comment = _comment;
-
 + (NPResult *)resultWithObject:(id)object
 {
     return [[self alloc] initWithObject:object];
 }
 
-- (NPResult *)initWithObject:(id)object
+- (id)initWithObject:(id)object
 {
-    if (self = [super init]) {
-        self.objectId = [object valueForKey:@"_id"];
-        self.uid = [object valueForKey:@"uid"];
-        self.userName = [object valueForKey:@"userName"];
-        self.wid = [object valueForKey:@"wid"];
-        self.type = [object valueForKey:@"type"];
-        
-        if ([[object valueForKey:@"time"] isKindOfClass:[NSString class]]) {
-            self.time = [NPResult stringToTime:[object valueForKey:@"time"]];
-        } else {
-            self.time = [object valueForKey:@"time"];
-        }
-        
-        self.amount = [object valueForKey:@"amount"];
-        self.pr = [object valueForKey:@"pr"];
-        self.comment = [object valueForKey:@"comment"];
-        
-        return self;
+    self = [super init];
+    if (!self) return nil;
+    
+    _objectId = [object valueForKey:@"_id"];
+    _uid = [object valueForKey:@"uid"];
+    _userName = [object valueForKey:@"userName"];
+    _wid = [object valueForKey:@"wid"];
+    _type = [object valueForKey:@"type"];
+    
+    if ([[object valueForKey:@"time"] isKindOfClass:[NSString class]]) {
+        _time = [NPResult stringToTime:[object valueForKey:@"time"]];
     } else {
-        return nil;
+        _time = [object valueForKey:@"time"];
     }
+    
+    _amount = [object valueForKey:@"amount"];
+    _pr = [object valueForKey:@"pr"];
+    _comment = [object valueForKey:@"comment"];
+    
+    return self;
 }
 
 + (NSNumber *)stringToTime:(NSString *)timeStr

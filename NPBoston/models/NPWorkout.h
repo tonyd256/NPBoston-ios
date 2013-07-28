@@ -6,9 +6,8 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "NPResult.h"
-#import "NPVerbal.h"
+@class NPVerbal;
+@class NPResult;
 
 @interface NPWorkout : NSObject
 
@@ -30,6 +29,6 @@
 @property (strong, nonatomic) NPResult *result;
 
 + (NPWorkout *)workoutWithObject:(id)object;
-- (NPWorkout *)initWithObject:(id)object;
+- (id)initWithObject:(id)object;
 
 @end

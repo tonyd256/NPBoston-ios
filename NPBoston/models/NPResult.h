@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface NPResult : NSObject
 
 @property (strong, nonatomic) NSString *objectId;
@@ -21,7 +19,7 @@
 @property (strong, nonatomic) NSString *comment;
 
 + (NPResult *)resultWithObject:(id)object;
-- (NPResult *)initWithObject:(id)object;
+- (id)initWithObject:(id)object;
 
 + (NSString *)timeToString:(NSNumber *)timeObj;
 + (NSNumber *)stringToTime:(NSString *)timeStr;

@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface NPUser : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *objectId;
@@ -19,6 +17,6 @@
 @property (assign, nonatomic) BOOL admin;
 
 + (NPUser *)userWithObject:(id)object;
-- (NPUser *)initWithObject:(id)object;
+- (id)initWithObject:(id)object;
 
 @end
