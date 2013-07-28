@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4308F302F1CE4A5EAE6C1C82 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E2797ACF3644A6492826340 /* libPods.a */; };
-		EA71E0B81768C3FE00E89CA9 /* NPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = EA71E0B71768C3FE00E89CA9 /* NPUser.m */; };
-		EA71E0BB1770098000E89CA9 /* NPVerbal.m in Sources */ = {isa = PBXBuildFile; fileRef = EA71E0BA1770097F00E89CA9 /* NPVerbal.m */; };
-		EA8DBB9D1731A6A7002DD7CC /* NPResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8DBB9C1731A6A7002DD7CC /* NPResultsViewController.m */; };
-		EA8DBBA01731B49D002DD7CC /* NPResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8DBB9F1731B49D002DD7CC /* NPResultCell.m */; };
 		EA8DBBA21734A39C002DD7CC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8DBBA11734A39C002DD7CC /* Security.framework */; };
 		EA8DBBA61734A6D6002DD7CC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8DBBA51734A6D6002DD7CC /* FacebookSDK.framework */; };
 		EA8DBBA81734A6EC002DD7CC /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA8DBBA71734A6EC002DD7CC /* FacebookSDKResources.bundle */; };
@@ -22,11 +18,9 @@
 		EAAC3947171F6B1400EE670B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAC3946171F6B1400EE670B /* main.m */; };
 		EAAC394B171F6B1400EE670B /* NPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAC394A171F6B1400EE670B /* NPAppDelegate.m */; };
 		EAAC3954171F6B1400EE670B /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAAC3952171F6B1400EE670B /* MainStoryboard.storyboard */; };
-		EAAC3957171F6B1400EE670B /* NPMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAC3956171F6B1400EE670B /* NPMasterViewController.m */; };
 		EAAC3967171F6D4500EE670B /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAC3964171F6D4500EE670B /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		EAAC3968171F6D4500EE670B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAC3965171F6D4500EE670B /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		EAAC3969171F6D4500EE670B /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAC3966171F6D4500EE670B /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		EAAC396C171F708F00EE670B /* NPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAC396B171F708F00EE670B /* NPLoginViewController.m */; };
 		EAAC3980171F793700EE670B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC3973171F793700EE670B /* Default-568h@2x.png */; };
 		EAAC3981171F793700EE670B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC3974171F793700EE670B /* Default.png */; };
 		EAAC3982171F793700EE670B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC3975171F793700EE670B /* Default@2x.png */; };
@@ -44,14 +38,12 @@
 		EAAC3992171FA0F300EE670B /* login-button-small-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC398E171FA0F300EE670B /* login-button-small-pressed@2x.png */; };
 		EAAC3993171FA0F300EE670B /* login-button-small.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC398F171FA0F300EE670B /* login-button-small.png */; };
 		EAAC3994171FA0F300EE670B /* login-button-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC3990171FA0F300EE670B /* login-button-small@2x.png */; };
-		EAAC3997171FB1C100EE670B /* NPWorkoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAC3996171FB1C100EE670B /* NPWorkoutCell.m */; };
 		EAAC3999171FB47900EE670B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAC3998171FB47900EE670B /* MapKit.framework */; };
 		EAAC399C17217AA900EE670B /* tablecell_background.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC399A17217AA900EE670B /* tablecell_background.png */; };
 		EAAC399D17217AA900EE670B /* tablecell_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC399B17217AA900EE670B /* tablecell_background@2x.png */; };
 		EAB670D71728E60800342AA1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB670D61728E60800342AA1 /* QuartzCore.framework */; };
 		EAD314C7179F050800F59885 /* NPSimpleResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */; };
 		EAD314CA179F0CDF00F59885 /* NPSimpleResultsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */; };
-		EAD314CD179F759600F59885 /* NPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314CC179F759600F59885 /* NPUtils.m */; };
 		EAD314F917A5E28C00F59885 /* NPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D017A5E28B00F59885 /* NPLoginViewController.m */; };
 		EAD314FA17A5E28C00F59885 /* NPMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D217A5E28B00F59885 /* NPMapViewController.m */; };
 		EAD314FB17A5E28C00F59885 /* NPMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D417A5E28B00F59885 /* NPMasterViewController.m */; };
@@ -73,26 +65,15 @@
 		EAD3150B17A5E28C00F59885 /* NPWorkoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314F817A5E28C00F59885 /* NPWorkoutCell.m */; };
 		EAE5EF70178236810091940B /* private.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAE5EF6E178236810091940B /* private.plist */; };
 		EAF27749172E129A002A7C7B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF27748172E129A002A7C7B /* CoreText.framework */; };
-		EAF27754172EA25C002A7C7B /* FAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF2774E172EA25C002A7C7B /* FAImageView.m */; };
-		EAF27755172EA25C002A7C7B /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAF2774F172EA25C002A7C7B /* FontAwesome.ttf */; };
-		EAF27756172EA25C002A7C7B /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF27751172EA25C002A7C7B /* NSString+FontAwesome.m */; };
-		EAF27757172EA25C002A7C7B /* UIFont+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF27753172EA25C002A7C7B /* UIFont+FontAwesome.m */; };
-		EAF2775E172EDD67002A7C7B /* NPMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF2775D172EDD67002A7C7B /* NPMapViewController.m */; };
-		EAF27761172EDEB9002A7C7B /* NPVerbalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF27760172EDEB9002A7C7B /* NPVerbalViewController.m */; };
-		EAF27764172EE08E002A7C7B /* NPVerbalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF27763172EE08E002A7C7B /* NPVerbalCell.m */; };
 		EAF2776B172EEF1A002A7C7B /* tab-map.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF27765172EEF1A002A7C7B /* tab-map.png */; };
 		EAF2776C172EEF1A002A7C7B /* tab-map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF27766172EEF1A002A7C7B /* tab-map@2x.png */; };
 		EAF2776D172EEF1A002A7C7B /* tab-results.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF27767172EEF1A002A7C7B /* tab-results.png */; };
 		EAF2776E172EEF1A002A7C7B /* tab-results@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF27768172EEF1A002A7C7B /* tab-results@2x.png */; };
 		EAF2776F172EEF1A002A7C7B /* tab-verbal.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF27769172EEF1A002A7C7B /* tab-verbal.png */; };
 		EAF27770172EEF1A002A7C7B /* tab-verbal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF2776A172EEF1A002A7C7B /* tab-verbal@2x.png */; };
-		EAF27773172F02A5002A7C7B /* NPSubmitResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF27772172F02A5002A7C7B /* NPSubmitResultsViewController.m */; };
 		EAF277751730261D002A7C7B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF277741730261D002A7C7B /* CoreTelephony.framework */; };
 		EAF277771730A771002A7C7B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF277761730A770002A7C7B /* libz.dylib */; };
 		EAF277791730A806002A7C7B /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF277781730A806002A7C7B /* libTestFlight.a */; };
-		EAF2777D17315EFE002A7C7B /* NPWorkout.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF2777C17315EFE002A7C7B /* NPWorkout.m */; };
-		EAF2778017315FE4002A7C7B /* NPResult.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF2777F17315FE4002A7C7B /* NPResult.m */; };
-		EAF50000172D644B001C71F2 /* NPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF5FFFF172D644B001C71F2 /* NPAPIClient.m */; };
 		EAF5FFF71728EB79001C71F2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF5FFF61728EB79001C71F2 /* SystemConfiguration.framework */; };
 		EAF5FFF91728EBAF001C71F2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF5FFF81728EBAF001C71F2 /* MobileCoreServices.framework */; };
 		EAF5FFFC172974EE001C71F2 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF5FFFA172974EE001C71F2 /* arrow.png */; };
@@ -102,14 +83,6 @@
 /* Begin PBXFileReference section */
 		5E2797ACF3644A6492826340 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F14BBF2F2B4DA88492C440 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
-		EA71E0B61768C3FE00E89CA9 /* NPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPUser.h; path = classes/NPUser.h; sourceTree = "<group>"; };
-		EA71E0B71768C3FE00E89CA9 /* NPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPUser.m; path = classes/NPUser.m; sourceTree = "<group>"; };
-		EA71E0B91770097F00E89CA9 /* NPVerbal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPVerbal.h; path = classes/NPVerbal.h; sourceTree = "<group>"; };
-		EA71E0BA1770097F00E89CA9 /* NPVerbal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPVerbal.m; path = classes/NPVerbal.m; sourceTree = "<group>"; };
-		EA8DBB9B1731A6A7002DD7CC /* NPResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPResultsViewController.h; sourceTree = "<group>"; };
-		EA8DBB9C1731A6A7002DD7CC /* NPResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPResultsViewController.m; sourceTree = "<group>"; };
-		EA8DBB9E1731B49D002DD7CC /* NPResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPResultCell.h; sourceTree = "<group>"; };
-		EA8DBB9F1731B49D002DD7CC /* NPResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPResultCell.m; sourceTree = "<group>"; };
 		EA8DBBA11734A39C002DD7CC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		EA8DBBA51734A6D6002DD7CC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		EA8DBBA71734A6EC002DD7CC /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = ../../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle; sourceTree = "<group>"; };
@@ -124,13 +97,9 @@
 		EAAC3949171F6B1400EE670B /* NPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NPAppDelegate.h; sourceTree = "<group>"; };
 		EAAC394A171F6B1400EE670B /* NPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NPAppDelegate.m; sourceTree = "<group>"; };
 		EAAC3953171F6B1400EE670B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		EAAC3955171F6B1400EE670B /* NPMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NPMasterViewController.h; sourceTree = "<group>"; };
-		EAAC3956171F6B1400EE670B /* NPMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NPMasterViewController.m; sourceTree = "<group>"; };
 		EAAC3964171F6D4500EE670B /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		EAAC3965171F6D4500EE670B /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		EAAC3966171F6D4500EE670B /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		EAAC396A171F708F00EE670B /* NPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPLoginViewController.h; sourceTree = "<group>"; };
-		EAAC396B171F708F00EE670B /* NPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPLoginViewController.m; sourceTree = "<group>"; };
 		EAAC3973171F793700EE670B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		EAAC3974171F793700EE670B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		EAAC3975171F793700EE670B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -148,8 +117,6 @@
 		EAAC398E171FA0F300EE670B /* login-button-small-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small-pressed@2x.png"; path = "../../../../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle/FBLoginView/images/login-button-small-pressed@2x.png"; sourceTree = "<group>"; };
 		EAAC398F171FA0F300EE670B /* login-button-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small.png"; path = "../../../../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle/FBLoginView/images/login-button-small.png"; sourceTree = "<group>"; };
 		EAAC3990171FA0F300EE670B /* login-button-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small@2x.png"; path = "../../../../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle/FBLoginView/images/login-button-small@2x.png"; sourceTree = "<group>"; };
-		EAAC3995171FB1C100EE670B /* NPWorkoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPWorkoutCell.h; sourceTree = "<group>"; };
-		EAAC3996171FB1C100EE670B /* NPWorkoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPWorkoutCell.m; sourceTree = "<group>"; };
 		EAAC3998171FB47900EE670B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		EAAC399A17217AA900EE670B /* tablecell_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tablecell_background.png; sourceTree = "<group>"; };
 		EAAC399B17217AA900EE670B /* tablecell_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tablecell_background@2x.png"; sourceTree = "<group>"; };
@@ -158,8 +125,6 @@
 		EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPSimpleResultsViewController.m; path = simple/NPSimpleResultsViewController.m; sourceTree = "<group>"; };
 		EAD314C8179F0CDF00F59885 /* NPSimpleResultsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsCell.h; path = simple/NPSimpleResultsCell.h; sourceTree = "<group>"; };
 		EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPSimpleResultsCell.m; path = simple/NPSimpleResultsCell.m; sourceTree = "<group>"; };
-		EAD314CB179F759500F59885 /* NPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPUtils.h; sourceTree = "<group>"; };
-		EAD314CC179F759600F59885 /* NPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPUtils.m; sourceTree = "<group>"; };
 		EAD314CF17A5E28B00F59885 /* NPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPLoginViewController.h; sourceTree = "<group>"; };
 		EAD314D017A5E28B00F59885 /* NPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPLoginViewController.m; sourceTree = "<group>"; };
 		EAD314D117A5E28B00F59885 /* NPMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPMapViewController.h; sourceTree = "<group>"; };
@@ -199,40 +164,19 @@
 		EAD314F817A5E28C00F59885 /* NPWorkoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPWorkoutCell.m; sourceTree = "<group>"; };
 		EAE5EF6F178236810091940B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/private.plist; sourceTree = "<group>"; };
 		EAF27748172E129A002A7C7B /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		EAF2774D172EA25C002A7C7B /* FAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAImageView.h; sourceTree = "<group>"; };
-		EAF2774E172EA25C002A7C7B /* FAImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAImageView.m; sourceTree = "<group>"; };
-		EAF2774F172EA25C002A7C7B /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
-		EAF27750172EA25C002A7C7B /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
-		EAF27751172EA25C002A7C7B /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
-		EAF27752172EA25C002A7C7B /* UIFont+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+FontAwesome.h"; sourceTree = "<group>"; };
-		EAF27753172EA25C002A7C7B /* UIFont+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontAwesome.m"; sourceTree = "<group>"; };
-		EAF2775C172EDD67002A7C7B /* NPMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPMapViewController.h; sourceTree = "<group>"; };
-		EAF2775D172EDD67002A7C7B /* NPMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPMapViewController.m; sourceTree = "<group>"; };
-		EAF2775F172EDEB9002A7C7B /* NPVerbalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPVerbalViewController.h; sourceTree = "<group>"; };
-		EAF27760172EDEB9002A7C7B /* NPVerbalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPVerbalViewController.m; sourceTree = "<group>"; };
-		EAF27762172EE08E002A7C7B /* NPVerbalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPVerbalCell.h; sourceTree = "<group>"; };
-		EAF27763172EE08E002A7C7B /* NPVerbalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPVerbalCell.m; sourceTree = "<group>"; };
 		EAF27765172EEF1A002A7C7B /* tab-map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-map.png"; sourceTree = "<group>"; };
 		EAF27766172EEF1A002A7C7B /* tab-map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-map@2x.png"; sourceTree = "<group>"; };
 		EAF27767172EEF1A002A7C7B /* tab-results.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-results.png"; sourceTree = "<group>"; };
 		EAF27768172EEF1A002A7C7B /* tab-results@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-results@2x.png"; sourceTree = "<group>"; };
 		EAF27769172EEF1A002A7C7B /* tab-verbal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-verbal.png"; sourceTree = "<group>"; };
 		EAF2776A172EEF1A002A7C7B /* tab-verbal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-verbal@2x.png"; sourceTree = "<group>"; };
-		EAF27771172F02A5002A7C7B /* NPSubmitResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPSubmitResultsViewController.h; sourceTree = "<group>"; };
-		EAF27772172F02A5002A7C7B /* NPSubmitResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPSubmitResultsViewController.m; sourceTree = "<group>"; };
 		EAF277741730261D002A7C7B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		EAF277761730A770002A7C7B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		EAF277781730A806002A7C7B /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = Pods/TestFlightSDK/libTestFlight.a; sourceTree = "<group>"; };
-		EAF2777B17315EFE002A7C7B /* NPWorkout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPWorkout.h; path = classes/NPWorkout.h; sourceTree = "<group>"; };
-		EAF2777C17315EFE002A7C7B /* NPWorkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPWorkout.m; path = classes/NPWorkout.m; sourceTree = "<group>"; };
-		EAF2777E17315FE4002A7C7B /* NPResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPResult.h; path = classes/NPResult.h; sourceTree = "<group>"; };
-		EAF2777F17315FE4002A7C7B /* NPResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPResult.m; path = classes/NPResult.m; sourceTree = "<group>"; };
 		EAF5FFF61728EB79001C71F2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EAF5FFF81728EBAF001C71F2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		EAF5FFFA172974EE001C71F2 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		EAF5FFFB172974EE001C71F2 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
-		EAF5FFFE172D644B001C71F2 /* NPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPAPIClient.h; sourceTree = "<group>"; };
-		EAF5FFFF172D644B001C71F2 /* NPAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPAPIClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,15 +207,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EA8DBBA91735613F002DD7CC /* Editing Views */ = {
-			isa = PBXGroup;
-			children = (
-				EAF27771172F02A5002A7C7B /* NPSubmitResultsViewController.h */,
-				EAF27772172F02A5002A7C7B /* NPSubmitResultsViewController.m */,
-			);
-			name = "Editing Views";
-			sourceTree = "<group>";
-		};
 		EAAC392E171F6B1400EE670B = {
 			isa = PBXGroup;
 			children = (
@@ -323,26 +258,12 @@
 				EAD314E017A5E28C00F59885 /* libs */,
 				EAD314E917A5E28C00F59885 /* models */,
 				EAD314F217A5E28C00F59885 /* views */,
-				EAF2777A17315ED3002A7C7B /* models */,
-				EAF2774C172EA25C002A7C7B /* FontAwesome */,
 				EAAC3972171F793700EE670B /* images */,
 				EAAC3949171F6B1400EE670B /* NPAppDelegate.h */,
 				EAAC394A171F6B1400EE670B /* NPAppDelegate.m */,
 				EAAC3952171F6B1400EE670B /* MainStoryboard.storyboard */,
-				EAAC3955171F6B1400EE670B /* NPMasterViewController.h */,
-				EAAC3956171F6B1400EE670B /* NPMasterViewController.m */,
-				EA8DBBA91735613F002DD7CC /* Editing Views */,
-				EAF2775B172EDD13002A7C7B /* Detail Views */,
 				EAD314C4179F04AD00F59885 /* Simple Flow */,
 				EAAC3941171F6B1400EE670B /* Supporting Files */,
-				EAAC396A171F708F00EE670B /* NPLoginViewController.h */,
-				EAAC396B171F708F00EE670B /* NPLoginViewController.m */,
-				EAAC3995171FB1C100EE670B /* NPWorkoutCell.h */,
-				EAAC3996171FB1C100EE670B /* NPWorkoutCell.m */,
-				EAF5FFFE172D644B001C71F2 /* NPAPIClient.h */,
-				EAF5FFFF172D644B001C71F2 /* NPAPIClient.m */,
-				EAD314CB179F759500F59885 /* NPUtils.h */,
-				EAD314CC179F759600F59885 /* NPUtils.m */,
 			);
 			path = NPBoston;
 			sourceTree = "<group>";
@@ -484,52 +405,6 @@
 			path = views;
 			sourceTree = "<group>";
 		};
-		EAF2774C172EA25C002A7C7B /* FontAwesome */ = {
-			isa = PBXGroup;
-			children = (
-				EAF2774D172EA25C002A7C7B /* FAImageView.h */,
-				EAF2774E172EA25C002A7C7B /* FAImageView.m */,
-				EAF2774F172EA25C002A7C7B /* FontAwesome.ttf */,
-				EAF27750172EA25C002A7C7B /* NSString+FontAwesome.h */,
-				EAF27751172EA25C002A7C7B /* NSString+FontAwesome.m */,
-				EAF27752172EA25C002A7C7B /* UIFont+FontAwesome.h */,
-				EAF27753172EA25C002A7C7B /* UIFont+FontAwesome.m */,
-			);
-			path = FontAwesome;
-			sourceTree = "<group>";
-		};
-		EAF2775B172EDD13002A7C7B /* Detail Views */ = {
-			isa = PBXGroup;
-			children = (
-				EAF2775C172EDD67002A7C7B /* NPMapViewController.h */,
-				EAF2775D172EDD67002A7C7B /* NPMapViewController.m */,
-				EAF2775F172EDEB9002A7C7B /* NPVerbalViewController.h */,
-				EAF27760172EDEB9002A7C7B /* NPVerbalViewController.m */,
-				EAF27762172EE08E002A7C7B /* NPVerbalCell.h */,
-				EAF27763172EE08E002A7C7B /* NPVerbalCell.m */,
-				EA8DBB9B1731A6A7002DD7CC /* NPResultsViewController.h */,
-				EA8DBB9C1731A6A7002DD7CC /* NPResultsViewController.m */,
-				EA8DBB9E1731B49D002DD7CC /* NPResultCell.h */,
-				EA8DBB9F1731B49D002DD7CC /* NPResultCell.m */,
-			);
-			name = "Detail Views";
-			sourceTree = "<group>";
-		};
-		EAF2777A17315ED3002A7C7B /* models */ = {
-			isa = PBXGroup;
-			children = (
-				EAF2777B17315EFE002A7C7B /* NPWorkout.h */,
-				EAF2777C17315EFE002A7C7B /* NPWorkout.m */,
-				EAF2777E17315FE4002A7C7B /* NPResult.h */,
-				EAF2777F17315FE4002A7C7B /* NPResult.m */,
-				EA71E0B61768C3FE00E89CA9 /* NPUser.h */,
-				EA71E0B71768C3FE00E89CA9 /* NPUser.m */,
-				EA71E0B91770097F00E89CA9 /* NPVerbal.h */,
-				EA71E0BA1770097F00E89CA9 /* NPVerbal.m */,
-			);
-			name = models;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -609,7 +484,6 @@
 				EAAC399D17217AA900EE670B /* tablecell_background@2x.png in Resources */,
 				EAF5FFFC172974EE001C71F2 /* arrow.png in Resources */,
 				EAF5FFFD172974EE001C71F2 /* arrow@2x.png in Resources */,
-				EAF27755172EA25C002A7C7B /* FontAwesome.ttf in Resources */,
 				EAF2776B172EEF1A002A7C7B /* tab-map.png in Resources */,
 				EAF2776C172EEF1A002A7C7B /* tab-map@2x.png in Resources */,
 				EAF2776D172EEF1A002A7C7B /* tab-results.png in Resources */,
@@ -690,26 +564,8 @@
 			files = (
 				EAAC3947171F6B1400EE670B /* main.m in Sources */,
 				EAAC394B171F6B1400EE670B /* NPAppDelegate.m in Sources */,
-				EAAC3957171F6B1400EE670B /* NPMasterViewController.m in Sources */,
-				EAAC396C171F708F00EE670B /* NPLoginViewController.m in Sources */,
-				EAAC3997171FB1C100EE670B /* NPWorkoutCell.m in Sources */,
-				EAF50000172D644B001C71F2 /* NPAPIClient.m in Sources */,
-				EAF27754172EA25C002A7C7B /* FAImageView.m in Sources */,
-				EAF27756172EA25C002A7C7B /* NSString+FontAwesome.m in Sources */,
-				EAF27757172EA25C002A7C7B /* UIFont+FontAwesome.m in Sources */,
-				EAF2775E172EDD67002A7C7B /* NPMapViewController.m in Sources */,
-				EAF27761172EDEB9002A7C7B /* NPVerbalViewController.m in Sources */,
-				EAF27764172EE08E002A7C7B /* NPVerbalCell.m in Sources */,
-				EAF27773172F02A5002A7C7B /* NPSubmitResultsViewController.m in Sources */,
-				EAF2777D17315EFE002A7C7B /* NPWorkout.m in Sources */,
-				EAF2778017315FE4002A7C7B /* NPResult.m in Sources */,
-				EA8DBB9D1731A6A7002DD7CC /* NPResultsViewController.m in Sources */,
-				EA8DBBA01731B49D002DD7CC /* NPResultCell.m in Sources */,
-				EA71E0B81768C3FE00E89CA9 /* NPUser.m in Sources */,
-				EA71E0BB1770098000E89CA9 /* NPVerbal.m in Sources */,
 				EAD314C7179F050800F59885 /* NPSimpleResultsViewController.m in Sources */,
 				EAD314CA179F0CDF00F59885 /* NPSimpleResultsCell.m in Sources */,
-				EAD314CD179F759600F59885 /* NPUtils.m in Sources */,
 				EAD314F917A5E28C00F59885 /* NPLoginViewController.m in Sources */,
 				EAD314FA17A5E28C00F59885 /* NPMapViewController.m in Sources */,
 				EAD314FB17A5E28C00F59885 /* NPMasterViewController.m in Sources */,
