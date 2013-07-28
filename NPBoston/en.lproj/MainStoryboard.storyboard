@@ -8,7 +8,7 @@
         <!--Navigation Controller-->
         <scene sceneID="11">
             <objects>
-                <navigationController id="3" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MainAppFlow" id="3" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="KdF-cU-Plz"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="4">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
@@ -550,6 +550,129 @@
             </objects>
             <point key="canvasLocation" x="1292" y="112"/>
         </scene>
+        <!--Simple Results View Controller - November Project-->
+        <scene sceneID="ojH-C2-9r9">
+            <objects>
+                <viewController id="dxk-RW-e4I" customClass="NPSimpleResultsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Kw-e0-Xzl">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Ycd-yf-sbT">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SimpleResultCell" id="QPh-Be-fi3" customClass="NPSimpleResultsCell">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tony DiPasquale" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WV7-LF-FcU">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="999" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEU-At-4vT">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="32" id="UkF-uo-YfA"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="00:35:34" textAlignment="right" lineBreakMode="clip" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1p-YH-la2">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="62" id="kBd-H7-DKC"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="h1p-YH-la2" firstAttribute="leading" secondItem="OEU-At-4vT" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="D8W-9V-R8U"/>
+                                            <constraint firstItem="OEU-At-4vT" firstAttribute="leading" secondItem="WV7-LF-FcU" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="Err-Uh-YDA"/>
+                                            <constraint firstItem="WV7-LF-FcU" firstAttribute="top" secondItem="QPh-Be-fi3" secondAttribute="top" constant="11" id="SrI-58-KyB"/>
+                                            <constraint firstItem="WV7-LF-FcU" firstAttribute="baseline" secondItem="h1p-YH-la2" secondAttribute="baseline" type="default" id="TIa-EU-qN4"/>
+                                            <constraint firstItem="OEU-At-4vT" firstAttribute="top" secondItem="QPh-Be-fi3" secondAttribute="top" constant="10" id="byY-9r-1Mk"/>
+                                            <constraint firstItem="h1p-YH-la2" firstAttribute="top" secondItem="WV7-LF-FcU" secondAttribute="top" type="default" id="cZ4-ZQ-3j8"/>
+                                            <constraint firstItem="WV7-LF-FcU" firstAttribute="leading" secondItem="QPh-Be-fi3" secondAttribute="leading" constant="20" type="default" id="tVV-T9-l0a"/>
+                                            <constraint firstAttribute="trailing" secondItem="h1p-YH-la2" secondAttribute="trailing" constant="20" type="default" id="vUQ-uK-YRb"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="amountLabel" destination="OEU-At-4vT" id="PoT-pC-m0P"/>
+                                            <outlet property="nameLabel" destination="WV7-LF-FcU" id="byc-XR-s0c"/>
+                                            <outlet property="timeLabel" destination="h1p-YH-la2" id="dOU-Hc-TRX"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="dxk-RW-e4I" id="hGf-bN-3z6"/>
+                                    <outlet property="delegate" destination="dxk-RW-e4I" id="FCB-q6-2ac"/>
+                                </connections>
+                            </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" translatesAutoresizingMaskIntoConstraints="NO" id="fdc-1s-a4x">
+                                <items>
+                                    <barButtonItem title="Record" id="9NO-nn-2rb">
+                                        <connections>
+                                            <action selector="recordResultsAction:" destination="dxk-RW-e4I" id="V5c-F8-kJ7"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="8P6-IF-yJR"/>
+                                    <barButtonItem title="Details" id="NXC-5X-dqm">
+                                        <connections>
+                                            <action selector="viewDetailsAction:" destination="dxk-RW-e4I" id="3yr-gf-PVg"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="PwW-f6-xr9"/>
+                                    <barButtonItem title="Verbal" id="VgZ-Yj-NOI">
+                                        <connections>
+                                            <action selector="giveVerbalAction:" destination="dxk-RW-e4I" id="SbF-HP-2wk"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fdc-1s-a4x" firstAttribute="trailing" secondItem="7Kw-e0-Xzl" secondAttribute="trailing" type="default" id="7aM-Yf-uP4"/>
+                            <constraint firstItem="Ycd-yf-sbT" firstAttribute="bottom" secondItem="fdc-1s-a4x" secondAttribute="top" type="default" id="BBm-w6-Edi"/>
+                            <constraint firstItem="Ycd-yf-sbT" firstAttribute="leading" secondItem="7Kw-e0-Xzl" secondAttribute="leading" type="default" id="IJx-e7-VX4"/>
+                            <constraint firstItem="fdc-1s-a4x" firstAttribute="bottom" secondItem="7Kw-e0-Xzl" secondAttribute="bottom" type="default" id="UdR-Da-cuB"/>
+                            <constraint firstItem="Ycd-yf-sbT" firstAttribute="trailing" secondItem="7Kw-e0-Xzl" secondAttribute="trailing" type="default" id="b9U-ic-gyD"/>
+                            <constraint firstItem="fdc-1s-a4x" firstAttribute="leading" secondItem="7Kw-e0-Xzl" secondAttribute="leading" type="default" id="erd-ko-U6a"/>
+                            <constraint firstItem="Ycd-yf-sbT" firstAttribute="top" secondItem="7Kw-e0-Xzl" secondAttribute="top" type="default" id="m2p-NK-OCn"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="November Project" id="jQx-fb-tN5"/>
+                    <connections>
+                        <outlet property="tableView" destination="Ycd-yf-sbT" id="KvE-wO-EzN"/>
+                        <segue destination="QwY-Lx-Pgc" kind="modal" identifier="SubmitResultsSegue" id="Xwk-0k-um9"/>
+                        <segue destination="P6G-oz-7A0" kind="modal" identifier="LoginViewSegue" id="oFd-LZ-pgQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gbg-bJ-4jR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="146" y="-640"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XFC-f6-Im6">
+            <objects>
+                <navigationController storyboardIdentifier="SimpleAppFlow" definesPresentationContext="YES" id="ngN-sb-tdy" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="F3m-Ma-cou">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="dxk-RW-e4I" kind="relationship" relationship="rootViewController" id="ubk-5Z-tm0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PDY-EG-Oye" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-293" y="-640"/>
+        </scene>
         <!--Submit Results View Controller-->
         <scene sceneID="Mad-w1-xHc">
             <objects>
@@ -709,11 +832,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qa4-LD-sYX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="9fp-82-7LK">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                </view>
             </objects>
             <point key="canvasLocation" x="858" y="-581"/>
         </scene>
@@ -885,6 +1003,23 @@
         <class className="NPResultsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NPResultsViewController.h"/>
         </class>
+        <class className="NPSimpleResultsCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NPSimpleResultsCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NPSimpleResultsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NPSimpleResultsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="giveVerbalAction:"/>
+                <relationship kind="action" name="recordResultsAction:"/>
+                <relationship kind="action" name="viewDetailsAction:"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
         <class className="NPSubmitResultsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NPSubmitResultsViewController.h"/>
             <relationships>
@@ -933,4 +1068,8 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="Xwk-0k-um9"/>
+        <segue reference="oFd-LZ-pgQ"/>
+    </inferredMetricsTieBreakers>
 </document>

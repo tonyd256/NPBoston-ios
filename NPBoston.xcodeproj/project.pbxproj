@@ -49,6 +49,9 @@
 		EAAC399C17217AA900EE670B /* tablecell_background.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC399A17217AA900EE670B /* tablecell_background.png */; };
 		EAAC399D17217AA900EE670B /* tablecell_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC399B17217AA900EE670B /* tablecell_background@2x.png */; };
 		EAB670D71728E60800342AA1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB670D61728E60800342AA1 /* QuartzCore.framework */; };
+		EAD314C7179F050800F59885 /* NPSimpleResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */; };
+		EAD314CA179F0CDF00F59885 /* NPSimpleResultsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */; };
+		EAD314CD179F759600F59885 /* NPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314CC179F759600F59885 /* NPUtils.m */; };
 		EAE5EF70178236810091940B /* private.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAE5EF6E178236810091940B /* private.plist */; };
 		EAF27749172E129A002A7C7B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF27748172E129A002A7C7B /* CoreText.framework */; };
 		EAF27754172EA25C002A7C7B /* FAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF2774E172EA25C002A7C7B /* FAImageView.m */; };
@@ -132,6 +135,12 @@
 		EAAC399A17217AA900EE670B /* tablecell_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tablecell_background.png; sourceTree = "<group>"; };
 		EAAC399B17217AA900EE670B /* tablecell_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tablecell_background@2x.png"; sourceTree = "<group>"; };
 		EAB670D61728E60800342AA1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		EAD314C5179F050800F59885 /* NPSimpleResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsViewController.h; path = simple/NPSimpleResultsViewController.h; sourceTree = "<group>"; };
+		EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPSimpleResultsViewController.m; path = simple/NPSimpleResultsViewController.m; sourceTree = "<group>"; };
+		EAD314C8179F0CDF00F59885 /* NPSimpleResultsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsCell.h; path = simple/NPSimpleResultsCell.h; sourceTree = "<group>"; };
+		EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPSimpleResultsCell.m; path = simple/NPSimpleResultsCell.m; sourceTree = "<group>"; };
+		EAD314CB179F759500F59885 /* NPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPUtils.h; sourceTree = "<group>"; };
+		EAD314CC179F759600F59885 /* NPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPUtils.m; sourceTree = "<group>"; };
 		EAE5EF6F178236810091940B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/private.plist; sourceTree = "<group>"; };
 		EAF27748172E129A002A7C7B /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		EAF2774D172EA25C002A7C7B /* FAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAImageView.h; sourceTree = "<group>"; };
@@ -263,6 +272,7 @@
 				EAAC3956171F6B1400EE670B /* NPMasterViewController.m */,
 				EA8DBBA91735613F002DD7CC /* Editing Views */,
 				EAF2775B172EDD13002A7C7B /* Detail Views */,
+				EAD314C4179F04AD00F59885 /* Simple Flow */,
 				EAAC3941171F6B1400EE670B /* Supporting Files */,
 				EAAC396A171F708F00EE670B /* NPLoginViewController.h */,
 				EAAC396B171F708F00EE670B /* NPLoginViewController.m */,
@@ -270,6 +280,8 @@
 				EAAC3996171FB1C100EE670B /* NPWorkoutCell.m */,
 				EAF5FFFE172D644B001C71F2 /* NPAPIClient.h */,
 				EAF5FFFF172D644B001C71F2 /* NPAPIClient.m */,
+				EAD314CB179F759500F59885 /* NPUtils.h */,
+				EAD314CC179F759600F59885 /* NPUtils.m */,
 			);
 			path = NPBoston;
 			sourceTree = "<group>";
@@ -318,6 +330,17 @@
 				EAAC397F171F793700EE670B /* iTunesArtwork@2x */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		EAD314C4179F04AD00F59885 /* Simple Flow */ = {
+			isa = PBXGroup;
+			children = (
+				EAD314C5179F050800F59885 /* NPSimpleResultsViewController.h */,
+				EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */,
+				EAD314C8179F0CDF00F59885 /* NPSimpleResultsCell.h */,
+				EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */,
+			);
+			name = "Simple Flow";
 			sourceTree = "<group>";
 		};
 		EAF2774C172EA25C002A7C7B /* FontAwesome */ = {
@@ -542,6 +565,9 @@
 				EA8DBBA01731B49D002DD7CC /* NPResultCell.m in Sources */,
 				EA71E0B81768C3FE00E89CA9 /* NPUser.m in Sources */,
 				EA71E0BB1770098000E89CA9 /* NPVerbal.m in Sources */,
+				EAD314C7179F050800F59885 /* NPSimpleResultsViewController.m in Sources */,
+				EAD314CA179F0CDF00F59885 /* NPSimpleResultsCell.m in Sources */,
+				EAD314CD179F759600F59885 /* NPUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
