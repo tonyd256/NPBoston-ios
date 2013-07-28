@@ -92,17 +92,14 @@
             
             NSString *url = [NSString stringWithFormat:@"workouts/%@/verbal", self.workout.objectId];
             [[NPAPIClient sharedClient] postPath:url parameters:@{@"uid": self.userID, @"name": self.userName} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                if ([responseObject valueForKey:@"data"] == 0) {
-                    self.verbalButton.titleLabel.textColor = [UIColor grayColor];
-                    [[Mixpanel sharedInstance] track:@"verbal failed" properties:@{@"error": @"server side"}];
-                } else {
-                    [[Mixpanel sharedInstance] track:@"verbal succeeded"];
-                }
+                [[Mixpanel sharedInstance] track:@"verbal succeeded"];
+                self.workout.verbal = [NPVerbal verbalWithObject:[responseObject objectForKey:@"data"]];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
                 NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
                 self.verbalButton.titleLabel.textColor = [UIColor grayColor];
                 [[Mixpanel sharedInstance] track:@"verbal failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }];
         } else if ([[NSDate date] timeIntervalSince1970] < ([self.workout.date timeIntervalSince1970] - 32400)) {
             self.verbalButton.titleLabel.textColor = [UIColor grayColor];
@@ -111,25 +108,20 @@
             
             NSString *url = [NSString stringWithFormat:@"workouts/%@/verbal", self.workout.objectId];
             [[NPAPIClient sharedClient] deletePath:url parameters:@{@"uid": self.userID} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                if ([responseObject valueForKey:@"data"] == 0) {
-                    self.verbalButton.titleLabel.textColor = [UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1];
-                    [[Mixpanel sharedInstance] track:@"verbal removal failed" properties:@{@"error": @"server side"}];
-                } else {
-                    [[Mixpanel sharedInstance] track:@"verbal removal succeeded"];
-                }
+                [[Mixpanel sharedInstance] track:@"verbal removal succeeded"];
+                self.workout.verbal = nil;
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
                 NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
                 self.verbalButton.titleLabel.textColor = [UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1];
                 [[Mixpanel sharedInstance] track:@"verbal removal failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }];
         } else if ([[NSDate date] timeIntervalSince1970] > ([self.workout.date timeIntervalSince1970] - 21600) && [[NSDate date] timeIntervalSince1970] < [self.workout.date timeIntervalSince1970]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Nice Try" message:@"You can't take back a verbal within 6 hours of the workout!" delegate:nil cancelButtonTitle:@"I'll Be There!" otherButtonTitles:nil];
-            [alert show];
+            [[[UIAlertView alloc] initWithTitle:@"Nice Try" message:@"You can't take back a verbal within 6 hours of the workout!" delegate:nil cancelButtonTitle:@"I'll Be There!" otherButtonTitles:nil] show];
         }
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Nice Try" message:@"This workout has passed. You can't retroactively give a verbal!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        [[[UIAlertView alloc] initWithTitle:@"Nice Try" message:@"This workout has passed. You can't retroactively give a verbal!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
 }
 

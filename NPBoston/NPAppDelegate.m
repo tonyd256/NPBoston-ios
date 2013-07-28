@@ -15,7 +15,18 @@
 
 @implementation NPAppDelegate
 
-NSString *const FBSessionStateChangedNotification = @"com.tstormlabs.npboston:FBSessionStateChangedNotification";
+NSString *const FBSessionStateChangedNotification = @"com.tstormlabs.novproject:FBSessionStateChangedNotification";
+
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    UIStoryboard *sb = [[self.window rootViewController] storyboard];
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"unlocked"]) {
+        [self.window setRootViewController:[sb instantiateViewControllerWithIdentifier:@"SimpleAppFlow"]];
+    }
+    
+    return YES;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

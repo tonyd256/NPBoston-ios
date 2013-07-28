@@ -21,9 +21,10 @@
 #import "SVProgressHUD.h"
 #import "NSString+FontAwesome.h"
 #import "Mixpanel.h"
-#import "TestFlight.h"
 #import "NPWorkout.h"
 #import "NPResult.h"
+#import "WCAlertView.h"
+#import "NPUtils.h"
 
 @interface NPMasterViewController () {
     NSMutableArray *_objects;
@@ -78,6 +79,18 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self becomeFirstResponder];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self resignFirstResponder];
+    [super viewWillDisappear:animated];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -125,7 +138,12 @@
     [SVProgressHUD showWithStatus:@"Loading..."];
     [[NPAPIClient sharedClient] getPath:@"workouts" parameters:@{@"location": user.location} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *data = [responseObject valueForKey:@"data"];
-        _objects = [[NSMutableArray alloc] init];
+        
+        if (!_objects) {
+            _objects = [[NSMutableArray alloc] init];
+        } else {
+            [_objects removeAllObjects];
+        }        
         
         for (id object in data) {
             [_objects addObject:[NPWorkout workoutWithObject:object]];
@@ -136,13 +154,30 @@
         [[Mixpanel sharedInstance] track:@"workouts request succeeded"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         _objects = [[NSMutableArray alloc] init];
-        AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
-        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
         [SVProgressHUD dismiss];
-        [[Mixpanel sharedInstance] track:@"workouts request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
         
-        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        NSString *msg = [NPUtils reportError:error WithMessage:@"workouts request failed" FromOperation:(AFJSONRequestOperation *)operation];
+        
+        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (event.subtype == UIEventSubtypeMotionShake) {
+        [WCAlertView showAlertWithTitle:@"Go Back?" message:@"Would you like to go back to the simpler version?" customizationBlock:nil completionBlock:^(NSUInteger buttonIndex, WCAlertView *alertView) {
+            if (buttonIndex == 0) {
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                [defaults setBool:NO forKey:@"unlocked"];
+                [defaults synchronize];
+                
+                [[[UIAlertView alloc] initWithTitle:@"Restart the App!" message:@"Exit the app then double click the home button.  Hold down the app icon and click the red circle." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
+        } cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    }
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
 }
 
 #pragma mark - Table View
@@ -274,22 +309,7 @@
 {
     [[(NPWorkoutCell *)[self.tableView cellForRowAtIndexPath:selectedIndexPath] resultsButton] setTitleColor:[UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1] forState:UIControlStateNormal];
     
-    [[Mixpanel sharedInstance] track:@"workouts request attempted"];
-    [[NPAPIClient sharedClient] getPath:@"workouts" parameters:@{@"uid": user.objectId} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *data = [responseObject valueForKey:@"data"];
-        [_objects removeAllObjects];
-        
-        for (id object in data) {
-            [_objects addObject:[NPWorkout workoutWithObject:object]];
-        }
-        
-        [self.tableView reloadData];
-        [[Mixpanel sharedInstance] track:@"workouts request succeeded"];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
-        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
-        [[Mixpanel sharedInstance] track:@"workouts request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
-    }];
+    [self getWorkouts];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
