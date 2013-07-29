@@ -135,8 +135,7 @@ NSString *const FBSessionStateChangedNotification = @"com.tstormlabs.novproject:
     [[NSNotificationCenter defaultCenter] postNotificationName:FBSessionStateChangedNotification object:session];
     
     if (error) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-        [alertView show];
+        [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
     }
 }
 
