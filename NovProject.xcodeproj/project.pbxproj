@@ -86,14 +86,14 @@
 		EA8DBBA11734A39C002DD7CC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		EA8DBBA51734A6D6002DD7CC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		EA8DBBA71734A6EC002DD7CC /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = ../../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle; sourceTree = "<group>"; };
-		EAAC3937171F6B1400EE670B /* NPBoston.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NPBoston.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAAC3937171F6B1400EE670B /* NovProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NovProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAAC393A171F6B1400EE670B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EAAC393C171F6B1400EE670B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EAAC393E171F6B1400EE670B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		EAAC3942171F6B1400EE670B /* NPBoston-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NPBoston-Info.plist"; sourceTree = "<group>"; };
+		EAAC3942171F6B1400EE670B /* NovProject-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NovProject-Info.plist"; sourceTree = "<group>"; };
 		EAAC3944171F6B1400EE670B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EAAC3946171F6B1400EE670B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		EAAC3948171F6B1400EE670B /* NPBoston-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NPBoston-Prefix.pch"; sourceTree = "<group>"; };
+		EAAC3948171F6B1400EE670B /* NovProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NovProject-Prefix.pch"; sourceTree = "<group>"; };
 		EAAC3949171F6B1400EE670B /* NPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NPAppDelegate.h; sourceTree = "<group>"; };
 		EAAC394A171F6B1400EE670B /* NPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NPAppDelegate.m; sourceTree = "<group>"; };
 		EAAC3953171F6B1400EE670B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -220,7 +220,7 @@
 		EAAC3938171F6B1400EE670B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EAAC3937171F6B1400EE670B /* NPBoston.app */,
+				EAAC3937171F6B1400EE670B /* NovProject.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -271,10 +271,10 @@
 		EAAC3941171F6B1400EE670B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EAAC3942171F6B1400EE670B /* NPBoston-Info.plist */,
+				EAAC3942171F6B1400EE670B /* NovProject-Info.plist */,
 				EAAC3943171F6B1400EE670B /* InfoPlist.strings */,
 				EAAC3946171F6B1400EE670B /* main.m */,
-				EAAC3948171F6B1400EE670B /* NPBoston-Prefix.pch */,
+				EAAC3948171F6B1400EE670B /* NovProject-Prefix.pch */,
 				EAE5EF6E178236810091940B /* private.plist */,
 			);
 			name = "Supporting Files";
@@ -408,9 +408,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EAAC3936171F6B1400EE670B /* NPBoston */ = {
+		EAAC3936171F6B1400EE670B /* NovProject */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EAAC395D171F6B1400EE670B /* Build configuration list for PBXNativeTarget "NPBoston" */;
+			buildConfigurationList = EAAC395D171F6B1400EE670B /* Build configuration list for PBXNativeTarget "NovProject" */;
 			buildPhases = (
 				706E63567EC048EE9758F1F3 /* Check Pods Manifest.lock */,
 				D154088BA918490288C5383F /* Check Pods Manifest.lock */,
@@ -424,9 +424,9 @@
 			);
 			dependencies = (
 			);
-			name = NPBoston;
+			name = NovProject;
 			productName = NPBoston;
-			productReference = EAAC3937171F6B1400EE670B /* NPBoston.app */;
+			productReference = EAAC3937171F6B1400EE670B /* NovProject.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -439,7 +439,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Tony DiPasquale";
 			};
-			buildConfigurationList = EAAC3932171F6B1400EE670B /* Build configuration list for PBXProject "NPBoston" */;
+			buildConfigurationList = EAAC3932171F6B1400EE670B /* Build configuration list for PBXProject "NovProject" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -451,7 +451,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EAAC3936171F6B1400EE670B /* NPBoston */,
+				EAAC3936171F6B1400EE670B /* NovProject */,
 			);
 		};
 /* End PBXProject section */
@@ -684,8 +684,8 @@
 					"\"$(SRCROOT)/../../../../Documents/FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NPBoston/NPBoston-Prefix.pch";
-				INFOPLIST_FILE = "NPBoston/NPBoston-Info.plist";
+				GCC_PREFIX_HEADER = "NPBoston/NovProject-Prefix.pch";
+				INFOPLIST_FILE = "NPBoston/NovProject-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -695,7 +695,7 @@
 					"-lsqlite3.0",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NovProject;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -714,8 +714,8 @@
 					"\"$(SRCROOT)/../../../../Documents/FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NPBoston/NPBoston-Prefix.pch";
-				INFOPLIST_FILE = "NPBoston/NPBoston-Info.plist";
+				GCC_PREFIX_HEADER = "NPBoston/NovProject-Prefix.pch";
+				INFOPLIST_FILE = "NPBoston/NovProject-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -725,7 +725,7 @@
 					"-lsqlite3.0",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NovProject;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -736,7 +736,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EAAC3932171F6B1400EE670B /* Build configuration list for PBXProject "NPBoston" */ = {
+		EAAC3932171F6B1400EE670B /* Build configuration list for PBXProject "NovProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EAAC395B171F6B1400EE670B /* Debug */,
@@ -745,7 +745,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EAAC395D171F6B1400EE670B /* Build configuration list for PBXNativeTarget "NPBoston" */ = {
+		EAAC395D171F6B1400EE670B /* Build configuration list for PBXNativeTarget "NovProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EAAC395E171F6B1400EE670B /* Debug */,
