@@ -7,56 +7,44 @@
 //
 
 #import "NPSimpleResultsViewController.h"
-
-#import <FacebookSDK/FacebookSDK.h>
-
-#import "NPAppDelegate.h"
 #import "NPWorkout.h"
 #import "NPResult.h"
 #import "NPVerbal.h"
 #import "NPSimpleResultsCell.h"
 #import "NPAPIClient.h"
 #import "NPUser.h"
-#import "Mixpanel.h"
 #import "SVProgressHUD.h"
 #import "WCAlertView.h"
+#import "NPUtils.h"
 
 @interface NPSimpleResultsViewController ()
 
+@property (strong, nonatomic) NSMutableArray *workouts;
+@property (strong, nonatomic) NSMutableDictionary *results;
+@property (strong, nonatomic) NPUser *user;
+
 @end
 
-@implementation NPSimpleResultsViewController {
-    NSMutableArray *workouts;
-    NSMutableDictionary *results;
-    NPUser *user;
-}
+@implementation NPSimpleResultsViewController
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+#pragma mark - View flow
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionStateChanged:) name:FBSessionStateChangedNotification object:nil];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:@"user"]) {
         [self performSegueWithIdentifier:@"LoginViewSegue" sender:self];
     } else {
-        user = (NPUser *)[NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:@"user"]];
+        self.user = (NPUser *)[NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:@"user"]];
     }
     
-    workouts = [[NSMutableArray alloc] init];
-    results = [[NSMutableDictionary alloc] init];
+    self.workouts = [[NSMutableArray alloc] init];
+    self.results = [[NSMutableDictionary alloc] init];
     
-    if (user) {
+    if (self.user) {
         [self getWorkouts];
     }
     
@@ -75,60 +63,38 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)sessionStateChanged:(NSNotification *)notification {
-    if (FBSession.activeSession.isOpen) {
-        [[NPAPIClient sharedClient] postPath:@"users/facebook" parameters:@{
-         @"access_token": FBSession.activeSession.accessTokenData.accessToken}
-             success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                 NPUser *u = [NPUser userWithObject:[responseObject objectForKey:@"data"]];
-                 
-                 [[NPAPIClient sharedClient] setToken:[[responseObject objectForKey:@"data"] valueForKey:@"token"]];
-                 
-                 [[Mixpanel sharedInstance] track:@"facebook user login succeeded"];
-                 [self userLoggedIn:u];
-             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                 AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
-                 NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
-                 [[Mixpanel sharedInstance] track:@"facebook user login failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
-                 
-                 [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-             }];
-    }
-}
+#pragma mark - NPLoginViewController delegate
 
 - (void)userLoggedIn:(NPUser *)u
 {
-    user = u;
+    self.user = u;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:user] forKey:@"user"];
+    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:self.user] forKey:@"user"];
     [defaults synchronize];
     
-    [[Mixpanel sharedInstance] identify:user.objectId];
-    [[[Mixpanel sharedInstance] people] set:@"$name" to:user.name];
-    [[[Mixpanel sharedInstance] people] set:@"$gender" to:user.gender];
+    [[Mixpanel sharedInstance] identify:self.user.objectId];
+    [[[Mixpanel sharedInstance] people] set:@"$name" to:self.user.name];
+    [[[Mixpanel sharedInstance] people] set:@"$gender" to:self.user.gender];
     
     [self getWorkouts];
 }
 
-- (void)getWorkouts {
+#pragma mark - Populate methods
+
+- (void)getWorkouts
+{
     [[Mixpanel sharedInstance] track:@"workouts request attempted"];
     [SVProgressHUD showWithStatus:@"Loading..."];
     
-    [[NPAPIClient sharedClient] getPath:@"workouts" parameters:@{@"location": user.location, @"limit": @3} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[NPAPIClient sharedClient] getPath:@"workouts" parameters:@{@"location": self.user.location, @"limit": @3} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[Mixpanel sharedInstance] track:@"workouts request succeeded"];
         NSArray *wks = [responseObject objectForKey:@"data"];
-        [workouts removeAllObjects];
-        [results removeAllObjects];
+        [self.workouts removeAllObjects];
+        [self.results removeAllObjects];
         
         for (id wk in wks) {
             NPWorkout *workout = [NPWorkout workoutWithObject:wk];
-            [workouts addObject:workout];
+            [self.workouts addObject:workout];
             
             [[Mixpanel sharedInstance] track:@"results request attempted"];
             [[NPAPIClient sharedClient] getPath:[NSString stringWithFormat:@"workouts/%@/results", workout.objectId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -140,23 +106,19 @@
                     [array addObject:[NPResult resultWithObject:result]];
                 }
                 
-                [results setObject:array forKey:workout.objectId];
+                [self.results setObject:array forKey:workout.objectId];
                 [self.tableView reloadData];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
-                NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
-                [[Mixpanel sharedInstance] track:@"results request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
+                [NPUtils reportError:error WithMessage:@"results request failed" FromOperation:(AFJSONRequestOperation *)operation];
             }];
         }
         [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
-        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
-        [[Mixpanel sharedInstance] track:@"workouts request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
+        NSString *msg = [NPUtils reportError:error WithMessage:@"workouts request failed" FromOperation:(AFJSONRequestOperation *)operation];
         [SVProgressHUD dismiss];
         
-        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
@@ -165,22 +127,22 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return [workouts count];
+    return [self.workouts count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    if ([results count] > section) {
-        NPWorkout *workout = [workouts objectAtIndex:section];
-        return [[results objectForKey:workout.objectId] count];
+    if ([self.results count] > section) {
+        NPWorkout *workout = [self.workouts objectAtIndex:section];
+        return [[self.results objectForKey:workout.objectId] count];
     }
     return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NPWorkout *wk = [workouts objectAtIndex:section];
+    NPWorkout *wk = [self.workouts objectAtIndex:section];
     
     return wk.title;
 }
@@ -189,12 +151,12 @@
 {
     static NSString *CellIdentifier = @"SimpleResultCell";
     NPSimpleResultsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    NPWorkout *wk = [workouts objectAtIndex:indexPath.section];
-    NPResult *result = (NPResult *)[[results objectForKey:wk.objectId] objectAtIndex:indexPath.row];
+    NPWorkout *wk = [self.workouts objectAtIndex:indexPath.section];
+    NPResult *result = (NPResult *)[[self.results objectForKey:wk.objectId] objectAtIndex:indexPath.row];
     
     [cell.nameLabel setText:result.userName];
     [cell.amountLabel setText:[result.amount stringValue]];
-    [cell.timeLabel setText:[NPResult timeToString:result.time]];
+    [cell.timeLabel setText:[NPUtils timeToString:result.time]];
     
     return cell;
 }
@@ -213,7 +175,10 @@
     [self getWorkouts];
 }
 
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+#pragma mark - Handle shake
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
     if (event.subtype == UIEventSubtypeMotionShake) {
         [WCAlertView showAlertWithTitle:@"Unlock?" message:@"Unlock and use the beta version?" customizationBlock:nil completionBlock:^(NSUInteger buttonIndex, WCAlertView *alertView) {
             if (buttonIndex == 0) {
@@ -227,30 +192,36 @@
     }
 }
 
-- (BOOL)canBecomeFirstResponder {
+- (BOOL)canBecomeFirstResponder
+{
     return YES;
 }
 
-- (IBAction)recordResultsAction:(id)sender {
-    if ([workouts count] == 0) {
+#pragma mark - Actions methods
+
+- (IBAction)recordResultsAction:(id)sender
+{
+    if ([self.workouts count] == 0) {
         return;
     }
     
     [self performSegueWithIdentifier:@"SubmitResultsSegue" sender:self];
 }
 
-- (IBAction)viewDetailsAction:(id)sender {
-    if ([workouts count] == 0) {
+- (IBAction)viewDetailsAction:(id)sender
+{
+    if ([self.workouts count] == 0) {
         return;
     }
 }
 
-- (IBAction)giveVerbalAction:(id)sender {
-    if ([workouts count] == 0) {
+- (IBAction)giveVerbalAction:(id)sender
+{
+    if ([self.workouts count] == 0) {
         return;
     }
     
-    NPWorkout *workout = [workouts objectAtIndex:0];
+    NPWorkout *workout = [self.workouts objectAtIndex:0];
     // if the current date is sooner than the workout date
     if ([[NSDate date] timeIntervalSince1970] < [workout.date timeIntervalSince1970]) {
         // make request to server for verbal
@@ -259,7 +230,7 @@
             [SVProgressHUD showWithStatus:@"Committing..."];
             
             NSString *url = [NSString stringWithFormat:@"workouts/%@/verbal", workout.objectId];
-            [[NPAPIClient sharedClient] postPath:url parameters:@{@"uid": user.objectId, @"name": user.name} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [[NPAPIClient sharedClient] postPath:url parameters:@{@"uid": self.user.objectId, @"name": self.user.name} success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 [[Mixpanel sharedInstance] track:@"verbal succeeded"];
                 workout.verbal = [NPVerbal verbalWithObject:[responseObject objectForKey:@"data"]];
                 [SVProgressHUD dismiss];
@@ -267,29 +238,25 @@
                 [[[UIAlertView alloc] initWithTitle:@"See You There!" message:@"You can back out up to 6 hours before the workout begins." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
-                NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
-                [[Mixpanel sharedInstance] track:@"verbal failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
+                NSString *msg = [NPUtils reportError:error WithMessage:@"verbal failed" FromOperation:(AFJSONRequestOperation *)operation];
                 [SVProgressHUD dismiss];
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }];
         } else if ([[NSDate date] timeIntervalSince1970] < ([workout.date timeIntervalSince1970] - 32400)) {
             [[Mixpanel sharedInstance] track:@"verbal removal attempted"];
             [SVProgressHUD showWithStatus:@"Uncommitting..."];
             
             NSString *url = [NSString stringWithFormat:@"workouts/%@/verbal", workout.objectId];
-            [[NPAPIClient sharedClient] deletePath:url parameters:@{@"uid": user.objectId} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [[NPAPIClient sharedClient] deletePath:url parameters:@{@"uid": self.user.objectId} success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 [[Mixpanel sharedInstance] track:@"verbal removal succeeded"];
                 workout.verbal = nil;
                 [SVProgressHUD dismiss];
                 
                 [[[UIAlertView alloc] initWithTitle:@"You Backed Out" message:@"We'll catch you next time!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
-                NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
-                [[Mixpanel sharedInstance] track:@"verbal removal failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
+                NSString *msg = [NPUtils reportError:error WithMessage:@"verbal removal failed" FromOperation:(AFJSONRequestOperation *)operation];
                 [SVProgressHUD dismiss];
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }];
         } else if ([[NSDate date] timeIntervalSince1970] > ([workout.date timeIntervalSince1970] - 21600) && [[NSDate date] timeIntervalSince1970] < [workout.date timeIntervalSince1970]) {
             [[[UIAlertView alloc] initWithTitle:@"Nice Try" message:@"You can't take back a verbal within 6 hours of the workout!" delegate:nil cancelButtonTitle:@"I'll Be There!" otherButtonTitles:nil] show];
@@ -299,11 +266,13 @@
     }
 }
 
+#pragma mark - Overridden methods
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"SubmitResultsSegue"]) {
         NPSubmitResultsViewController *view = [segue destinationViewController];
-        view.workout = [workouts objectAtIndex:0];
+        view.workout = [self.workouts objectAtIndex:0];
         view.delegate = self;
     } else if ([[segue identifier] isEqualToString:@"LoginViewSegue"]) {
         NPLoginViewController *view = [segue destinationViewController];

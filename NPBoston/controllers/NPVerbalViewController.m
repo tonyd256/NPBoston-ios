@@ -6,49 +6,37 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
+#import <FacebookSDK/FacebookSDK.h>
+
 #import "NPVerbalViewController.h"
 #import "NPVerbalCell.h"
-#import "Mixpanel.h"
 #import "SVProgressHUD.h"
 #import "NPAPIClient.h"
 #import "NPVerbal.h"
+#import "NPWorkout.h"
+#import "NPUtils.h"
 
 @interface NPVerbalViewController ()
 
+@property (strong, nonatomic) NSMutableArray *verbals;
+
 @end
 
-@implementation NPVerbalViewController {
-    NSMutableArray *verbals;
-}
+@implementation NPVerbalViewController
 
-@synthesize workout = _workout;
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+#pragma mark - View flow
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [[Mixpanel sharedInstance] track:@"verbal view loaded"];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+    self.verbals = [[NSMutableArray alloc] init];
+    
     // get verbals
+    [self getVerbals];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - Populate data
 
 - (void)getVerbals
 {
@@ -58,23 +46,21 @@
     [SVProgressHUD showWithStatus:@"Loading..."];
     [[NPAPIClient sharedClient] getPath:[NSString stringWithFormat:@"workouts/%@/verbals", self.workout.objectId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *data = [responseObject valueForKey:@"data"];
-        verbals = [[NSMutableArray alloc] init];
+        
+        [self.verbals removeAllObjects];
         
         for (id object in data) {
-            [verbals addObject:[NPVerbal verbalWithObject:object]];
+            [self.verbals addObject:[NPVerbal verbalWithObject:object]];
         }
         
         [self.tableView reloadData];
-        [SVProgressHUD dismiss];
         [[Mixpanel sharedInstance] track:@"verbals request succeeded"];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        verbals = [[NSMutableArray alloc] init];
-        AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
-        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
         [SVProgressHUD dismiss];
-        [[Mixpanel sharedInstance] track:@"verbals request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *msg = [NPUtils reportError:error WithMessage:@"verbals request failed" FromOperation:(AFJSONRequestOperation *)operation];
+        [SVProgressHUD dismiss];
         
-        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
@@ -89,15 +75,15 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [verbals count];
+    return [self.verbals count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NPVerbalCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VerbalCell" forIndexPath:indexPath];
     
-    cell.nameLabel.text = [(NPVerbal *)[verbals objectAtIndex:indexPath.row] name];
-    cell.profilePic.profileID = [(NPVerbal *)[verbals objectAtIndex:indexPath.row] fid];
+    cell.nameLabel.text = [(NPVerbal *)[self.verbals objectAtIndex:indexPath.row] name];
+    cell.profilePic.profileID = [(NPVerbal *)[self.verbals objectAtIndex:indexPath.row] fid];
     
     return cell;
 }

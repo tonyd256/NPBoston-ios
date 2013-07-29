@@ -7,34 +7,28 @@
 //
 
 #import "NPResultsViewController.h"
-#import "Mixpanel.h"
 #import "SVProgressHUD.h"
 #import "NPAPIClient.h"
 #import "NPResult.h"
 #import "NPResultCell.h"
+#import "NPWorkout.h"
+#import "NPUtils.h"
 
 @interface NPResultsViewController ()
 
+@property (strong, nonatomic) NSMutableArray *results;
+
 @end
 
-@implementation NPResultsViewController {
-    NSMutableArray *results;
-}
+@implementation NPResultsViewController
 
-@synthesize workout = _workout;
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+#pragma mark - View flow
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.results = [[NSMutableArray alloc] init];
     [self getResults];
     
     [[Mixpanel sharedInstance] track:@"results view loaded"];
@@ -46,11 +40,7 @@
     self.parentViewController.navigationItem.rightBarButtonItem = nil;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - Populate data
 
 - (void)getResults
 {
@@ -60,23 +50,20 @@
     [SVProgressHUD showWithStatus:@"Loading..."];
     [[NPAPIClient sharedClient] getPath:[NSString stringWithFormat:@"workouts/%@/results", self.workout.objectId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *data = [responseObject valueForKey:@"data"];
-        results = [[NSMutableArray alloc] init];
+        [self.results removeAllObjects];
         
         for (id object in data) {
-            [results addObject:[NPResult resultWithObject:object]];
+            [self.results addObject:[NPResult resultWithObject:object]];
         }
         
         [self.tableView reloadData];
-        [SVProgressHUD dismiss];
         [[Mixpanel sharedInstance] track:@"results request succeeded"];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        results = [[NSMutableArray alloc] init];
-        AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
-        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
         [SVProgressHUD dismiss];
-        [[Mixpanel sharedInstance] track:@"results request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *msg = [NPUtils reportError:error WithMessage:@"results request failed" FromOperation:(AFJSONRequestOperation *)operation];
+        [SVProgressHUD dismiss];
         
-        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
@@ -91,13 +78,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return results.count;
+    return self.results.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NPResultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ResultCell" forIndexPath:indexPath];
-    NPResult *result = [results objectAtIndex:indexPath.row];
+    NPResult *result = [self.results objectAtIndex:indexPath.row];
     
     cell.pictureView.profileID = result.uid;
     cell.nameLabel.text = result.userName;
@@ -117,7 +104,7 @@
     }
     
     if ([result.time integerValue] != 0) {
-        NSString *timeStr = [NPResult timeToString:result.time];
+        NSString *timeStr = [NPUtils timeToString:result.time];
         
         if ([[timeStr substringToIndex:2] isEqualToString:@"00"]) {
             str = [str stringByAppendingFormat:@" in %@", [timeStr substringFromIndex:3]];
@@ -153,7 +140,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NPResult *result = [results objectAtIndex:indexPath.row];
+    NPResult *result = [self.results objectAtIndex:indexPath.row];
     
     if ([result.comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) return 118;
     

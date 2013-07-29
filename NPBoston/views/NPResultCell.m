@@ -6,19 +6,11 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
-#import "NPResultCell.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation NPResultCell
+#import "NPResultCell.h"
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
+@implementation NPResultCell
 
 - (void)layoutSubviews
 {
@@ -35,13 +27,6 @@
     
     self.topView.layer.borderColor = [UIColor colorWithRed:(170/255.0) green:(170/255.0) blue:(170/255.0) alpha:1].CGColor;
     self.topView.layer.borderWidth = 0.5;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

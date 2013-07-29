@@ -12,8 +12,6 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
 
 @implementation NPAPIClient
 
-@synthesize token = _token;
-
 + (NPAPIClient *)sharedClient
 {
     static NPAPIClient *client = nil;
@@ -27,9 +25,7 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
 - (id)initWithBaseURL:(NSURL *)url
 {
     self = [super initWithBaseURL:url];
-    if (!self) {
-        return nil;
-    }
+    if (!self) return nil;
     
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     [self setDefaultHeader:@"Accept" value:@"application/json"];
@@ -42,6 +38,8 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
     return self;
 }
 
+#pragma mark - Overridden methods
+
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters {
     if (!self.token) {
         return [super requestWithMethod:method path:path parameters:parameters];
@@ -49,6 +47,8 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
         return [super requestWithMethod:method path:[path stringByAppendingFormat:@"?token=%@", self.token] parameters:parameters];
     }    
 }
+
+#pragma mark - Property assignment
 
 - (void)setToken:(NSString *)token {
     _token = token;

@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "NPSubmitResultsViewController.h"
 #import "NPLoginViewController.h"
 

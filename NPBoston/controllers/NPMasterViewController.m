@@ -6,53 +6,44 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
-#import "NPMasterViewController.h"
-
-#import <FacebookSDK/FacebookSDK.h>
 #import <MapKit/MapKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "NPAppDelegate.h"
-#import "NPLoginViewController.h"
+#import "NPMasterViewController.h"
 #import "NPResultsViewController.h"
 #import "NPVerbalViewController.h"
 #import "NPMapViewController.h"
 #import "NPAPIClient.h"
 #import "SVProgressHUD.h"
-#import "NSString+FontAwesome.h"
-#import "Mixpanel.h"
 #import "NPWorkout.h"
-#import "NPResult.h"
 #import "WCAlertView.h"
 #import "NPUtils.h"
+#import "NPUser.h"
 
-@interface NPMasterViewController () {
-    NSMutableArray *_objects;
-    NPUser *user;
-    NPWorkout *selectedWorkout;
-    NSIndexPath *selectedIndexPath;
-    NSDateFormatter *dateFormatter;
-}
+@interface NPMasterViewController ()
+
+@property (strong, nonatomic) NSMutableArray *workouts;
+@property (strong, nonatomic) NPUser *user;
+@property (strong, nonatomic) NPWorkout *selectedWorkout;
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
+
 @end
 
 @implementation NPMasterViewController
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-}
+#pragma mark - View flow
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionStateChanged:) name:FBSessionStateChangedNotification object:nil];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:@"user"]) {
         [self performSegueWithIdentifier:@"LoginViewSegue" sender:self];
     } else {
-        user = (NPUser *)[NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:@"user"]];
+        self.user = (NPUser *)[NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:@"user"]];
     }
     
     [[Mixpanel sharedInstance] track:@"master view loaded"];
@@ -65,16 +56,16 @@
         [defaults synchronize];
         [[Mixpanel sharedInstance] track:@"workout types request succeeded"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
-        NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
-        [[Mixpanel sharedInstance] track:@"workout types request failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
+        [NPUtils reportError:error WithMessage:@"workout types request failed" FromOperation:(AFJSONRequestOperation *)operation];
     }];
     
-    dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"E - MMM dd, yyyy - hh:mma"];
-    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setDateFormat:@"E - MMM dd, yyyy - hh:mma"];
+    [self.dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
     
-    if (user) {
+    self.workouts = [[NSMutableArray alloc] init];
+    
+    if (self.user) {
         [self getWorkouts];
     }
 }
@@ -91,78 +82,52 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)sessionStateChanged:(NSNotification *)notification {
-    if (FBSession.activeSession.isOpen) {
-        [[NPAPIClient sharedClient] postPath:@"users/facebook" parameters:@{
-            @"access_token": FBSession.activeSession.accessTokenData.accessToken}
-            success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NPUser *u = [NPUser userWithObject:[responseObject objectForKey:@"data"]];
-                
-                [[NPAPIClient sharedClient] setToken:[[responseObject objectForKey:@"data"] valueForKey:@"token"]];
-                
-                [[Mixpanel sharedInstance] track:@"facebook user login succeeded"];
-                [self userLoggedIn:u];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                AFJSONRequestOperation *op = (AFJSONRequestOperation *)operation;
-                NSLog(@"Error: %@", [[op responseJSON] valueForKey:@"error"]);
-                [[Mixpanel sharedInstance] track:@"facebook user login failed" properties:@{@"error": [[op responseJSON] valueForKey:@"error"]}];
-                
-                [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:[[op responseJSON] valueForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            }];
-    }
-}
+#pragma mark - NPLoginViewController Delegate
 
 - (void)userLoggedIn:(NPUser *)u
 {
-    user = u;
+    self.user = u;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:user] forKey:@"user"];
+    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:self.user] forKey:@"user"];
     [defaults synchronize];
     
-    [[Mixpanel sharedInstance] identify:user.objectId];
-    [[[Mixpanel sharedInstance] people] set:@"$name" to:user.name];
-    [[[Mixpanel sharedInstance] people] set:@"$gender" to:user.gender];
+    [[Mixpanel sharedInstance] identify:self.user.objectId];
+    [[[Mixpanel sharedInstance] people] set:@"$name" to:self.user.name];
+    [[[Mixpanel sharedInstance] people] set:@"$gender" to:self.user.gender];
     
     [self getWorkouts];
 }
+
+#pragma mark - Populate data
 
 - (void)getWorkouts
 {
     [[Mixpanel sharedInstance] track:@"workouts request attempted"];
     [SVProgressHUD showWithStatus:@"Loading..."];
-    [[NPAPIClient sharedClient] getPath:@"workouts" parameters:@{@"location": user.location} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[NPAPIClient sharedClient] getPath:@"workouts" parameters:@{@"location": self.user.location} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *data = [responseObject valueForKey:@"data"];
         
-        if (!_objects) {
-            _objects = [[NSMutableArray alloc] init];
-        } else {
-            [_objects removeAllObjects];
-        }        
+        [self.workouts removeAllObjects];
         
         for (id object in data) {
-            [_objects addObject:[NPWorkout workoutWithObject:object]];
+            [self.workouts addObject:[NPWorkout workoutWithObject:object]];
         }
         
         [self.tableView reloadData];
         [SVProgressHUD dismiss];
         [[Mixpanel sharedInstance] track:@"workouts request succeeded"];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        _objects = [[NSMutableArray alloc] init];
-        [SVProgressHUD dismiss];
-        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {        
         NSString *msg = [NPUtils reportError:error WithMessage:@"workouts request failed" FromOperation:(AFJSONRequestOperation *)operation];
         
+        [SVProgressHUD dismiss];        
         [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+#pragma mark - Handle shake
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
     if (event.subtype == UIEventSubtypeMotionShake) {
         [WCAlertView showAlertWithTitle:@"Go Back?" message:@"Would you like to go back to the simpler version?" customizationBlock:nil completionBlock:^(NSUInteger buttonIndex, WCAlertView *alertView) {
             if (buttonIndex == 0) {
@@ -176,7 +141,8 @@
     }
 }
 
-- (BOOL)canBecomeFirstResponder {
+- (BOOL)canBecomeFirstResponder
+{
     return YES;
 }
 
@@ -189,7 +155,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _objects.count;
+    return self.workouts.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -200,9 +166,9 @@
         cell.delegate = self;
     }
     
-    NPWorkout *workout = _objects[indexPath.row];
+    NPWorkout *workout = self.workouts[indexPath.row];
     [cell.titleLabel setText:workout.title];
-    [cell.subtitleLabel setText:[dateFormatter stringFromDate:workout.date]];
+    [cell.subtitleLabel setText:[self.dateFormatter stringFromDate:workout.date]];
     
     if ([workout.details stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
         [cell.detailsLabel setHidden:YES];
@@ -267,7 +233,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NPWorkout *workout = _objects[indexPath.row];
+    NPWorkout *workout = self.workouts[indexPath.row];
     
     if ([workout.details stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) return 387;
     
@@ -282,24 +248,28 @@
 
 #pragma mark - NPWorkoutCell Delegate
 
-- (void)showMapWithWorkout:(NPWorkout *)workout {
-    selectedWorkout = workout;
+- (void)showMapWithWorkout:(NPWorkout *)workout
+{
+    self.selectedWorkout = workout;
     [self performSegueWithIdentifier:@"ViewMapSegue" sender:self];
 }
 
-- (void)showResultsWithWorkout:(NPWorkout *)workout {
-    selectedWorkout = workout;
+- (void)showResultsWithWorkout:(NPWorkout *)workout
+{
+    self.selectedWorkout = workout;
     [self performSegueWithIdentifier:@"ViewResultsSegue" sender:self];
 }
 
-- (void)showVerbalsWithWorkout:(NPWorkout *)workout {
-    selectedWorkout = workout;
+- (void)showVerbalsWithWorkout:(NPWorkout *)workout
+{
+    self.selectedWorkout = workout;
     [self performSegueWithIdentifier:@"ViewVerbalsSegue" sender:self];
 }
 
-- (void)submitResultsWithIndexPath:(NSIndexPath *)indexPath {
-    selectedWorkout = [_objects objectAtIndex:indexPath.row];
-    selectedIndexPath = indexPath;
+- (void)submitResultsWithIndexPath:(NSIndexPath *)indexPath
+{
+    self.selectedWorkout = self.workouts[indexPath.row];
+    self.selectedIndexPath = indexPath;
     [self performSegueWithIdentifier:@"SubmitResultsSegue" sender:self];
 }
 
@@ -307,26 +277,28 @@
 
 - (void)resultsSaved
 {
-    [[(NPWorkoutCell *)[self.tableView cellForRowAtIndexPath:selectedIndexPath] resultsButton] setTitleColor:[UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1] forState:UIControlStateNormal];
+    [[(NPWorkoutCell *)[self.tableView cellForRowAtIndexPath:self.selectedIndexPath] resultsButton] setTitleColor:[UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1] forState:UIControlStateNormal];
     
     [self getWorkouts];
 }
+
+#pragma mark - Overridden methods
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"SubmitResultsSegue"]) {
         NPSubmitResultsViewController *view = [segue destinationViewController];
-        view.workout = selectedWorkout;
+        view.workout = self.selectedWorkout;
         view.delegate = self;
     } else if ([[segue identifier] isEqualToString:@"ViewResultsSegue"]) {
         NPResultsViewController *view = [segue destinationViewController];
-        view.workout = selectedWorkout;
+        view.workout = self.selectedWorkout;
     } else if ([[segue identifier] isEqualToString:@"ViewVerbalsSegue"]) {
         NPVerbalViewController *view = [segue destinationViewController];
-        view.workout = selectedWorkout;
+        view.workout = self.selectedWorkout;
     } else if ([[segue identifier] isEqualToString:@"ViewMapSegue"]) {
         NPMapViewController *view = [segue destinationViewController];
-        view.workout = selectedWorkout;
+        view.workout = self.selectedWorkout;
     } else if ([[segue identifier] isEqualToString:@"LoginViewSegue"]) {
         NPLoginViewController *view = [segue destinationViewController];
         view.delegate = self;

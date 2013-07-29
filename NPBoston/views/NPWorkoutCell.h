@@ -6,13 +6,11 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
-#import "NPWorkout.h"
+@class NPWorkout;
+@class MKMapView;
 
 @protocol NPWorkoutCellDelegate <NSObject>
 
-//- (void)showDetailsWithWorkout:(NPWorkout *)workout;
 - (void)showVerbalsWithWorkout:(NPWorkout *)workout;
 - (void)showMapWithWorkout:(NPWorkout *)workout;
 - (void)showResultsWithWorkout:(NPWorkout *)workout;

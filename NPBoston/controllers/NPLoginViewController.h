@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
-#import "NPUser.h"
+
+@class NPUser;
 
 @protocol NPLoginViewDelegate <NSObject>
 

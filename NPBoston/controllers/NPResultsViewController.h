@@ -6,8 +6,7 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "NPWorkout.h"
+@class NPWorkout;
 
 @interface NPResultsViewController : UITableViewController
 

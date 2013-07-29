@@ -21,7 +21,4 @@
 + (NPResult *)resultWithObject:(id)object;
 - (id)initWithObject:(id)object;
 
-+ (NSString *)timeToString:(NSNumber *)timeObj;
-+ (NSNumber *)stringToTime:(NSString *)timeStr;
-
 @end
