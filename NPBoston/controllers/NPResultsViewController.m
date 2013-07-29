@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
+#import <FacebookSDK/FacebookSDK.h>
+
 #import "NPResultsViewController.h"
 #import "SVProgressHUD.h"
 #import "NPAPIClient.h"

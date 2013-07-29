@@ -16,6 +16,7 @@
 #import "SVProgressHUD.h"
 #import "WCAlertView.h"
 #import "NPUtils.h"
+#import "LUKeychainAccess.h"
 
 @interface NPSimpleResultsViewController ()
 
@@ -33,12 +34,10 @@
 {
     [super viewDidLoad];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if (![defaults objectForKey:@"user"]) {
+    if (![[LUKeychainAccess standardKeychainAccess] objectForKey:@"user"]) {
         [self performSegueWithIdentifier:@"LoginViewSegue" sender:self];
     } else {
-        self.user = (NPUser *)[NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:@"user"]];
+        self.user = (NPUser *)[NSKeyedUnarchiver unarchiveObjectWithData:[[LUKeychainAccess standardKeychainAccess] objectForKey:@"user"]];
     }
     
     self.workouts = [[NSMutableArray alloc] init];
@@ -68,9 +67,7 @@
 - (void)userLoggedIn:(NPUser *)u
 {
     self.user = u;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:self.user] forKey:@"user"];
-    [defaults synchronize];
+    [[LUKeychainAccess standardKeychainAccess] setObject:[NSKeyedArchiver archivedDataWithRootObject:self.user] forKey:@"user"];
     
     [[Mixpanel sharedInstance] identify:self.user.objectId];
     [[[Mixpanel sharedInstance] people] set:@"$name" to:self.user.name];

@@ -7,6 +7,7 @@
 //
 
 #import "NPAPIClient.h"
+#import "LUKeychainAccess.h"
 
 static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/api/v1/";
 
@@ -30,9 +31,9 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     [self setDefaultHeader:@"Accept" value:@"application/json"];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults objectForKey:@"token"]) {
-        self.token = [defaults objectForKey:@"token"];
+    NSString *token = [[LUKeychainAccess standardKeychainAccess] stringForKey:@"token"];
+    if (token) {
+        self.token = token;
     }
     
     return self;
@@ -52,9 +53,7 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
 
 - (void)setToken:(NSString *)token {
     _token = token;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:token forKey:@"token"];
-    [defaults synchronize];
+    [[LUKeychainAccess standardKeychainAccess] setString:token forKey:@"token"];
 }
 
 @end
