@@ -7,6 +7,7 @@
 //
 
 #import "NPResult.h"
+#import "NPUtils.h"
 
 @implementation NPResult
 
@@ -27,7 +28,7 @@
     _type = [object valueForKey:@"type"];
     
     if ([[object valueForKey:@"time"] isKindOfClass:[NSString class]]) {
-        _time = [NPResult stringToTime:[object valueForKey:@"time"]];
+        _time = [NPUtils stringToTime:[object valueForKey:@"time"]];
     } else {
         _time = [object valueForKey:@"time"];
     }

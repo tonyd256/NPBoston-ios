@@ -111,8 +111,8 @@
 		EAAC397B171F793700EE670B /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		EAAC397C171F793700EE670B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		EAAC397D171F793700EE670B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		EAAC397E171F793700EE670B /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
-		EAAC397F171F793700EE670B /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
+		EAAC397E171F793700EE670B /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = text; path = iTunesArtwork; sourceTree = "<group>"; };
+		EAAC397F171F793700EE670B /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = text; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		EAAC398D171FA0F300EE670B /* login-button-small-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small-pressed.png"; path = "../../../../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle/FBLoginView/images/login-button-small-pressed.png"; sourceTree = "<group>"; };
 		EAAC398E171FA0F300EE670B /* login-button-small-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small-pressed@2x.png"; path = "../../../../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle/FBLoginView/images/login-button-small-pressed@2x.png"; sourceTree = "<group>"; };
 		EAAC398F171FA0F300EE670B /* login-button-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small.png"; path = "../../../../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle/FBLoginView/images/login-button-small.png"; sourceTree = "<group>"; };
@@ -210,7 +210,7 @@
 		EAAC392E171F6B1400EE670B = {
 			isa = PBXGroup;
 			children = (
-				EAAC3940171F6B1400EE670B /* NPBoston */,
+				EAAC3940171F6B1400EE670B /* NovProject */,
 				EAAC3939171F6B1400EE670B /* Frameworks */,
 				EAAC3938171F6B1400EE670B /* Products */,
 				D3F14BBF2F2B4DA88492C440 /* Pods.xcconfig */,
@@ -250,7 +250,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		EAAC3940171F6B1400EE670B /* NPBoston */ = {
+		EAAC3940171F6B1400EE670B /* NovProject */ = {
 			isa = PBXGroup;
 			children = (
 				EAD314CE17A5E28B00F59885 /* controllers */,
@@ -265,7 +265,8 @@
 				EAD314C4179F04AD00F59885 /* Simple Flow */,
 				EAAC3941171F6B1400EE670B /* Supporting Files */,
 			);
-			path = NPBoston;
+			name = NovProject;
+			path = NovProject;
 			sourceTree = "<group>";
 		};
 		EAAC3941171F6B1400EE670B /* Supporting Files */ = {
@@ -425,7 +426,7 @@
 			dependencies = (
 			);
 			name = NovProject;
-			productName = NPBoston;
+			productName = NovProject;
 			productReference = EAAC3937171F6B1400EE670B /* NovProject.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -684,8 +685,8 @@
 					"\"$(SRCROOT)/../../../../Documents/FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NPBoston/NovProject-Prefix.pch";
-				INFOPLIST_FILE = "NPBoston/NovProject-Info.plist";
+				GCC_PREFIX_HEADER = "NovProject/NovProject-Prefix.pch";
+				INFOPLIST_FILE = "NovProject/NovProject-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -714,8 +715,8 @@
 					"\"$(SRCROOT)/../../../../Documents/FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NPBoston/NovProject-Prefix.pch";
-				INFOPLIST_FILE = "NPBoston/NovProject-Info.plist";
+				GCC_PREFIX_HEADER = "NovProject/NovProject-Prefix.pch";
+				INFOPLIST_FILE = "NovProject/NovProject-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
