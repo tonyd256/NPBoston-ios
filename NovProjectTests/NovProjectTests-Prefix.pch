@@ -1,0 +1,10 @@
+//
+// Prefix header for all source files of the 'NovProjectTests' target in the 'NovProjectTests' project
+//
+#import "NovProject-Prefix.pch"
+
+#ifdef __OBJC__
+    #define EXP_SHORTHAND
+    #import "Specta.h"
+    #import "Expecta.h"
+#endif
