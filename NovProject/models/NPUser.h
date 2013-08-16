@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
-@interface NPUser : NSObject <NSCoding>
+@interface NPUser : NSObject
 
 @property (strong, nonatomic) NSString *objectId;
 @property (strong, nonatomic) NSString *name;

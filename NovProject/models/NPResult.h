@@ -10,8 +10,9 @@
 
 @property (strong, nonatomic) NSString *objectId;
 @property (strong, nonatomic) NSString *uid;
-@property (strong, nonatomic) NSString *userName;
+@property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *wid;
+@property (strong, nonatomic) NSString *fid;
 @property (strong, nonatomic) NSString *type;
 @property (strong, nonatomic) NSNumber *time;
 @property (strong, nonatomic) NSNumber *amount;

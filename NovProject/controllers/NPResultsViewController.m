@@ -89,7 +89,7 @@
     NPResult *result = [self.results objectAtIndex:indexPath.row];
     
     cell.pictureView.profileID = result.uid;
-    cell.nameLabel.text = result.userName;
+    cell.nameLabel.text = result.name;
     
     NSString *str = @"";
     

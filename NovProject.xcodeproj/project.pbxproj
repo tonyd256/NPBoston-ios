@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		4308F302F1CE4A5EAE6C1C82 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E2797ACF3644A6492826340 /* libPods.a */; };
+		BDBE82B2876A458FBDAB9402 /* libPods-NovProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 578D740C29E44739B0E3F3CE /* libPods-NovProjectTests.a */; };
+		EA50386717BBD8DB003DBBAE /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA50386617BBD8DB003DBBAE /* SenTestingKit.framework */; };
+		EA50386817BBD8DB003DBBAE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAC393A171F6B1400EE670B /* UIKit.framework */; };
+		EA50386917BBD8DB003DBBAE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAC393C171F6B1400EE670B /* Foundation.framework */; };
+		EA50386F17BBD8DB003DBBAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA50386D17BBD8DB003DBBAE /* InfoPlist.strings */; };
+		EA50387817BBDD37003DBBAE /* NPUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EA50387717BBDD37003DBBAE /* NPUserSpec.m */; };
 		EA8DBBA21734A39C002DD7CC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8DBBA11734A39C002DD7CC /* Security.framework */; };
 		EA8DBBA61734A6D6002DD7CC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8DBBA51734A6D6002DD7CC /* FacebookSDK.framework */; };
 		EA8DBBA81734A6EC002DD7CC /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA8DBBA71734A6EC002DD7CC /* FacebookSDKResources.bundle */; };
@@ -42,6 +48,14 @@
 		EAAC399C17217AA900EE670B /* tablecell_background.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC399A17217AA900EE670B /* tablecell_background.png */; };
 		EAAC399D17217AA900EE670B /* tablecell_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC399B17217AA900EE670B /* tablecell_background@2x.png */; };
 		EAB670D71728E60800342AA1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB670D61728E60800342AA1 /* QuartzCore.framework */; };
+		EAC72E6417BBFE82007E6F0E /* NPWorkoutSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E6317BBFE82007E6F0E /* NPWorkoutSpec.m */; };
+		EAC72E6A17BC09AA007E6F0E /* NPWorkout+Fixture.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E6917BC09AA007E6F0E /* NPWorkout+Fixture.m */; };
+		EAC72E6D17BC0A62007E6F0E /* NPUser+Fixture.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E6C17BC0A62007E6F0E /* NPUser+Fixture.m */; };
+		EAC72E7017BC0A74007E6F0E /* NPVerbal+Fixture.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E6F17BC0A74007E6F0E /* NPVerbal+Fixture.m */; };
+		EAC72E7317BC0A83007E6F0E /* NPResult+Fixture.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7217BC0A83007E6F0E /* NPResult+Fixture.m */; };
+		EAC72E7517BC1592007E6F0E /* NPResultSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7417BC1592007E6F0E /* NPResultSpec.m */; };
+		EAC72E7717BC165D007E6F0E /* NPVerbalSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7617BC165D007E6F0E /* NPVerbalSpec.m */; };
+		EAC72E7917BC16B7007E6F0E /* NPUtilsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7817BC16B7007E6F0E /* NPUtilsSpec.m */; };
 		EAD314C7179F050800F59885 /* NPSimpleResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */; };
 		EAD314CA179F0CDF00F59885 /* NPSimpleResultsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */; };
 		EAD314F917A5E28C00F59885 /* NPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D017A5E28B00F59885 /* NPLoginViewController.m */; };
@@ -81,8 +95,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		578D740C29E44739B0E3F3CE /* libPods-NovProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NovProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		59CD237BCEF04942BDB030E2 /* libPods-NovProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NovProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BEB75C6E8B045F7B9E5EEF8 /* Pods-NovProjectTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NovProjectTests.xcconfig"; path = "Pods/Pods-NovProjectTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 		5E2797ACF3644A6492826340 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F14BBF2F2B4DA88492C440 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		EA50386517BBD8DB003DBBAE /* NovProjectTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NovProjectTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA50386617BBD8DB003DBBAE /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		EA50386C17BBD8DB003DBBAE /* NovProjectTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NovProjectTests-Info.plist"; sourceTree = "<group>"; };
+		EA50386E17BBD8DB003DBBAE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EA50387317BBD8DB003DBBAE /* NovProjectTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NovProjectTests-Prefix.pch"; sourceTree = "<group>"; };
+		EA50387717BBDD37003DBBAE /* NPUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPUserSpec.m; sourceTree = "<group>"; };
 		EA8DBBA11734A39C002DD7CC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		EA8DBBA51734A6D6002DD7CC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		EA8DBBA71734A6EC002DD7CC /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = ../../../../Documents/FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle; sourceTree = "<group>"; };
@@ -121,6 +144,19 @@
 		EAAC399A17217AA900EE670B /* tablecell_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tablecell_background.png; sourceTree = "<group>"; };
 		EAAC399B17217AA900EE670B /* tablecell_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tablecell_background@2x.png"; sourceTree = "<group>"; };
 		EAB670D61728E60800342AA1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		EAC72E6317BBFE82007E6F0E /* NPWorkoutSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPWorkoutSpec.m; sourceTree = "<group>"; };
+		EAC72E6817BC09AA007E6F0E /* NPWorkout+Fixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NPWorkout+Fixture.h"; sourceTree = "<group>"; };
+		EAC72E6917BC09AA007E6F0E /* NPWorkout+Fixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NPWorkout+Fixture.m"; sourceTree = "<group>"; };
+		EAC72E6B17BC0A62007E6F0E /* NPUser+Fixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NPUser+Fixture.h"; sourceTree = "<group>"; };
+		EAC72E6C17BC0A62007E6F0E /* NPUser+Fixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NPUser+Fixture.m"; sourceTree = "<group>"; };
+		EAC72E6E17BC0A74007E6F0E /* NPVerbal+Fixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NPVerbal+Fixture.h"; sourceTree = "<group>"; };
+		EAC72E6F17BC0A74007E6F0E /* NPVerbal+Fixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NPVerbal+Fixture.m"; sourceTree = "<group>"; };
+		EAC72E7117BC0A83007E6F0E /* NPResult+Fixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NPResult+Fixture.h"; sourceTree = "<group>"; };
+		EAC72E7217BC0A83007E6F0E /* NPResult+Fixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NPResult+Fixture.m"; sourceTree = "<group>"; };
+		EAC72E7417BC1592007E6F0E /* NPResultSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPResultSpec.m; sourceTree = "<group>"; };
+		EAC72E7617BC165D007E6F0E /* NPVerbalSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPVerbalSpec.m; sourceTree = "<group>"; };
+		EAC72E7817BC16B7007E6F0E /* NPUtilsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPUtilsSpec.m; sourceTree = "<group>"; };
+		EAC72E7A17BE7B4A007E6F0E /* NPFixtureProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NPFixtureProtocol.h; sourceTree = "<group>"; };
 		EAD314C5179F050800F59885 /* NPSimpleResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsViewController.h; path = simple/NPSimpleResultsViewController.h; sourceTree = "<group>"; };
 		EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPSimpleResultsViewController.m; path = simple/NPSimpleResultsViewController.m; sourceTree = "<group>"; };
 		EAD314C8179F0CDF00F59885 /* NPSimpleResultsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsCell.h; path = simple/NPSimpleResultsCell.h; sourceTree = "<group>"; };
@@ -180,6 +216,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		EA50386117BBD8DB003DBBAE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA50386717BBD8DB003DBBAE /* SenTestingKit.framework in Frameworks */,
+				EA50386817BBD8DB003DBBAE /* UIKit.framework in Frameworks */,
+				EA50386917BBD8DB003DBBAE /* Foundation.framework in Frameworks */,
+				BDBE82B2876A458FBDAB9402 /* libPods-NovProjectTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EAAC3934171F6B1400EE670B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -207,13 +254,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA50386A17BBD8DB003DBBAE /* NovProjectTests */ = {
+			isa = PBXGroup;
+			children = (
+				EAC72E6717BC096E007E6F0E /* Fixtures */,
+				EAC72E6517BC08BE007E6F0E /* Tests */,
+				EA50386B17BBD8DB003DBBAE /* Supporting Files */,
+			);
+			path = NovProjectTests;
+			sourceTree = "<group>";
+		};
+		EA50386B17BBD8DB003DBBAE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EA50386C17BBD8DB003DBBAE /* NovProjectTests-Info.plist */,
+				EA50386D17BBD8DB003DBBAE /* InfoPlist.strings */,
+				EA50387317BBD8DB003DBBAE /* NovProjectTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		EAAC392E171F6B1400EE670B = {
 			isa = PBXGroup;
 			children = (
 				EAAC3940171F6B1400EE670B /* NovProject */,
+				EA50386A17BBD8DB003DBBAE /* NovProjectTests */,
 				EAAC3939171F6B1400EE670B /* Frameworks */,
 				EAAC3938171F6B1400EE670B /* Products */,
 				D3F14BBF2F2B4DA88492C440 /* Pods.xcconfig */,
+				5BEB75C6E8B045F7B9E5EEF8 /* Pods-NovProjectTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -221,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				EAAC3937171F6B1400EE670B /* NovProject.app */,
+				EA50386517BBD8DB003DBBAE /* NovProjectTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -246,6 +316,9 @@
 				EAAC393C171F6B1400EE670B /* Foundation.framework */,
 				EAAC393E171F6B1400EE670B /* CoreGraphics.framework */,
 				5E2797ACF3644A6492826340 /* libPods.a */,
+				EA50386617BBD8DB003DBBAE /* SenTestingKit.framework */,
+				59CD237BCEF04942BDB030E2 /* libPods-NovProject.a */,
+				578D740C29E44739B0E3F3CE /* libPods-NovProjectTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -265,7 +338,6 @@
 				EAD314C4179F04AD00F59885 /* Simple Flow */,
 				EAAC3941171F6B1400EE670B /* Supporting Files */,
 			);
-			name = NovProject;
 			path = NovProject;
 			sourceTree = "<group>";
 		};
@@ -313,6 +385,42 @@
 				EAAC397F171F793700EE670B /* iTunesArtwork@2x */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		EAC72E6517BC08BE007E6F0E /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				EAC72E6617BC0928007E6F0E /* Models */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		EAC72E6617BC0928007E6F0E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EA50387717BBDD37003DBBAE /* NPUserSpec.m */,
+				EAC72E6317BBFE82007E6F0E /* NPWorkoutSpec.m */,
+				EAC72E7417BC1592007E6F0E /* NPResultSpec.m */,
+				EAC72E7617BC165D007E6F0E /* NPVerbalSpec.m */,
+				EAC72E7817BC16B7007E6F0E /* NPUtilsSpec.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EAC72E6717BC096E007E6F0E /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				EAC72E6817BC09AA007E6F0E /* NPWorkout+Fixture.h */,
+				EAC72E6917BC09AA007E6F0E /* NPWorkout+Fixture.m */,
+				EAC72E6B17BC0A62007E6F0E /* NPUser+Fixture.h */,
+				EAC72E6C17BC0A62007E6F0E /* NPUser+Fixture.m */,
+				EAC72E6E17BC0A74007E6F0E /* NPVerbal+Fixture.h */,
+				EAC72E6F17BC0A74007E6F0E /* NPVerbal+Fixture.m */,
+				EAC72E7117BC0A83007E6F0E /* NPResult+Fixture.h */,
+				EAC72E7217BC0A83007E6F0E /* NPResult+Fixture.m */,
+				EAC72E7A17BE7B4A007E6F0E /* NPFixtureProtocol.h */,
+			);
+			path = Fixtures;
 			sourceTree = "<group>";
 		};
 		EAD314C4179F04AD00F59885 /* Simple Flow */ = {
@@ -409,16 +517,34 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		EA50386417BBD8DB003DBBAE /* NovProjectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA50387617BBD8DB003DBBAE /* Build configuration list for PBXNativeTarget "NovProjectTests" */;
+			buildPhases = (
+				05C9A2E25C44488D92483122 /* Check Pods Manifest.lock */,
+				EA50386017BBD8DB003DBBAE /* Sources */,
+				EA50386117BBD8DB003DBBAE /* Frameworks */,
+				EA50386217BBD8DB003DBBAE /* Resources */,
+				EA50386317BBD8DB003DBBAE /* ShellScript */,
+				49969DFFCA5F4B64BB78BCD5 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NovProjectTests;
+			productName = NovProjectTests;
+			productReference = EA50386517BBD8DB003DBBAE /* NovProjectTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		EAAC3936171F6B1400EE670B /* NovProject */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EAAC395D171F6B1400EE670B /* Build configuration list for PBXNativeTarget "NovProject" */;
 			buildPhases = (
-				706E63567EC048EE9758F1F3 /* Check Pods Manifest.lock */,
 				D154088BA918490288C5383F /* Check Pods Manifest.lock */,
 				EAAC3933171F6B1400EE670B /* Sources */,
 				EAAC3934171F6B1400EE670B /* Frameworks */,
 				EAAC3935171F6B1400EE670B /* Resources */,
-				528E0A11FE8444C7815743EE /* Copy Pods Resources */,
 				9A2710ADC6D646ACA6DD41FA /* Copy Pods Resources */,
 			);
 			buildRules = (
@@ -453,11 +579,20 @@
 			projectRoot = "";
 			targets = (
 				EAAC3936171F6B1400EE670B /* NovProject */,
+				EA50386417BBD8DB003DBBAE /* NovProjectTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		EA50386217BBD8DB003DBBAE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA50386F17BBD8DB003DBBAE /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EAAC3935171F6B1400EE670B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -500,21 +635,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		528E0A11FE8444C7815743EE /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
-		};
-		706E63567EC048EE9758F1F3 /* Check Pods Manifest.lock */ = {
+		05C9A2E25C44488D92483122 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -526,7 +647,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sanbox is not in sync with the Podfile.lock. Run 'pod install'.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		49969DFFCA5F4B64BB78BCD5 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-NovProjectTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		9A2710ADC6D646ACA6DD41FA /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -556,9 +693,38 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sanbox is not in sync with the Podfile.lock. Run 'pod install'.\nEOM\n    exit 1\nfi\n";
 		};
+		EA50386317BBD8DB003DBBAE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		EA50386017BBD8DB003DBBAE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA50387817BBDD37003DBBAE /* NPUserSpec.m in Sources */,
+				EAC72E6417BBFE82007E6F0E /* NPWorkoutSpec.m in Sources */,
+				EAC72E6A17BC09AA007E6F0E /* NPWorkout+Fixture.m in Sources */,
+				EAC72E6D17BC0A62007E6F0E /* NPUser+Fixture.m in Sources */,
+				EAC72E7017BC0A74007E6F0E /* NPVerbal+Fixture.m in Sources */,
+				EAC72E7317BC0A83007E6F0E /* NPResult+Fixture.m in Sources */,
+				EAC72E7517BC1592007E6F0E /* NPResultSpec.m in Sources */,
+				EAC72E7717BC165D007E6F0E /* NPVerbalSpec.m in Sources */,
+				EAC72E7917BC16B7007E6F0E /* NPUtilsSpec.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EAAC3933171F6B1400EE670B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -591,6 +757,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		EA50386D17BBD8DB003DBBAE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA50386E17BBD8DB003DBBAE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		EAAC3943171F6B1400EE670B /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -618,6 +792,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		EA50387417BBD8DB003DBBAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BEB75C6E8B045F7B9E5EEF8 /* Pods-NovProjectTests.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NovProject.app/NovProject";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NovProjectTests/NovProjectTests-Prefix.pch";
+				INFOPLIST_FILE = "NovProjectTests/NovProjectTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		EA50387517BBD8DB003DBBAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BEB75C6E8B045F7B9E5EEF8 /* Pods-NovProjectTests.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NovProject.app/NovProject";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NovProjectTests/NovProjectTests-Prefix.pch";
+				INFOPLIST_FILE = "NovProjectTests/NovProjectTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 		EAAC395B171F6B1400EE670B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -694,7 +898,7 @@
 				);
 				OTHER_LDFLAGS = (
 					"-lsqlite3.0",
-					"-ObjC",
+					"$(inherited)",
 				);
 				PRODUCT_NAME = NovProject;
 				PROVISIONING_PROFILE = "";
@@ -724,7 +928,7 @@
 				);
 				OTHER_LDFLAGS = (
 					"-lsqlite3.0",
-					"-ObjC",
+					"$(inherited)",
 				);
 				PRODUCT_NAME = NovProject;
 				PROVISIONING_PROFILE = "";
@@ -737,6 +941,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		EA50387617BBD8DB003DBBAE /* Build configuration list for PBXNativeTarget "NovProjectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA50387417BBD8DB003DBBAE /* Debug */,
+				EA50387517BBD8DB003DBBAE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		EAAC3932171F6B1400EE670B /* Build configuration list for PBXProject "NovProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -33,9 +33,9 @@
     self.cellView.layer.mask = maskLayer;
     
     self.actionsView.layer.borderColor = [UIColor colorWithRed:(170/255.0) green:(170/255.0) blue:(170/255.0) alpha:1].CGColor;
-    self.actionsView.layer.borderWidth = 0.5;
+    self.actionsView.layer.borderWidth = 1;
     self.locationMap.layer.borderColor = [UIColor colorWithRed:(170/255.0) green:(170/255.0) blue:(170/255.0) alpha:1].CGColor;
-    self.locationMap.layer.borderWidth = 0.5;
+    self.locationMap.layer.borderWidth = 1;
     
     UITapGestureRecognizer *tapMap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapped:)];
     tapMap.numberOfTapsRequired = 1;

@@ -20,12 +20,20 @@
     self = [super init];
     if (!self) return nil;
     
-    id user = [object valueForKey:@"uid"];
     _objectId = [object valueForKey:@"_id"];
-    _uid = [user valueForKey:@"_id"];
     _wid = [object valueForKey:@"wid"];
-    _fid = [user valueForKey:@"fid"];
-    _name = [user valueForKey:@"name"];
+
+    id user = [object valueForKey:@"uid"];
+    
+    if ([user isKindOfClass:[NSString class]]) {
+        _uid = user;
+        _fid = nil;
+        _name = @"";
+    } else {
+        _uid = [user valueForKey:@"_id"];
+        _fid = [user valueForKey:@"fid"];
+        _name = [user valueForKey:@"name"];
+    }
     
     return self;
 }

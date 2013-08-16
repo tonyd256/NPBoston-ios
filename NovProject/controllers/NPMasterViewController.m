@@ -45,28 +45,19 @@
         self.user = (NPUser *)[NSKeyedUnarchiver unarchiveObjectWithData:[[LUKeychainAccess standardKeychainAccess] objectForKey:@"user"]];
     }
     
-    [[Mixpanel sharedInstance] track:@"master view loaded"];
-    
-    [[Mixpanel sharedInstance] track:@"workout types request attempted"];
-    [[NPAPIClient sharedClient] getPath:@"workout_types" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *types = [responseObject objectForKey:@"data"];
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:types forKey:@"types"];
-        [defaults synchronize];
-        [[Mixpanel sharedInstance] track:@"workout types request succeeded"];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [NPUtils reportError:error WithMessage:@"workout types request failed" FromOperation:(AFJSONRequestOperation *)operation];
-    }];
-    
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateFormat:@"E - MMM dd, yyyy - hh:mma"];
     [self.dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
     
     self.workouts = [[NSMutableArray alloc] init];
     
+    [self getWorkoutTypes];
+    
     if (self.user) {
         [self getWorkouts];
     }
+    
+    [[Mixpanel sharedInstance] track:@"master view loaded"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -121,6 +112,20 @@
     }];
 }
 
+- (void)getWorkoutTypes
+{
+    [[Mixpanel sharedInstance] track:@"workout types request attempted"];
+    [[NPAPIClient sharedClient] getPath:@"workout_types" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *types = [responseObject objectForKey:@"data"];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:types forKey:@"types"];
+        [defaults synchronize];
+        [[Mixpanel sharedInstance] track:@"workout types request succeeded"];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [NPUtils reportError:error WithMessage:@"workout types request failed" FromOperation:(AFJSONRequestOperation *)operation];
+    }];
+}
+
 #pragma mark - Handle shake
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
@@ -170,7 +175,7 @@
     if ([workout.details stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
         [cell.detailsLabel setHidden:YES];
         
-        [cell.cellView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(6)-[titleLabel]-(2)-[subtitleLabel]-(210)-(<=6)-[viewVerbalsButton][actionsView(==44)]|" options:0 metrics:nil views:@{@"titleLabel": cell.titleLabel, @"subtitleLabel": cell.subtitleLabel, @"actionsView": cell.actionsView, @"viewVerbalsButton": cell.viewVerbalsButton}]];
+        [cell.cellView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(6)-[titleLabel]-(2)-[subtitleLabel]-(216)-[viewVerbalsButton][actionsView(==44)]|" options:0 metrics:nil views:@{@"titleLabel": cell.titleLabel, @"subtitleLabel": cell.subtitleLabel, @"actionsView": cell.actionsView, @"viewVerbalsButton": cell.viewVerbalsButton}]];
     } else {
         [cell.detailsLabel setHidden:NO];
         [cell.detailsLabel setText:workout.details];

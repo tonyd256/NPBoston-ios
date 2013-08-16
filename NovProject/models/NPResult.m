@@ -22,10 +22,20 @@
     if (!self) return nil;
     
     _objectId = [object valueForKey:@"_id"];
-    _uid = [object valueForKey:@"uid"];
-    _userName = [object valueForKey:@"userName"];
     _wid = [object valueForKey:@"wid"];
     _type = [object valueForKey:@"type"];
+    
+    id user = [object valueForKey:@"uid"];
+    
+    if ([user isKindOfClass:[NSString class]]) {
+        _uid = user;
+        _name = @"";
+        _fid = nil;
+    } else {
+        _uid = [user valueForKey:@"_id"];
+        _name = [user valueForKey:@"name"];
+        _fid = [user valueForKey:@"fid"];
+    }
     
     if ([[object valueForKey:@"time"] isKindOfClass:[NSString class]]) {
         _time = [NPUtils stringToTime:[object valueForKey:@"time"]];

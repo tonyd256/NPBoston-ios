@@ -151,7 +151,7 @@
     NPWorkout *wk = [self.workouts objectAtIndex:indexPath.section];
     NPResult *result = (NPResult *)[[self.results objectForKey:wk.objectId] objectAtIndex:indexPath.row];
     
-    [cell.nameLabel setText:result.userName];
+    [cell.nameLabel setText:result.name];
     [cell.amountLabel setText:[result.amount stringValue]];
     [cell.timeLabel setText:[NPUtils timeToString:result.time]];
     
