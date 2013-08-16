@@ -7,10 +7,10 @@
 //
 
 #import "NPWorkout.h"
+#import "NPFixtureProtocol.h"
 
-@interface NPWorkout (Fixture)
+@interface NPWorkout (Fixture) <NPFixtureProtocol>
 
-+ (NSDictionary *)jsonFixture;
-+ (NSDictionary *)typeJSONFixture;
++ (NSDictionary *)workoutTypeJSONFixture;
 
 @end

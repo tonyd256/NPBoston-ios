@@ -7,10 +7,8 @@
 //
 
 #import "NPResult.h"
+#import "NPFixtureProtocol.h"
 
-@interface NPResult (Fixture)
-
-+ (NSDictionary *)simpleJSONFixture;
-+ (NSDictionary *)fullJSONFixture;
+@interface NPResult (Fixture) <NPFixtureProtocol>
 
 @end

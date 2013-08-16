@@ -7,10 +7,8 @@
 //
 
 #import "NPVerbal.h"
+#import "NPFixtureProtocol.h"
 
-@interface NPVerbal (Fixture)
-
-+ (NSDictionary *)simpleJSONFixture;
-+ (NSDictionary *)fullJSONFixture;
+@interface NPVerbal (Fixture) <NPFixtureProtocol>
 
 @end

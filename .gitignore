@@ -19,3 +19,4 @@ Pods/
 *.ipa
 *.lock
 NovProject/en.lproj/private.plist
+*.xccheckout

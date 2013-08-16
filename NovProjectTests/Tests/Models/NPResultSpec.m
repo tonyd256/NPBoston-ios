@@ -3,22 +3,15 @@
 SpecBegin(NPResult)
 
 describe(@"NPResult model", ^{
-    __block NSDictionary *simpleResultJSON;
-    __block NSDictionary *fullResultJSON;
+    __block NSDictionary *resultJSON;
     
     beforeAll(^{
-        simpleResultJSON = [NPResult simpleJSONFixture];
-        fullResultJSON = [NPResult fullJSONFixture];
+        resultJSON = [NPResult jsonFixture];
     });
     
-    it(@"should create result model from simple JSON data", ^{
-        NPResult *result = [NPResult resultWithObject:simpleResultJSON];
-        expect(result.objectId).to.equal([simpleResultJSON valueForKey:@"_id"]);
-    });
-    
-    it(@"should create result model from full JSON data", ^{
-        NPResult *result = [NPResult resultWithObject:fullResultJSON];
-        expect(result.objectId).to.equal([fullResultJSON valueForKey:@"_id"]);
+    it(@"should create result model from JSON data", ^{
+        NPResult *result = [NPResult resultWithObject:resultJSON];
+        expect(result.objectId).to.equal([resultJSON valueForKey:@"_id"]);
     });
 });
 

@@ -11,14 +11,7 @@
 
 @implementation NPVerbal (Fixture)
 
-+ (NSDictionary *)simpleJSONFixture
-{
-    return @{@"_id": @"345cde",
-             @"uid": @"1a2b3c",
-             @"wid": @"123abc"};
-}
-
-+ (NSDictionary *)fullJSONFixture
++ (NSDictionary *)jsonFixture
 {
     return @{@"_id": @"345cde",
              @"uid": [NPUser jsonFixture],

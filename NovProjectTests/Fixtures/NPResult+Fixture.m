@@ -12,26 +12,14 @@
 
 @implementation NPResult (Fixture)
 
-+ (NSDictionary *)simpleJSONFixture
++ (NSDictionary *)jsonFixture
 {
     return @{@"_id": @"234bcd",
              @"amount": @34,
              @"comment": @"Test Comment",
              @"pr": @"No",
              @"time": @3500,
-             @"type": @"520196a5d20f9a0000000003",
-             @"uid": @"1a2b3c",
-             @"wid": @"123abc"};
-}
-
-+ (NSDictionary *)fullJSONFixture
-{
-    return @{@"_id": @"234bcd",
-             @"amount": @34,
-             @"comment": @"Test Comment",
-             @"pr": @"No",
-             @"time": @3500,
-             @"type": [NPWorkout typeJSONFixture],
+             @"type": [NPWorkout workoutTypeJSONFixture],
              @"uid": [NPUser jsonFixture],
              @"wid": @"123abc"};
 }

@@ -26,12 +26,12 @@
              @"amount": @0,
              @"resultCount": @1,
              @"verbalCount": @1,
-             @"type": [NPWorkout typeJSONFixture],
-             @"results": @[[NPResult simpleJSONFixture]],
-             @"verbals": @[[NPVerbal simpleJSONFixture]]};
+             @"type": [NPWorkout workoutTypeJSONFixture],
+             @"results": @[[NPResult jsonFixture]],
+             @"verbals": @[[NPVerbal jsonFixture]]};
 }
 
-+ (NSDictionary *)typeJSONFixture
++ (NSDictionary *)workoutTypeJSONFixture
 {
     return @{@"_id": @"0987hdfd",
              @"type": @"Test Type"};

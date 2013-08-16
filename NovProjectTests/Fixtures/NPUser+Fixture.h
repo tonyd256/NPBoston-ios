@@ -7,9 +7,8 @@
 //
 
 #import "NPUser.h"
+#import "NPFixtureProtocol.h"
 
-@interface NPUser (Fixture)
-
-+ (NSDictionary *)jsonFixture;
+@interface NPUser (Fixture) <NPFixtureProtocol>
 
 @end

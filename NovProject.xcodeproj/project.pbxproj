@@ -156,6 +156,7 @@
 		EAC72E7417BC1592007E6F0E /* NPResultSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPResultSpec.m; sourceTree = "<group>"; };
 		EAC72E7617BC165D007E6F0E /* NPVerbalSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPVerbalSpec.m; sourceTree = "<group>"; };
 		EAC72E7817BC16B7007E6F0E /* NPUtilsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPUtilsSpec.m; sourceTree = "<group>"; };
+		EAC72E7A17BE7B4A007E6F0E /* NPFixtureProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NPFixtureProtocol.h; sourceTree = "<group>"; };
 		EAD314C5179F050800F59885 /* NPSimpleResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsViewController.h; path = simple/NPSimpleResultsViewController.h; sourceTree = "<group>"; };
 		EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPSimpleResultsViewController.m; path = simple/NPSimpleResultsViewController.m; sourceTree = "<group>"; };
 		EAD314C8179F0CDF00F59885 /* NPSimpleResultsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsCell.h; path = simple/NPSimpleResultsCell.h; sourceTree = "<group>"; };
@@ -417,6 +418,7 @@
 				EAC72E6F17BC0A74007E6F0E /* NPVerbal+Fixture.m */,
 				EAC72E7117BC0A83007E6F0E /* NPResult+Fixture.h */,
 				EAC72E7217BC0A83007E6F0E /* NPResult+Fixture.m */,
+				EAC72E7A17BE7B4A007E6F0E /* NPFixtureProtocol.h */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";

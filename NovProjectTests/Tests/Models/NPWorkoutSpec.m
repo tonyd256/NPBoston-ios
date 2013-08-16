@@ -7,7 +7,6 @@ describe(@"NPWorkout model", ^{
     
     beforeAll(^{
         workoutJSON = [NPWorkout jsonFixture];
-        
     });
     
     it(@"should create a workout model from JSON", ^{
