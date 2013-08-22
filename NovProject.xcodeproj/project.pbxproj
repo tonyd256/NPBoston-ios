@@ -56,6 +56,8 @@
 		EAC72E7517BC1592007E6F0E /* NPResultSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7417BC1592007E6F0E /* NPResultSpec.m */; };
 		EAC72E7717BC165D007E6F0E /* NPVerbalSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7617BC165D007E6F0E /* NPVerbalSpec.m */; };
 		EAC72E7917BC16B7007E6F0E /* NPUtilsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7817BC16B7007E6F0E /* NPUtilsSpec.m */; };
+		EAC72E7D17C28A32007E6F0E /* NPDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7C17C28A32007E6F0E /* NPDateFormatter.m */; };
+		EAC72E8017C29346007E6F0E /* NPDateFormatterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7F17C29346007E6F0E /* NPDateFormatterSpec.m */; };
 		EAD314C7179F050800F59885 /* NPSimpleResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */; };
 		EAD314CA179F0CDF00F59885 /* NPSimpleResultsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */; };
 		EAD314F917A5E28C00F59885 /* NPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D017A5E28B00F59885 /* NPLoginViewController.m */; };
@@ -157,6 +159,9 @@
 		EAC72E7617BC165D007E6F0E /* NPVerbalSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPVerbalSpec.m; sourceTree = "<group>"; };
 		EAC72E7817BC16B7007E6F0E /* NPUtilsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPUtilsSpec.m; sourceTree = "<group>"; };
 		EAC72E7A17BE7B4A007E6F0E /* NPFixtureProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NPFixtureProtocol.h; sourceTree = "<group>"; };
+		EAC72E7B17C28A32007E6F0E /* NPDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPDateFormatter.h; sourceTree = "<group>"; };
+		EAC72E7C17C28A32007E6F0E /* NPDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPDateFormatter.m; sourceTree = "<group>"; };
+		EAC72E7F17C29346007E6F0E /* NPDateFormatterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPDateFormatterSpec.m; path = Helpers/NPDateFormatterSpec.m; sourceTree = "<group>"; };
 		EAD314C5179F050800F59885 /* NPSimpleResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsViewController.h; path = simple/NPSimpleResultsViewController.h; sourceTree = "<group>"; };
 		EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPSimpleResultsViewController.m; path = simple/NPSimpleResultsViewController.m; sourceTree = "<group>"; };
 		EAD314C8179F0CDF00F59885 /* NPSimpleResultsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsCell.h; path = simple/NPSimpleResultsCell.h; sourceTree = "<group>"; };
@@ -390,6 +395,7 @@
 		EAC72E6517BC08BE007E6F0E /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				EAC72E7E17C29313007E6F0E /* Helpers */,
 				EAC72E6617BC0928007E6F0E /* Models */,
 			);
 			path = Tests;
@@ -421,6 +427,14 @@
 				EAC72E7A17BE7B4A007E6F0E /* NPFixtureProtocol.h */,
 			);
 			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		EAC72E7E17C29313007E6F0E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EAC72E7F17C29346007E6F0E /* NPDateFormatterSpec.m */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		EAD314C4179F04AD00F59885 /* Simple Flow */ = {
@@ -460,6 +474,8 @@
 				EAD314DD17A5E28C00F59885 /* NPAPIClient.m */,
 				EAD314DE17A5E28C00F59885 /* NPUtils.h */,
 				EAD314DF17A5E28C00F59885 /* NPUtils.m */,
+				EAC72E7B17C28A32007E6F0E /* NPDateFormatter.h */,
+				EAC72E7C17C28A32007E6F0E /* NPDateFormatter.m */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -722,6 +738,7 @@
 				EAC72E7517BC1592007E6F0E /* NPResultSpec.m in Sources */,
 				EAC72E7717BC165D007E6F0E /* NPVerbalSpec.m in Sources */,
 				EAC72E7917BC16B7007E6F0E /* NPUtilsSpec.m in Sources */,
+				EAC72E8017C29346007E6F0E /* NPDateFormatterSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -751,6 +768,7 @@
 				EAD3150917A5E28C00F59885 /* NPResultCell.m in Sources */,
 				EAD3150A17A5E28C00F59885 /* NPVerbalCell.m in Sources */,
 				EAD3150B17A5E28C00F59885 /* NPWorkoutCell.m in Sources */,
+				EAC72E7D17C28A32007E6F0E /* NPDateFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -799,6 +817,10 @@
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NovProject.app/NovProject";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NovProjectTests/NovProjectTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
 				INFOPLIST_FILE = "NovProjectTests/NovProjectTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -814,6 +836,10 @@
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NovProject.app/NovProject";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NovProjectTests/NovProjectTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
 				INFOPLIST_FILE = "NovProjectTests/NovProjectTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";

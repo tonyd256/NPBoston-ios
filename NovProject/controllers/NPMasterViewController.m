@@ -21,13 +21,14 @@
 #import "NPUser.h"
 #import "LUKeychainAccess.h"
 
+#import "NPDateFormatter.h"
+
 @interface NPMasterViewController ()
 
 @property (strong, nonatomic) NSMutableArray *workouts;
 @property (strong, nonatomic) NPUser *user;
 @property (strong, nonatomic) NPWorkout *selectedWorkout;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
-@property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -44,10 +45,6 @@
     } else {
         self.user = (NPUser *)[NSKeyedUnarchiver unarchiveObjectWithData:[[LUKeychainAccess standardKeychainAccess] objectForKey:@"user"]];
     }
-    
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    [self.dateFormatter setDateFormat:@"E - MMM dd, yyyy - hh:mma"];
-    [self.dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
     
     self.workouts = [[NSMutableArray alloc] init];
     
@@ -170,7 +167,7 @@
     
     NPWorkout *workout = self.workouts[indexPath.row];
     [cell.titleLabel setText:workout.title];
-    [cell.subtitleLabel setText:[self.dateFormatter stringFromDate:workout.date]];
+    [cell.subtitleLabel setText:[[NPDateFormatter sharedFormatter].displayFormatter stringFromDate:workout.date]];
     
     if ([workout.details stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
         [cell.detailsLabel setHidden:YES];
