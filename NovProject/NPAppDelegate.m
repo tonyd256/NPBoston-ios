@@ -10,6 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "AFNetworking.h"
 #import "WCAlertView.h"
+#import "NPCacheManager.h"
 #import "NPAnalytics.h"
 
 @implementation NPAppDelegate
@@ -62,6 +63,7 @@ NSString *const FBSessionStateChangedNotification = @"com.tstormlabs.novproject:
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [FBSession.activeSession handleDidBecomeActive];
+    [[NPCacheManager sharedManager] refreshWorkoutTypes];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
