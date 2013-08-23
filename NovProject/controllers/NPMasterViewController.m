@@ -23,6 +23,7 @@
 
 #import "NPDateFormatter.h"
 #import "NPColors.h"
+#import "NPAnalytics.h"
 
 @interface NPMasterViewController ()
 
@@ -55,7 +56,7 @@
         [self getWorkouts];
     }
     
-    [[Mixpanel sharedInstance] track:@"master view loaded"];
+    [[NPAnalytics sharedAnalytics] trackEvent:@"master view loaded"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -82,6 +83,7 @@
     [[[Mixpanel sharedInstance] people] set:@"$gender" to:self.user.gender];
     
     [self getWorkouts];
+    [[NPAnalytics sharedAnalytics] setUser:self.user];
 }
 
 #pragma mark - Populate data
@@ -134,7 +136,7 @@
                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                 [defaults setBool:NO forKey:@"unlocked"];
                 [defaults synchronize];
-                
+
                 [[[UIAlertView alloc] initWithTitle:@"Restart the App!" message:@"Exit the app then double click the home button.  Hold down the app icon and click the red circle." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
         } cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
@@ -161,42 +163,42 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NPWorkoutCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WorkoutCell"];
-    
+
     if (!cell.delegate) {
         cell.delegate = self;
     }
-    
+
     NPWorkout *workout = self.workouts[indexPath.row];
     [cell.titleLabel setText:workout.title];
     [cell.subtitleLabel setText:[[NPDateFormatter sharedFormatter].displayFormatter stringFromDate:workout.date]];
-    
+
     if ([workout.details stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
         [cell.detailsLabel setHidden:YES];
-        
+
         [cell.cellView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(6)-[titleLabel]-(2)-[subtitleLabel]-(216)-[viewVerbalsButton][actionsView(==44)]|" options:0 metrics:nil views:@{@"titleLabel": cell.titleLabel, @"subtitleLabel": cell.subtitleLabel, @"actionsView": cell.actionsView, @"viewVerbalsButton": cell.viewVerbalsButton}]];
     } else {
         [cell.detailsLabel setHidden:NO];
         [cell.detailsLabel setText:workout.details];
-        
+
         int h = [workout.details sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(240, 999) lineBreakMode:NSLineBreakByWordWrapping].height;
-        
+
         [cell.cellView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(6)-[titleLabel]-(2)-[subtitleLabel]-(210)-[detailsLabel(==%d)]-(<=6)-[viewVerbalsButton][actionsView(==44)]|", h] options:0 metrics:nil views:@{@"titleLabel": cell.titleLabel, @"subtitleLabel": cell.subtitleLabel, @"detailsLabel": cell.detailsLabel, @"actionsView": cell.actionsView, @"viewVerbalsButton": cell.viewVerbalsButton}]];
     }
-    
+
     [cell.actionsView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[verbalButton(==44)]|" options:0 metrics:nil views:@{@"verbalButton": cell.verbalButton}]];
-    
+
     CLLocationCoordinate2D coor;
     MKCoordinateRegion region;
     MKCoordinateSpan span;
-    
+
     if (workout.lat) {
         coor.latitude = [workout.lat doubleValue];
         coor.longitude = [workout.lng doubleValue];
-        
+
         MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
         [point setCoordinate:coor];
         [cell.locationMap addAnnotation:point];
-        
+
         span.latitudeDelta = .02;
         span.longitudeDelta = .02;
     } else {
@@ -205,36 +207,36 @@
         span.latitudeDelta = .01;
         span.longitudeDelta = .01;
     }
-    
+
     region.center = coor;
     region.span = span;
     [cell.locationMap setRegion:region];
     cell.locationMap.scrollEnabled = NO;
     cell.locationMap.zoomEnabled = NO;
-    
+
     [cell.viewVerbalsButton setTitle:[NSString stringWithFormat:@"(%d) Verbals", [workout.verbalsCount integerValue]] forState:UIControlStateNormal];
     [cell.viewResultsButton setTitle:[NSString stringWithFormat:@"(%d) Results", [workout.resultsCount integerValue]] forState:UIControlStateNormal];
-    
+
     [cell.verbalButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [cell.resultsButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    
+
     if (workout.verbal) {
         [cell.verbalButton setTitleColor:[NPColors NPBlue] forState:UIControlStateNormal];
     }
-    
+
     if (workout.result) {
         [cell.resultsButton setTitleColor:[NPColors NPBlue] forState:UIControlStateNormal];
     }
 
     cell.workout = workout;
-    
+
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NPWorkout *workout = self.workouts[indexPath.row];
-    
+
     if ([workout.details stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) return 387;
     
     return [workout.details sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(240, 999) lineBreakMode:NSLineBreakByWordWrapping].height + 387;

@@ -58,7 +58,10 @@
 		EAC72E7917BC16B7007E6F0E /* NPUtilsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7817BC16B7007E6F0E /* NPUtilsSpec.m */; };
 		EAC72E7D17C28A32007E6F0E /* NPDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7C17C28A32007E6F0E /* NPDateFormatter.m */; };
 		EAC72E8017C29346007E6F0E /* NPDateFormatterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7F17C29346007E6F0E /* NPDateFormatterSpec.m */; };
+		EAC72E8C17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E8B17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m */; };
 		EAC72EA217C5552C007E6F0E /* NPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72EA117C5552B007E6F0E /* NPColors.m */; };
+		EAC72EA517C556F0007E6F0E /* NPAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72EA417C556EF007E6F0E /* NPAnalytics.m */; };
+		EAC72EA717C5574E007E6F0E /* NPAnalyticsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72EA617C5574E007E6F0E /* NPAnalyticsSpec.m */; };
 		EAD314C7179F050800F59885 /* NPSimpleResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */; };
 		EAD314CA179F0CDF00F59885 /* NPSimpleResultsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */; };
 		EAD314F917A5E28C00F59885 /* NPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D017A5E28B00F59885 /* NPLoginViewController.m */; };
@@ -163,8 +166,13 @@
 		EAC72E7B17C28A32007E6F0E /* NPDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPDateFormatter.h; sourceTree = "<group>"; };
 		EAC72E7C17C28A32007E6F0E /* NPDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPDateFormatter.m; sourceTree = "<group>"; };
 		EAC72E7F17C29346007E6F0E /* NPDateFormatterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPDateFormatterSpec.m; path = Helpers/NPDateFormatterSpec.m; sourceTree = "<group>"; };
+		EAC72E8A17C3E1D7007E6F0E /* NSObject+MethodSwizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+MethodSwizzling.h"; path = "Stubs/NSObject+MethodSwizzling.h"; sourceTree = "<group>"; };
+		EAC72E8B17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+MethodSwizzling.m"; path = "Stubs/NSObject+MethodSwizzling.m"; sourceTree = "<group>"; };
 		EAC72EA017C5552B007E6F0E /* NPColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPColors.h; sourceTree = "<group>"; };
 		EAC72EA117C5552B007E6F0E /* NPColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPColors.m; sourceTree = "<group>"; };
+		EAC72EA317C556EF007E6F0E /* NPAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPAnalytics.h; sourceTree = "<group>"; };
+		EAC72EA417C556EF007E6F0E /* NPAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPAnalytics.m; sourceTree = "<group>"; };
+		EAC72EA617C5574E007E6F0E /* NPAnalyticsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPAnalyticsSpec.m; path = Helpers/NPAnalyticsSpec.m; sourceTree = "<group>"; };
 		EAD314C5179F050800F59885 /* NPSimpleResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsViewController.h; path = simple/NPSimpleResultsViewController.h; sourceTree = "<group>"; };
 		EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPSimpleResultsViewController.m; path = simple/NPSimpleResultsViewController.m; sourceTree = "<group>"; };
 		EAD314C8179F0CDF00F59885 /* NPSimpleResultsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsCell.h; path = simple/NPSimpleResultsCell.h; sourceTree = "<group>"; };
@@ -265,6 +273,7 @@
 		EA50386A17BBD8DB003DBBAE /* NovProjectTests */ = {
 			isa = PBXGroup;
 			children = (
+				EAC72E8317C2B651007E6F0E /* Stubs */,
 				EAC72E6717BC096E007E6F0E /* Fixtures */,
 				EAC72E6517BC08BE007E6F0E /* Tests */,
 				EA50386B17BBD8DB003DBBAE /* Supporting Files */,
@@ -436,8 +445,18 @@
 			isa = PBXGroup;
 			children = (
 				EAC72E7F17C29346007E6F0E /* NPDateFormatterSpec.m */,
+				EAC72EA617C5574E007E6F0E /* NPAnalyticsSpec.m */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		EAC72E8317C2B651007E6F0E /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				EAC72E8A17C3E1D7007E6F0E /* NSObject+MethodSwizzling.h */,
+				EAC72E8B17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m */,
+			);
+			name = Stubs;
 			sourceTree = "<group>";
 		};
 		EAD314C4179F04AD00F59885 /* Simple Flow */ = {
@@ -481,6 +500,8 @@
 				EAC72E7C17C28A32007E6F0E /* NPDateFormatter.m */,
 				EAC72EA017C5552B007E6F0E /* NPColors.h */,
 				EAC72EA117C5552B007E6F0E /* NPColors.m */,
+				EAC72EA317C556EF007E6F0E /* NPAnalytics.h */,
+				EAC72EA417C556EF007E6F0E /* NPAnalytics.m */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -744,6 +765,8 @@
 				EAC72E7717BC165D007E6F0E /* NPVerbalSpec.m in Sources */,
 				EAC72E7917BC16B7007E6F0E /* NPUtilsSpec.m in Sources */,
 				EAC72E8017C29346007E6F0E /* NPDateFormatterSpec.m in Sources */,
+				EAC72E8C17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m in Sources */,
+				EAC72EA717C5574E007E6F0E /* NPAnalyticsSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -775,6 +798,7 @@
 				EAD3150B17A5E28C00F59885 /* NPWorkoutCell.m in Sources */,
 				EAC72E7D17C28A32007E6F0E /* NPDateFormatter.m in Sources */,
 				EAC72EA217C5552C007E6F0E /* NPColors.m in Sources */,
+				EAC72EA517C556F0007E6F0E /* NPAnalytics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

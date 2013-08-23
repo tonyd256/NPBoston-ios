@@ -9,9 +9,8 @@
 #import "NPAppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "AFNetworking.h"
-#import "Mixpanel.h"
-#import "TestFlight.h"
 #import "WCAlertView.h"
+#import "NPAnalytics.h"
 
 @implementation NPAppDelegate
 
@@ -31,24 +30,9 @@ NSString *const FBSessionStateChangedNotification = @"com.tstormlabs.novproject:
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.    
-#define TESTING 1
-#ifdef TESTING
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-#endif
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"private" ofType:@"plist"];
-    NSDictionary *private = [NSDictionary dictionaryWithContentsOfFile:path];
-    
-    [TestFlight takeOff:[private valueForKey:@"TestFlightKey"]];
+    [[NPAnalytics sharedAnalytics] setup];
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-    
-    [Mixpanel sharedInstanceWithToken:[private valueForKey:@"MixpanelKey"]];
-    [[Mixpanel sharedInstance] registerSuperProperties:@{@"os": [[UIDevice currentDevice] systemName],
-                                                         @"os version": [[UIDevice currentDevice] systemVersion],
-                                                         @"model": [[UIDevice currentDevice] model],
-                                                         @"app version": [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]
-     }];
     
     [WCAlertView setDefaultStyle:WCAlertViewStyleDefault];
     
