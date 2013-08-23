@@ -1,0 +1,12 @@
+{
+    "data": [
+        {
+             "_id": "1234abc",
+             "type": "Stadium"
+        },
+        {
+             "_id": "1235abc",
+             "type": "Hills"
+        }
+    ]
+}

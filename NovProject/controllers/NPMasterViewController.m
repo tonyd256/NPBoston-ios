@@ -13,21 +13,23 @@
 #import "NPResultsViewController.h"
 #import "NPVerbalViewController.h"
 #import "NPMapViewController.h"
-#import "NPAPIClient.h"
+
 #import "SVProgressHUD.h"
-#import "NPWorkout.h"
 #import "WCAlertView.h"
-#import "NPUtils.h"
-#import "NPUser.h"
 #import "LUKeychainAccess.h"
 
+#import "NPWorkout.h"
+#import "NPUser.h"
+
+#import "NPAPIClient.h"
+#import "NPUtils.h"
 #import "NPDateFormatter.h"
 #import "NPColors.h"
 #import "NPAnalytics.h"
 
 @interface NPMasterViewController ()
 
-@property (strong, nonatomic) NSMutableArray *workouts;
+@property (strong, nonatomic) NSArray *workouts;
 @property (strong, nonatomic) NPUser *user;
 @property (strong, nonatomic) NPWorkout *selectedWorkout;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
@@ -41,21 +43,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    self.workouts = [[NSArray alloc] init];
+
     if (![[LUKeychainAccess standardKeychainAccess] objectForKey:@"user"]) {
         [self performSegueWithIdentifier:@"LoginViewSegue" sender:self];
     } else {
-        self.user = (NPUser *)[NSKeyedUnarchiver unarchiveObjectWithData:[[LUKeychainAccess standardKeychainAccess] objectForKey:@"user"]];
+        self.user = (NPUser *)[[LUKeychainAccess standardKeychainAccess] objectForKey:@"user"];
+        [self fetchWorkouts];
     }
-    
-    self.workouts = [[NSMutableArray alloc] init];
-    
-    [self getWorkoutTypes];
-    
-    if (self.user) {
-        [self getWorkouts];
-    }
-    
+
     [[NPAnalytics sharedAnalytics] trackEvent:@"master view loaded"];
 }
 
@@ -76,57 +73,24 @@
 - (void)userLoggedIn:(NPUser *)u
 {
     self.user = u;
-    [[LUKeychainAccess standardKeychainAccess] setObject:[NSKeyedArchiver archivedDataWithRootObject:self.user] forKey:@"user"];
-    
-    [[Mixpanel sharedInstance] identify:self.user.objectId];
-    [[[Mixpanel sharedInstance] people] set:@"$name" to:self.user.name];
-    [[[Mixpanel sharedInstance] people] set:@"$gender" to:self.user.gender];
-    
-    [self getWorkouts];
+    [[LUKeychainAccess standardKeychainAccess] setObject:self.user forKey:@"user"];
     [[NPAnalytics sharedAnalytics] setUser:self.user];
+    [self fetchWorkouts];
 }
 
-#pragma mark - Populate data
+#pragma mark - Private methods
 
-- (void)getWorkouts
+- (void)fetchWorkouts
 {
-    [[Mixpanel sharedInstance] track:@"workouts request attempted"];
     [SVProgressHUD showWithStatus:@"Loading..."];
-    [[NPAPIClient sharedClient] getPath:@"workouts" parameters:@{@"location": self.user.location} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *data = [responseObject valueForKey:@"data"];
-        
-        [self.workouts removeAllObjects];
-        
-        for (id object in data) {
-            [self.workouts addObject:[NPWorkout workoutWithObject:object]];
-        }
-        
+    [[NPAPIClient sharedClient] fetchWorkoutsForLocation:self.user.location withSuccessBlock:^(NSArray *workouts) {
+        self.workouts = workouts;
         [self.tableView reloadData];
         [SVProgressHUD dismiss];
-        [[Mixpanel sharedInstance] track:@"workouts request succeeded"];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {        
-        NSString *msg = [NPUtils reportError:error WithMessage:@"workouts request failed" FromOperation:(AFJSONRequestOperation *)operation];
-        
-        [SVProgressHUD dismiss];        
-        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
-- (void)getWorkoutTypes
-{
-    [[Mixpanel sharedInstance] track:@"workout types request attempted"];
-    [[NPAPIClient sharedClient] getPath:@"workout_types" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *types = [responseObject objectForKey:@"data"];
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:types forKey:@"types"];
-        [defaults synchronize];
-        [[Mixpanel sharedInstance] track:@"workout types request succeeded"];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [NPUtils reportError:error WithMessage:@"workout types request failed" FromOperation:(AFJSONRequestOperation *)operation];
-    }];
-}
-
-#pragma mark - Handle shake
+#pragma mark - Handle shake motion
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
@@ -149,11 +113,6 @@
 }
 
 #pragma mark - Table View
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -238,14 +197,8 @@
     NPWorkout *workout = self.workouts[indexPath.row];
 
     if ([workout.details stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) return 387;
-    
-    return [workout.details sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(240, 999) lineBreakMode:NSLineBreakByWordWrapping].height + 387;
-}
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return NO;
+    return [workout.details sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(240, 999) lineBreakMode:NSLineBreakByWordWrapping].height + 387;
 }
 
 #pragma mark - NPWorkoutCell Delegate
@@ -280,8 +233,8 @@
 - (void)resultsSaved
 {
     [[(NPWorkoutCell *)[self.tableView cellForRowAtIndexPath:self.selectedIndexPath] resultsButton] setTitleColor:[NPColors NPBlue] forState:UIControlStateNormal];
-    
-    [self getWorkouts];
+
+    [self fetchWorkouts];
 }
 
 #pragma mark - Overridden methods

@@ -59,6 +59,11 @@
 		EAC72E7D17C28A32007E6F0E /* NPDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7C17C28A32007E6F0E /* NPDateFormatter.m */; };
 		EAC72E8017C29346007E6F0E /* NPDateFormatterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7F17C29346007E6F0E /* NPDateFormatterSpec.m */; };
 		EAC72E8C17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E8B17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m */; };
+		EAC72E8F17C3E7AE007E6F0E /* NPAPIClient+StubExtentions.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E8E17C3E7AE007E6F0E /* NPAPIClient+StubExtentions.m */; };
+		EAC72E9117C40F17007E6F0E /* NPAPIClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E9017C40F17007E6F0E /* NPAPIClientSpec.m */; };
+		EAC72E9717C515DE007E6F0E /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E9617C515DE007E6F0E /* NSString+Extensions.m */; };
+		EAC72E9A17C52F84007E6F0E /* workout_types.json in Resources */ = {isa = PBXBuildFile; fileRef = EAC72E9917C52F84007E6F0E /* workout_types.json */; };
+		EAC72E9C17C5305D007E6F0E /* workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = EAC72E9B17C5305D007E6F0E /* workouts.json */; };
 		EAC72EA217C5552C007E6F0E /* NPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72EA117C5552B007E6F0E /* NPColors.m */; };
 		EAC72EA517C556F0007E6F0E /* NPAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72EA417C556EF007E6F0E /* NPAnalytics.m */; };
 		EAC72EA717C5574E007E6F0E /* NPAnalyticsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72EA617C5574E007E6F0E /* NPAnalyticsSpec.m */; };
@@ -168,6 +173,13 @@
 		EAC72E7F17C29346007E6F0E /* NPDateFormatterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPDateFormatterSpec.m; path = Helpers/NPDateFormatterSpec.m; sourceTree = "<group>"; };
 		EAC72E8A17C3E1D7007E6F0E /* NSObject+MethodSwizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+MethodSwizzling.h"; path = "Stubs/NSObject+MethodSwizzling.h"; sourceTree = "<group>"; };
 		EAC72E8B17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+MethodSwizzling.m"; path = "Stubs/NSObject+MethodSwizzling.m"; sourceTree = "<group>"; };
+		EAC72E8D17C3E7AD007E6F0E /* NPAPIClient+StubExtentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NPAPIClient+StubExtentions.h"; path = "Stubs/NPAPIClient+StubExtentions.h"; sourceTree = "<group>"; };
+		EAC72E8E17C3E7AE007E6F0E /* NPAPIClient+StubExtentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NPAPIClient+StubExtentions.m"; path = "Stubs/NPAPIClient+StubExtentions.m"; sourceTree = "<group>"; };
+		EAC72E9017C40F17007E6F0E /* NPAPIClientSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPAPIClientSpec.m; path = Helpers/NPAPIClientSpec.m; sourceTree = "<group>"; };
+		EAC72E9517C515DD007E6F0E /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
+		EAC72E9617C515DE007E6F0E /* NSString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
+		EAC72E9917C52F84007E6F0E /* workout_types.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = workout_types.json; path = JSON/workout_types.json; sourceTree = "<group>"; };
+		EAC72E9B17C5305D007E6F0E /* workouts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = workouts.json; path = JSON/workouts.json; sourceTree = "<group>"; };
 		EAC72EA017C5552B007E6F0E /* NPColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPColors.h; sourceTree = "<group>"; };
 		EAC72EA117C5552B007E6F0E /* NPColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPColors.m; sourceTree = "<group>"; };
 		EAC72EA317C556EF007E6F0E /* NPAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPAnalytics.h; sourceTree = "<group>"; };
@@ -273,6 +285,7 @@
 		EA50386A17BBD8DB003DBBAE /* NovProjectTests */ = {
 			isa = PBXGroup;
 			children = (
+				EAC72E9817C52F4B007E6F0E /* JSON */,
 				EAC72E8317C2B651007E6F0E /* Stubs */,
 				EAC72E6717BC096E007E6F0E /* Fixtures */,
 				EAC72E6517BC08BE007E6F0E /* Tests */,
@@ -445,6 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				EAC72E7F17C29346007E6F0E /* NPDateFormatterSpec.m */,
+				EAC72E9017C40F17007E6F0E /* NPAPIClientSpec.m */,
 				EAC72EA617C5574E007E6F0E /* NPAnalyticsSpec.m */,
 			);
 			name = Helpers;
@@ -455,8 +469,19 @@
 			children = (
 				EAC72E8A17C3E1D7007E6F0E /* NSObject+MethodSwizzling.h */,
 				EAC72E8B17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m */,
+				EAC72E8D17C3E7AD007E6F0E /* NPAPIClient+StubExtentions.h */,
+				EAC72E8E17C3E7AE007E6F0E /* NPAPIClient+StubExtentions.m */,
 			);
 			name = Stubs;
+			sourceTree = "<group>";
+		};
+		EAC72E9817C52F4B007E6F0E /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				EAC72E9917C52F84007E6F0E /* workout_types.json */,
+				EAC72E9B17C5305D007E6F0E /* workouts.json */,
+			);
+			name = JSON;
 			sourceTree = "<group>";
 		};
 		EAD314C4179F04AD00F59885 /* Simple Flow */ = {
@@ -498,6 +523,8 @@
 				EAD314DF17A5E28C00F59885 /* NPUtils.m */,
 				EAC72E7B17C28A32007E6F0E /* NPDateFormatter.h */,
 				EAC72E7C17C28A32007E6F0E /* NPDateFormatter.m */,
+				EAC72E9517C515DD007E6F0E /* NSString+Extensions.h */,
+				EAC72E9617C515DE007E6F0E /* NSString+Extensions.m */,
 				EAC72EA017C5552B007E6F0E /* NPColors.h */,
 				EAC72EA117C5552B007E6F0E /* NPColors.m */,
 				EAC72EA317C556EF007E6F0E /* NPAnalytics.h */,
@@ -632,6 +659,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA50386F17BBD8DB003DBBAE /* InfoPlist.strings in Resources */,
+				EAC72E9A17C52F84007E6F0E /* workout_types.json in Resources */,
+				EAC72E9C17C5305D007E6F0E /* workouts.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,6 +795,8 @@
 				EAC72E7917BC16B7007E6F0E /* NPUtilsSpec.m in Sources */,
 				EAC72E8017C29346007E6F0E /* NPDateFormatterSpec.m in Sources */,
 				EAC72E8C17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m in Sources */,
+				EAC72E8F17C3E7AE007E6F0E /* NPAPIClient+StubExtentions.m in Sources */,
+				EAC72E9117C40F17007E6F0E /* NPAPIClientSpec.m in Sources */,
 				EAC72EA717C5574E007E6F0E /* NPAnalyticsSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -797,6 +828,7 @@
 				EAD3150A17A5E28C00F59885 /* NPVerbalCell.m in Sources */,
 				EAD3150B17A5E28C00F59885 /* NPWorkoutCell.m in Sources */,
 				EAC72E7D17C28A32007E6F0E /* NPDateFormatter.m in Sources */,
+				EAC72E9717C515DE007E6F0E /* NSString+Extensions.m in Sources */,
 				EAC72EA217C5552C007E6F0E /* NPColors.m in Sources */,
 				EAC72EA517C556F0007E6F0E /* NPAnalytics.m in Sources */,
 			);
