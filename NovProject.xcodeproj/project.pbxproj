@@ -58,6 +58,7 @@
 		EAC72E7917BC16B7007E6F0E /* NPUtilsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7817BC16B7007E6F0E /* NPUtilsSpec.m */; };
 		EAC72E7D17C28A32007E6F0E /* NPDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7C17C28A32007E6F0E /* NPDateFormatter.m */; };
 		EAC72E8017C29346007E6F0E /* NPDateFormatterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7F17C29346007E6F0E /* NPDateFormatterSpec.m */; };
+		EAC72EA217C5552C007E6F0E /* NPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72EA117C5552B007E6F0E /* NPColors.m */; };
 		EAD314C7179F050800F59885 /* NPSimpleResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */; };
 		EAD314CA179F0CDF00F59885 /* NPSimpleResultsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */; };
 		EAD314F917A5E28C00F59885 /* NPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D017A5E28B00F59885 /* NPLoginViewController.m */; };
@@ -162,6 +163,8 @@
 		EAC72E7B17C28A32007E6F0E /* NPDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPDateFormatter.h; sourceTree = "<group>"; };
 		EAC72E7C17C28A32007E6F0E /* NPDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPDateFormatter.m; sourceTree = "<group>"; };
 		EAC72E7F17C29346007E6F0E /* NPDateFormatterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPDateFormatterSpec.m; path = Helpers/NPDateFormatterSpec.m; sourceTree = "<group>"; };
+		EAC72EA017C5552B007E6F0E /* NPColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPColors.h; sourceTree = "<group>"; };
+		EAC72EA117C5552B007E6F0E /* NPColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPColors.m; sourceTree = "<group>"; };
 		EAD314C5179F050800F59885 /* NPSimpleResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsViewController.h; path = simple/NPSimpleResultsViewController.h; sourceTree = "<group>"; };
 		EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPSimpleResultsViewController.m; path = simple/NPSimpleResultsViewController.m; sourceTree = "<group>"; };
 		EAD314C8179F0CDF00F59885 /* NPSimpleResultsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsCell.h; path = simple/NPSimpleResultsCell.h; sourceTree = "<group>"; };
@@ -476,6 +479,8 @@
 				EAD314DF17A5E28C00F59885 /* NPUtils.m */,
 				EAC72E7B17C28A32007E6F0E /* NPDateFormatter.h */,
 				EAC72E7C17C28A32007E6F0E /* NPDateFormatter.m */,
+				EAC72EA017C5552B007E6F0E /* NPColors.h */,
+				EAC72EA117C5552B007E6F0E /* NPColors.m */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -769,6 +774,7 @@
 				EAD3150A17A5E28C00F59885 /* NPVerbalCell.m in Sources */,
 				EAD3150B17A5E28C00F59885 /* NPWorkoutCell.m in Sources */,
 				EAC72E7D17C28A32007E6F0E /* NPDateFormatter.m in Sources */,
+				EAC72EA217C5552C007E6F0E /* NPColors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

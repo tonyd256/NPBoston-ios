@@ -22,6 +22,7 @@
 #import "LUKeychainAccess.h"
 
 #import "NPDateFormatter.h"
+#import "NPColors.h"
 
 @interface NPMasterViewController ()
 
@@ -218,11 +219,11 @@
     [cell.resultsButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
     if (workout.verbal) {
-        [cell.verbalButton setTitleColor:[UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1] forState:UIControlStateNormal];
+        [cell.verbalButton setTitleColor:[NPColors NPBlue] forState:UIControlStateNormal];
     }
     
     if (workout.result) {
-        [cell.resultsButton setTitleColor:[UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1] forState:UIControlStateNormal];
+        [cell.resultsButton setTitleColor:[NPColors NPBlue] forState:UIControlStateNormal];
     }
 
     cell.workout = workout;
@@ -276,7 +277,7 @@
 
 - (void)resultsSaved
 {
-    [[(NPWorkoutCell *)[self.tableView cellForRowAtIndexPath:self.selectedIndexPath] resultsButton] setTitleColor:[UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1] forState:UIControlStateNormal];
+    [[(NPWorkoutCell *)[self.tableView cellForRowAtIndexPath:self.selectedIndexPath] resultsButton] setTitleColor:[NPColors NPBlue] forState:UIControlStateNormal];
     
     [self getWorkouts];
 }
