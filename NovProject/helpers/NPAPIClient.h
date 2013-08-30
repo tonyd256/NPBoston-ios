@@ -9,7 +9,7 @@
 #import "AFHTTPClient.h"
 #import "AFJSONRequestOperation.h"
 
-typedef void (^ArrayBlock)(NSArray *);
+typedef void (^NPCollectionSuccessBlock)(NSArray *);
 
 @interface NPAPIClient : AFHTTPClient
 
@@ -17,7 +17,7 @@ typedef void (^ArrayBlock)(NSArray *);
 
 + (NPAPIClient *)sharedClient;
 
-- (void)fetchWorkoutTypesWithSuccessBlock:(ArrayBlock)block;
-- (void)fetchWorkoutsForLocation:(NSString *)location withSuccessBlock:(ArrayBlock)block;
+- (void)fetchWorkoutTypesWithSuccessBlock:(NPCollectionSuccessBlock)block;
+- (void)fetchWorkoutsForLocation:(NSString *)location withSuccessBlock:(NPCollectionSuccessBlock)block;
 
 @end

@@ -23,7 +23,6 @@
 
 #import "NPAPIClient.h"
 #import "NPUtils.h"
-#import "NPDateFormatter.h"
 #import "NPColors.h"
 #import "NPAnalytics.h"
 
@@ -129,7 +128,7 @@
 
     NPWorkout *workout = self.workouts[indexPath.row];
     [cell.titleLabel setText:workout.title];
-    [cell.subtitleLabel setText:[[NPDateFormatter sharedFormatter].displayFormatter stringFromDate:workout.date]];
+    [cell.subtitleLabel setText:[workout displayDate]];
 
     if ([workout.details stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
         [cell.detailsLabel setHidden:YES];

@@ -1,34 +1,20 @@
 #import "NPDateFormatter.h"
+#import "NSDate+Fixture.h"
 
 SpecBegin(NPDateFormatter)
 
 describe(@"NPDateFormatter", ^{
-    __block NSString *dateString;
-    __block NSDate *now;
-    
-    beforeAll(^{
-        dateString = @"2013-07-12T14:55:16Z";
-        now = [NSDate dateWithTimeIntervalSince1970:0];
-    });
     
     it(@"should format an NSDate to a string", ^{
-        NSString *returnedDateString = [[NPDateFormatter sharedFormatter].displayFormatter stringFromDate:now];
+        NSString *returnedDateString = [[NPDateFormatter sharedFormatter].displayFormatter stringFromDate:[NSDate dateFixture]];
         // this isn't going to work on any time zone except EST ... also might break during day light savings
-        expect(returnedDateString).to.equal(@"Wed - Dec 31, 1969 - 7:00PM");
+        expect(returnedDateString).to.equal(@"Fri - Jul 12, 2013 - 10:55AM");
     });
     
     it(@"should create an NSDate object from a string", ^{
-        NSDate *date = [[NPDateFormatter sharedFormatter].serverFormatter dateFromString:[dateString substringToIndex:16]];
+        NSDate *date = [[NPDateFormatter sharedFormatter].serverFormatter dateFromString:[[NSDate dateStringFixture] substringToIndex:16]];
         
-        NSDateComponents *comps = [[NSDateComponents alloc] init];
-        [comps setYear:2013];
-        [comps setMonth:7];
-        [comps setDay:12];
-        [comps setHour:14];
-        [comps setMinute:55];
-        [comps setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-        
-        expect(date).to.equal([[NSCalendar currentCalendar] dateFromComponents:comps]);
+        expect(date).to.equal([NSDate dateFixture]);
     });
 });
 

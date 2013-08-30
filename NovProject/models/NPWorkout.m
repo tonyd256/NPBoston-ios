@@ -73,4 +73,9 @@
     return self;
 }
 
+- (NSString *)displayDate
+{
+    return [[NPDateFormatter sharedFormatter].displayFormatter stringFromDate:self.date];
+}
+
 @end

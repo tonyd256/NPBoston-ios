@@ -23,20 +23,24 @@ static NSString * const kServerDateFormat = @"yyyy-MM-dd'T'HH:mm";
     return formatter;
 }
 
-- (id)init
+- (NSDateFormatter *)displayFormatter
 {
-    self = [super init];
-    if (!self) return nil;
-    
-    self.displayFormatter = [[NSDateFormatter alloc] init];
-    [self.displayFormatter setDateFormat:kDisplayDateFormat];
-    [self.displayFormatter setTimeZone:[NSTimeZone localTimeZone]];
-    
-    self.serverFormatter = [[NSDateFormatter alloc] init];
-    [self.serverFormatter setDateFormat:kServerDateFormat];
-    [self.serverFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    
-    return self;
+    if (!_displayFormatter) {
+        _displayFormatter = [[NSDateFormatter alloc] init];
+        [_displayFormatter setDateFormat:kDisplayDateFormat];
+        [_displayFormatter setTimeZone:[NSTimeZone localTimeZone]];
+    }
+    return _displayFormatter;
+}
+
+- (NSDateFormatter *)serverFormatter
+{
+    if (!_serverFormatter) {
+        _serverFormatter = [[NSDateFormatter alloc] init];
+        [_serverFormatter setDateFormat:kServerDateFormat];
+        [_serverFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    }
+    return _serverFormatter;
 }
 
 @end
