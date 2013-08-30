@@ -7,4 +7,6 @@
     #define EXP_SHORTHAND
     #import "Specta.h"
     #import "Expecta.h"
+    #import "OCMock.h"
+    #import "OHHttpStubs.h"
 #endif

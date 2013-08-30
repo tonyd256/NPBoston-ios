@@ -9,10 +9,15 @@
 #import "AFHTTPClient.h"
 #import "AFJSONRequestOperation.h"
 
+typedef void (^NPCollectionSuccessBlock)(NSArray *);
+
 @interface NPAPIClient : AFHTTPClient
 
 @property (strong, nonatomic) NSString *token;
 
 + (NPAPIClient *)sharedClient;
+
+- (void)fetchWorkoutTypesWithSuccessBlock:(NPCollectionSuccessBlock)block;
+- (void)fetchWorkoutsForLocation:(NSString *)location withSuccessBlock:(NPCollectionSuccessBlock)block;
 
 @end

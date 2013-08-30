@@ -30,5 +30,6 @@
 
 + (NPWorkout *)workoutWithObject:(id)object;
 - (id)initWithObject:(id)object;
+- (NSString *)displayDate;
 
 @end

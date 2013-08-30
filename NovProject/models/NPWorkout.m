@@ -9,6 +9,7 @@
 #import "NPWorkout.h"
 #import "NPResult.h"
 #import "NPVerbal.h"
+#import "NPDateFormatter.h"
 
 @implementation NPWorkout
 
@@ -30,10 +31,7 @@
     _time = [object valueForKey:@"time"];
     _amount = [object valueForKey:@"amount"];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm"];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    _date = [dateFormatter dateFromString:(NSString *)[[object valueForKey:@"date"] substringToIndex:16]];
+    _date = [[NPDateFormatter sharedFormatter].serverFormatter dateFromString:(NSString *)[[object valueForKey:@"date"] substringToIndex:16]];
     
     _location = [object valueForKey:@"location"];
     _verbalsCount = [object valueForKey:@"verbalsCount"];
@@ -73,6 +71,11 @@
     }
     
     return self;
+}
+
+- (NSString *)displayDate
+{
+    return [[NPDateFormatter sharedFormatter].displayFormatter stringFromDate:self.date];
 }
 
 @end
