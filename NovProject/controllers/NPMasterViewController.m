@@ -25,11 +25,11 @@
 #import "NPUtils.h"
 #import "NPColors.h"
 #import "NPAnalytics.h"
+#import "NPAppSession.h"
 
 @interface NPMasterViewController ()
 
 @property (strong, nonatomic) NSArray *workouts;
-@property (strong, nonatomic) NPUser *user;
 @property (strong, nonatomic) NPWorkout *selectedWorkout;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 
@@ -45,12 +45,10 @@
 
     self.workouts = [[NSArray alloc] init];
 
-    if (![[LUKeychainAccess standardKeychainAccess] objectForKey:@"user"]) {
-        [self performSegueWithIdentifier:@"LoginViewSegue" sender:self];
-    } else {
-        self.user = (NPUser *)[[LUKeychainAccess standardKeychainAccess] objectForKey:@"user"];
-        [self fetchWorkouts];
-    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchWorkouts) name:NPSessionAuthenticationSucceededNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginView) name:NPSessionAuthenticationFailedNotification object:nil];
+
+    [[NPAppSession sharedSession] authenticate];
 
     [[NPAnalytics sharedAnalytics] trackEvent:@"master view loaded"];
 }
@@ -67,14 +65,9 @@
     [super viewWillDisappear:animated];
 }
 
-#pragma mark - NPLoginViewController Delegate
-
-- (void)userLoggedIn:(NPUser *)u
+- (void)dealloc
 {
-    self.user = u;
-    [[LUKeychainAccess standardKeychainAccess] setObject:self.user forKey:@"user"];
-    [[NPAnalytics sharedAnalytics] setUser:self.user];
-    [self fetchWorkouts];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Private methods
@@ -82,11 +75,17 @@
 - (void)fetchWorkouts
 {
     [SVProgressHUD showWithStatus:@"Loading..."];
-    [[NPAPIClient sharedClient] fetchWorkoutsForLocation:self.user.location withSuccessBlock:^(NSArray *workouts) {
+    [[NPAPIClient sharedClient] fetchWorkoutsForLocation:[NPAppSession sharedSession].user.location withSuccessBlock:^(NSArray *workouts) {
         self.workouts = workouts;
         [self.tableView reloadData];
         [SVProgressHUD dismiss];
     }];
+}
+
+- (void)showLoginView
+{
+    [self performSegueWithIdentifier:@"LoginViewSegue" sender:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NPSessionAuthenticationFailedNotification object:nil];
 }
 
 #pragma mark - Handle shake motion
@@ -253,9 +252,7 @@
     } else if ([[segue identifier] isEqualToString:@"ViewMapSegue"]) {
         NPMapViewController *view = [segue destinationViewController];
         view.workout = self.selectedWorkout;
-    } else if ([[segue identifier] isEqualToString:@"LoginViewSegue"]) {
-        NPLoginViewController *view = [segue destinationViewController];
-        view.delegate = self;
     }
 }
+
 @end

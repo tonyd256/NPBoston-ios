@@ -6,17 +6,9 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
-#import <FacebookSDK/FacebookSDK.h>
-
 @class NPUser;
 
-@protocol NPLoginViewDelegate <NSObject>
-
-- (void)userLoggedIn:(NPUser *)u;
-
-@end
-
-@interface NPLoginViewController : UIViewController <FBLoginViewDelegate, UITextFieldDelegate>
+@interface NPLoginViewController : UIViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UIButton *fbLoginButton;
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
@@ -37,8 +29,6 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl *locSelector;
 @property (strong, nonatomic) IBOutlet UIButton *signupSubmitButton;
 @property (strong, nonatomic) IBOutlet UIButton *cancelButton;
-
-@property (weak, nonatomic) id <NPLoginViewDelegate> delegate;
 
 - (IBAction)fbLoginButtonAction:(id)sender;
 - (IBAction)loginButtonAction:(id)sender;

@@ -62,20 +62,6 @@
     [super viewWillDisappear:animated];
 }
 
-#pragma mark - NPLoginViewController delegate
-
-- (void)userLoggedIn:(NPUser *)u
-{
-    self.user = u;
-    [[LUKeychainAccess standardKeychainAccess] setObject:[NSKeyedArchiver archivedDataWithRootObject:self.user] forKey:@"user"];
-    
-    [[Mixpanel sharedInstance] identify:self.user.objectId];
-    [[[Mixpanel sharedInstance] people] set:@"$name" to:self.user.name];
-    [[[Mixpanel sharedInstance] people] set:@"$gender" to:self.user.gender];
-    
-    [self getWorkouts];
-}
-
 #pragma mark - Populate methods
 
 - (void)getWorkouts
@@ -270,9 +256,6 @@
     if ([[segue identifier] isEqualToString:@"SubmitResultsSegue"]) {
         NPSubmitResultsViewController *view = [segue destinationViewController];
         view.workout = [self.workouts objectAtIndex:0];
-        view.delegate = self;
-    } else if ([[segue identifier] isEqualToString:@"LoginViewSegue"]) {
-        NPLoginViewController *view = [segue destinationViewController];
         view.delegate = self;
     }
 }

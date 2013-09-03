@@ -6,14 +6,8 @@
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface NPAppDelegate : UIResponder <UIApplicationDelegate>
 
-extern NSString *const FBSessionStateChangedNotification;
-
 @property (strong, nonatomic) UIWindow *window;
-
-- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI;
 
 @end
