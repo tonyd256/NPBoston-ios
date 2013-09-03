@@ -7,9 +7,8 @@
 //
 
 #import "NPSubmitResultsViewController.h"
-#import "NPLoginViewController.h"
 
-@interface NPSimpleResultsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, NPResultsSubmitDelegate, NPLoginViewDelegate>
+@interface NPSimpleResultsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, NPResultsSubmitDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
