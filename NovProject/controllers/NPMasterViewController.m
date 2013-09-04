@@ -46,6 +46,7 @@
     self.workouts = [[NSArray alloc] init];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchWorkouts) name:NPSessionAuthenticationSucceededNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginView) name:NPSessionAuthenticationFailedNotification object:nil];
 
     [[NPAppSession sharedSession] authenticate];
 
@@ -54,14 +55,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLoginView) name:NPSessionAuthenticationFailedNotification object:nil];
     [self becomeFirstResponder];
     [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NPSessionAuthenticationFailedNotification object:nil];
     [self resignFirstResponder];
     [super viewWillDisappear:animated];
 }
@@ -85,6 +84,7 @@
 
 - (void)showLoginView
 {
+    if ([NSStringFromClass([self.presentedViewController class]) isEqualToString:@"NPLoginViewController"]) return;
     [self performSegueWithIdentifier:@"LoginViewSegue" sender:self];
 }
 
