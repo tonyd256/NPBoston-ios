@@ -8,7 +8,7 @@
 
 @interface NPAuthenticator : NSObject
 
-+ (void)createUserWithDictionary:(NSDictionary *)parameters;
++ (void)createUserWithName:(NSString *)name email:(NSString *)email password:(NSString *)password location:(NSString *)location gender:(NSString *)gender;
 + (void)authenticateUserWithEmail:(NSString *)email andPassword:(NSString *)password;
 + (void)authenticateUserWithFacebookAccessToken:(NSString *)accessToken;
 

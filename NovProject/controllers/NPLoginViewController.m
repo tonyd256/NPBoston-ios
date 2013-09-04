@@ -18,9 +18,16 @@
 #import "WCAlertView.h"
 #import "NSString+Extensions.h"
 
+enum {
+    NPBostonLocation,
+    NPMadisonLocation,
+    NPSanFranciscoLocation
+};
+
 @interface NPLoginViewController ()
 
 @property (strong, nonatomic) NSString *emailRegEx;
+@property (strong, nonatomic) NSDictionary *locationAbbreviation;
 
 @end
 
@@ -61,6 +68,12 @@
     @"]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
     @"9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
     @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+
+    self.locationAbbreviation = @{
+        @(NPBostonLocation): @"BOS",
+        @(NPMadisonLocation): @"MSN",
+        @(NPSanFranciscoLocation): @"SF"
+    };
 
     [self.loginView setAlpha:0.0];
 }
@@ -181,30 +194,10 @@
 
     [SVProgressHUD showWithStatus:@"Signing up..."];
 
-    NSString *location;
-    switch (self.locSelector.selectedSegmentIndex) {
-        case 0:
-            location = @"BOS";
-            break;
-
-        case 1:
-            location = @"MSN";
-            break;
-
-        case 2:
-            location = @"SF";
-            break;
-
-        default:
-            location = @"BOS";
-            break;
-    }
-
-[NPAuthenticator createUserWithDictionary:@{@"email": self.emailSignupText.text,
-                                            @"pass": self.passSignupText.text,
-                                            @"name": self.nameText.text,
-                                            @"location": location,
-                                            @"gender": self.genderSelector.selectedSegmentIndex == 0 ? @"male" : @"female"}];
+    NSString *location = self.locationAbbreviation[@(self.locSelector.selectedSegmentIndex)];
+    NSString *gender = self.genderSelector.selectedSegmentIndex == 0 ? @"male" : @"female";
+    
+    [NPAuthenticator createUserWithName:self.nameText.text email:self.emailSignupText.text password:self.passSignupText.text location:location gender:gender];
 }
 
 - (IBAction)cancelAction:(id)sender

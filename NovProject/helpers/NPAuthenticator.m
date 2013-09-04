@@ -28,8 +28,14 @@ void (^NPAuthenticationFailureBlock)(NSError *) = ^(NSError *error){
 
 #pragma mark - User authentication
 
-+ (void)createUserWithDictionary:(NSDictionary *)parameters
++ (void)createUserWithName:(NSString *)name email:(NSString *)email password:(NSString *)password location:(NSString *)location gender:(NSString *)gender
 {
+    NSDictionary *parameters = @{@"email": email,
+                                 @"pass": password,
+                                 @"name": name,
+                                 @"location": location,
+                                 @"gender": gender};
+    
     [[NPAPIClient sharedClient] createUserWithParameters:parameters withSuccessBlock:NPAuthenticationSuccessfulBlock failureBlock:NPAuthenticationFailureBlock];
 }
 
