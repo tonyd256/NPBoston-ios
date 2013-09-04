@@ -18,7 +18,7 @@
 #import "WCAlertView.h"
 #import "NSString+Extensions.h"
 
-enum {
+typedef NS_ENUM(NSInteger, NPLocation) {
     NPBostonLocation,
     NPMadisonLocation,
     NPSanFranciscoLocation
@@ -59,21 +59,6 @@ enum {
     self.cancelButton.layer.cornerRadius = 3.0;
 
     [[Mixpanel sharedInstance] track:@"login view loaded"];
-
-    self.emailRegEx =
-    @"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
-    @"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
-    @"x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"
-    @"z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5"
-    @"]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
-    @"9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
-    @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
-
-    self.locationAbbreviation = @{
-        @(NPBostonLocation): @"BOS",
-        @(NPMadisonLocation): @"MSN",
-        @(NPSanFranciscoLocation): @"SF"
-    };
 
     [self.loginView setAlpha:0.0];
 }
@@ -119,6 +104,35 @@ enum {
 - (void)closeProgress
 {
     [SVProgressHUD dismiss];
+}
+
+#pragma mark - Lazy Loading properties
+
+- (NSString *)emailRegEx
+{
+    if (!_emailRegEx) {
+        _emailRegEx =
+            @"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
+            @"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
+            @"x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"
+            @"z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5"
+            @"]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
+            @"9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
+            @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+    }
+    return _emailRegEx;
+}
+
+- (NSDictionary *)locationAbbreviation
+{
+    if (!_locationAbbreviation) {
+        _locationAbbreviation = @{
+            @(NPBostonLocation): @"BOS",
+            @(NPMadisonLocation): @"MSN",
+            @(NPSanFranciscoLocation): @"SF"
+        };
+    }
+    return _locationAbbreviation;
 }
 
 #pragma mark - Button actions

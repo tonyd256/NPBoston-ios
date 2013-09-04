@@ -84,7 +84,7 @@
 
 - (void)showLoginView
 {
-    if ([NSStringFromClass([self.presentedViewController class]) isEqualToString:@"NPLoginViewController"]) return;
+    if (self.presentedViewController) return;
     [self performSegueWithIdentifier:@"LoginViewSegue" sender:self];
 }
 
