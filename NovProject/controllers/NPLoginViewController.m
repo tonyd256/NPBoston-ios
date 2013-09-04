@@ -9,16 +9,25 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "NPLoginViewController.h"
-#import "NPAppDelegate.h"
+#import "NPAppSession.h"
+#import "NPAuthenticator.h"
+#import "NPFacebookHandler.h"
 #import "SVProgressHUD.h"
-#import "NPAPIClient.h"
 #import "NPUser.h"
 #import "NPUtils.h"
 #import "WCAlertView.h"
+#import "NSString+Extensions.h"
+
+typedef NS_ENUM(NSInteger, NPLocation) {
+    NPBostonLocation,
+    NPMadisonLocation,
+    NPSanFranciscoLocation
+};
 
 @interface NPLoginViewController ()
 
 @property (strong, nonatomic) NSString *emailRegEx;
+@property (strong, nonatomic) NSDictionary *locationAbbreviation;
 
 @end
 
@@ -29,48 +38,35 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionStateChanged:) name:FBSessionStateChangedNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeView) name:NPSessionAuthenticationSucceededNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeProgress) name:NPSessionAuthenticationFailedNotification object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
+
     if ([[UIScreen mainScreen] bounds].size.height == 568) {
         [self.backgroundImage setImage:[UIImage imageNamed:@"Default-568h@2x.png"]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-20)-[background]|" options:0 metrics:nil views:@{@"background": self.backgroundImage}]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[background]|" options:0 metrics:nil views:@{@"background": self.backgroundImage}]];
         [self.backgroundImage setContentMode:UIViewContentModeScaleToFill];
     }
-    
+
     self.signupButton.layer.cornerRadius = 3.0;
     self.loginButton.layer.cornerRadius = 3.0;
     self.facebookButton.layer.cornerRadius = 3.0;
     self.signupSubmitButton.layer.cornerRadius = 3.0;
     self.cancelButton.layer.cornerRadius = 3.0;
-    
-    self.emailText.delegate = self;
-    self.emailSignupText.delegate = self;
-    self.passText.delegate = self;
-    self.passSignupText.delegate = self;
-    self.passConfirmText.delegate = self;
-    self.nameText.delegate = self;
-    
+
     [[Mixpanel sharedInstance] track:@"login view loaded"];
-    
-    self.emailRegEx =
-    @"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
-    @"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
-    @"x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"
-    @"z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5"
-    @"]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
-    @"9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
-    @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
-    
+
     [self.loginView setAlpha:0.0];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+
     // first blank animation fixes autolayout problems
     [UIView animateWithDuration:0 animations:nil completion:^(BOOL finished) {
         [UIView animateWithDuration:0 animations:^{
@@ -82,7 +78,7 @@
                 CGRect lFrame = self.loginView.frame;
                 self.loginView.frame = CGRectMake(0, lFrame.origin.y+30, lFrame.size.width, lFrame.size.height);
             } completion:^(BOOL finished) {
-                
+
             }];
         }];
     }];
@@ -91,87 +87,79 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)viewDidUnload
+- (void)dealloc
 {
-    [self setFbLoginButton:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self setBackgroundImage:nil];
-    [super viewDidUnload];
 }
 
-#pragma mark - Facebook SDK
-
-- (void)sessionStateChanged:(NSNotification *)notification
+- (void)closeView
 {
-    if (FBSession.activeSession.isOpen) {
-        [SVProgressHUD showWithStatus:@"Loging in..."];
-        [[Mixpanel sharedInstance] track:@"facbook login succeeded"];
-        
-        [[NPAPIClient sharedClient] postPath:@"users/facebook" parameters:@{@"access_token": FBSession.activeSession.accessTokenData.accessToken}
-            success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NPUser *u = [NPUser userWithObject:[responseObject objectForKey:@"data"]];
+    [self closeProgress];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
-                [[NPAPIClient sharedClient] setToken:[[responseObject objectForKey:@"data"] valueForKey:@"token"]];
+- (void)closeProgress
+{
+    [SVProgressHUD dismiss];
+}
 
-                [[Mixpanel sharedInstance] track:@"facebook user login succeeded"];
-                if (self.delegate)
-                    [self.delegate userLoggedIn:u];
-                [SVProgressHUD dismiss];
-                [self dismissViewControllerAnimated:YES completion:nil];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSString *msg = [NPUtils reportError:error WithMessage:@"facebook user login failed" FromOperation:(AFJSONRequestOperation *)operation];
+#pragma mark - Lazy Loading properties
 
-                [SVProgressHUD dismiss];
-                [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            }];        
+- (NSString *)emailRegEx
+{
+    if (!_emailRegEx) {
+        _emailRegEx =
+            @"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
+            @"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
+            @"x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"
+            @"z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5"
+            @"]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
+            @"9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
+            @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
     }
+    return _emailRegEx;
+}
+
+- (NSDictionary *)locationAbbreviation
+{
+    if (!_locationAbbreviation) {
+        _locationAbbreviation = @{
+            @(NPBostonLocation): @"BOS",
+            @(NPMadisonLocation): @"MSN",
+            @(NPSanFranciscoLocation): @"SF"
+        };
+    }
+    return _locationAbbreviation;
 }
 
 #pragma mark - Button actions
 
 - (IBAction)fbLoginButtonAction:(id)sender
 {
-    NPAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    [SVProgressHUD showWithStatus:@"Authenticating..."];
     [[Mixpanel sharedInstance] track:@"login attempted facebook"];
-    [appDelegate openSessionWithAllowLoginUI:YES];
+    [NPFacebookHandler openFacebookSessionWithAllowLoginUI:YES];
 }
 
 - (IBAction)loginButtonAction:(id)sender
-{    
-    if ([self textFieldIsEmpty:self.emailText]) {
+{
+    if ([self.emailText.text isEmpty]) {
         [[[UIAlertView alloc] initWithTitle:@"Hold On!" message:@"An email is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
     }
-    
-    if ([self textFieldIsEmpty:self.passText]) {
+
+    if ([self.passText.text isEmpty]) {
         [[[UIAlertView alloc] initWithTitle:@"Hold On!" message:@"A password is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
     }
-    
-    [[Mixpanel sharedInstance] track:@"login attempted"];
+
     [SVProgressHUD showWithStatus:@"Loging in..."];
-    
-    [[NPAPIClient sharedClient] postPath:@"users/login" parameters:@{@"email": self.emailText.text,
-                                                                    @"pass": self.passText.text}
-    success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NPUser *user = [NPUser userWithObject:[responseObject valueForKey:@"data"]];
-       
-        if (self.delegate)
-            [self.delegate userLoggedIn:user];
-        
-        [[Mixpanel sharedInstance] track:@"login succeeded"];
-        [SVProgressHUD dismiss];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *msg = [NPUtils reportError:error WithMessage:@"login failed" FromOperation:(AFJSONRequestOperation *)operation];
-        [SVProgressHUD dismiss];
-        
-        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }];
+    [[Mixpanel sharedInstance] track:@"login attempted"];
+
+    [NPAuthenticator authenticateUserWithEmail:self.emailText.text andPassword:self.passText.text];
 }
 
 - (IBAction)signupButtonAction:(id)sender
@@ -187,12 +175,12 @@
 
 - (IBAction)signupSubmitAction:(id)sender
 {
-    if ([self textFieldIsEmpty:self.nameText]) {
+    if ([self.nameText.text isEmpty]) {
         [[[UIAlertView alloc] initWithTitle:@"Hold On!" message:@"A name is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
     }
-    
-    if ([self textFieldIsEmpty:self.emailSignupText]) {
+
+    if ([self.emailSignupText.text isEmpty]) {
         [[[UIAlertView alloc] initWithTitle:@"Hold On!" message:@"An email is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
     } else {
@@ -202,66 +190,28 @@
             return;
         }
     }
-    
-    if ([self textFieldIsEmpty:self.passSignupText]) {
+
+    if ([self.passSignupText.text isEmpty]) {
         [[[UIAlertView alloc] initWithTitle:@"Hold On!" message:@"A password is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
     }
-    
-    if ([self textFieldIsEmpty:self.passConfirmText]) {
+
+    if ([self.passConfirmText.text isEmpty]) {
         [[[UIAlertView alloc] initWithTitle:@"Hold On!" message:@"A confirmation password is required." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
     }
-    
+
     if (![self.passConfirmText.text isEqualToString:self.passSignupText.text]) {
         [[[UIAlertView alloc] initWithTitle:@"Hold On!" message:@"The passwords don't match." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
     }
-    
-    [[Mixpanel sharedInstance] track:@"signup attempted"];
+
     [SVProgressHUD showWithStatus:@"Signing up..."];
+
+    NSString *location = self.locationAbbreviation[@(self.locSelector.selectedSegmentIndex)];
+    NSString *gender = self.genderSelector.selectedSegmentIndex == 0 ? @"male" : @"female";
     
-    NSString *location;
-    switch (self.locSelector.selectedSegmentIndex) {
-        case 0:
-            location = @"BOS";
-            break;
-        
-        case 1:
-            location = @"MSN";
-            break;
-            
-        case 2:
-            location = @"SF";
-            break;
-            
-        default:
-            location = @"BOS";
-            break;
-    }
-    
-    [[NPAPIClient sharedClient] postPath:@"users" parameters:@{@"email": self.emailSignupText.text,
-                                                               @"pass": self.passSignupText.text,
-                                                               @"name": self.nameText.text,
-                                                               @"location": location,
-     @"gender": self.genderSelector.selectedSegmentIndex == 0 ? @"male" : @"female"}
-     
-    success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NPUser *user = [NPUser userWithObject:[responseObject valueForKey:@"data"]];
-        
-        [[NPAPIClient sharedClient] setToken:[[responseObject objectForKey:@"data"] valueForKey:@"token"]];
-        if (self.delegate)
-            [self.delegate userLoggedIn:user];
-        
-        [[Mixpanel sharedInstance] track:@"signup succeeded"];
-        [SVProgressHUD dismiss];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {        
-        NSString *msg = [NPUtils reportError:error WithMessage:@"signup failed" FromOperation:(AFJSONRequestOperation *)operation];
-        [SVProgressHUD dismiss];
-        
-        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }];
+    [NPAuthenticator createUserWithName:self.nameText.text email:self.emailSignupText.text password:self.passSignupText.text location:location gender:gender];
 }
 
 - (IBAction)cancelAction:(id)sender
@@ -282,7 +232,7 @@
     [UIView animateWithDuration:0.25 animations:^{
         CGRect sFrame = self.signupView.frame;
         CGRect lFrame = self.loginView.frame;
-        
+
         if ([[UIScreen mainScreen] bounds].size.height == 568) {
             self.loginView.frame = CGRectMake(lFrame.origin.x, lFrame.origin.y - size.height - 50, lFrame.size.width, lFrame.size.height);
             self.signupView.frame = CGRectMake(sFrame.origin.x, sFrame.origin.y - size.height, sFrame.size.width, sFrame.size.height);
@@ -307,13 +257,6 @@
 {
     [textField resignFirstResponder];
     return YES;
-}
-
-#pragma mark - Helper methods
-
-- (BOOL)textFieldIsEmpty:(UITextField *)textField
-{
-    return [[textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""];
 }
 
 @end

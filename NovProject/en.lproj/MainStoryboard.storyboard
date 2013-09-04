@@ -238,10 +238,16 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="P6G-oz-7A0" id="ITa-vL-aSN"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3K4-jD-ZeO">
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="P6G-oz-7A0" id="IsY-1e-VUT"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GsJ-aJ-kMy">
                                         <color key="backgroundColor" red="0.23137254901960785" green="0.34901960784313724" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -328,18 +334,30 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="P6G-oz-7A0" id="iSe-72-IkX"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V1o-Pa-LRh">
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="P6G-oz-7A0" id="xSr-Qe-OVZ"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mfU-3f-ipt">
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="P6G-oz-7A0" id="wrS-Gd-GSi"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CCE-zL-fIB">
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="P6G-oz-7A0" id="HFA-QJ-dNd"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wd8-e3-scd">
                                         <color key="backgroundColor" red="0.89855155109999996" green="0.29496464420000001" blue="0.2366845347" alpha="1" colorSpace="calibratedRGB"/>
@@ -946,6 +964,123 @@
     <resources>
         <image name="Default.png" width="320" height="480"/>
     </resources>
+    <classes>
+        <class className="FBProfilePictureView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FBProfilePictureView.h"/>
+        </class>
+        <class className="NPLoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NPLoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelAction:"/>
+                <relationship kind="action" name="fbLoginButtonAction:"/>
+                <relationship kind="action" name="loginButtonAction:"/>
+                <relationship kind="action" name="signupButtonAction:"/>
+                <relationship kind="action" name="signupSubmitAction:"/>
+                <relationship kind="outlet" name="backgroundImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="cancelButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="emailSignupText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="emailText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="facebookButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="fbLoginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="genderSelector" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="locSelector" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="loginView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="nameText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="orLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="passConfirmText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passSignupText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="signupButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="signupSubmitButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="signupView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="NPMapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NPMapViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="openAction:"/>
+                <relationship kind="outlet" name="map" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
+        <class className="NPMasterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NPMasterViewController.h"/>
+        </class>
+        <class className="NPResultCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NPResultCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cellView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="commentsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="commentsText" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="pictureView" candidateClass="FBProfilePictureView"/>
+                <relationship kind="outlet" name="resultLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="topView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="NPResultsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NPResultsViewController.h"/>
+        </class>
+        <class className="NPSimpleResultsCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NPSimpleResultsCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NPSimpleResultsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NPSimpleResultsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="giveVerbalAction:"/>
+                <relationship kind="action" name="recordResultsAction:"/>
+                <relationship kind="action" name="viewDetailsAction:"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="NPSubmitResultsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NPSubmitResultsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="amountCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="commentCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="prCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="timeCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="typeCell" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="NPVerbalCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NPVerbalCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="profilePic" candidateClass="FBProfilePictureView"/>
+            </relationships>
+        </class>
+        <class className="NPVerbalViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NPVerbalViewController.h"/>
+        </class>
+        <class className="NPWorkoutCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NPWorkoutCell.h"/>
+            <relationships>
+                <relationship kind="action" name="resultsButtonAction:" candidateClass="UIButton"/>
+                <relationship kind="action" name="verbalButtonAction:" candidateClass="UIButton"/>
+                <relationship kind="action" name="viewResultsAction:"/>
+                <relationship kind="action" name="viewVerbalsAction:"/>
+                <relationship kind="outlet" name="actionsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="cellView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="detailsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="locationMap" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="resultsButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="subtitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="verbalButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="viewResultsButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="viewVerbalsButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

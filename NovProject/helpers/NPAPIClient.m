@@ -7,10 +7,11 @@
 //
 
 #import "NPAPIClient.h"
-#import "LUKeychainAccess.h"
+#import "NPAppSession.h"
 #import "NPUtils.h"
 #import "NPWorkout.h"
 #import "NPAnalytics.h"
+#import "NPUser.h"
 
 static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/api/v1/";
 
@@ -34,32 +35,22 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     [self setDefaultHeader:@"Accept" value:@"application/json"];
 
-    NSString *token = [[LUKeychainAccess standardKeychainAccess] stringForKey:@"token"];
-    if (token) {
-        self.token = token;
-    }
-
     return self;
 }
 
 #pragma mark - Overridden methods
 
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters {
-    if (!self.token) {
+    if (![NPAppSession sharedSession].token) {
         return [super requestWithMethod:method path:path parameters:parameters];
     } else {
-        return [super requestWithMethod:method path:[path stringByAppendingFormat:@"?token=%@", self.token] parameters:parameters];
+        return [super requestWithMethod:method path:[path stringByAppendingFormat:@"?token=%@", [NPAppSession sharedSession].token] parameters:parameters];
     }
 }
 
-#pragma mark - Property assignment
+#pragma mark - API calls
 
-- (void)setToken:(NSString *)token {
-    _token = token;
-    [[LUKeychainAccess standardKeychainAccess] setString:token forKey:@"token"];
-}
-
-- (void)fetchWorkoutTypesWithSuccessBlock:(void (^)(NSArray *))block
+- (void)fetchWorkoutTypesWithSuccessBlock:(NPCollectionSuccessBlock)block
 {
     [[NPAnalytics sharedAnalytics] trackEvent:@"workout types request attempted"];
 
@@ -74,7 +65,7 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
     }];
 }
 
-- (void)fetchWorkoutsForLocation:(NSString *)location withSuccessBlock:(void (^)(NSArray *))block
+- (void)fetchWorkoutsForLocation:(NSString *)location withSuccessBlock:(NPCollectionSuccessBlock)block
 {
     [[NPAnalytics sharedAnalytics] trackEvent:@"workouts request attempted"];
     [self getPath:@"workouts" parameters:@{@"location": location} success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -91,6 +82,60 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
 //        NSString *msg = [NPUtils reportError:error WithMessage:@"workouts request failed" FromOperation:(AFJSONRequestOperation *)operation];
 //        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
+}
+
+- (void)fetchUserForFacebookAccessToken:(NSString *)accessToken withSuccessBlock:(NPAuthenticationSuccessBlock)block failureBlock:(NPAuthenticationFailBlock)failure
+{
+    [[NPAnalytics sharedAnalytics] trackEvent:@"login attempted facebook"];
+    [self postPath:@"users/facebook" parameters:@{@"access_token": accessToken}
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NPUser *user = [NPUser userWithObject:[responseObject objectForKey:@"data"]];
+
+             NSString *token = [[responseObject objectForKey:@"data"] valueForKey:@"token"];
+
+             [[Mixpanel sharedInstance] track:@"login succeeded facebook"];
+             block(user, token);
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             NSString *msg = [NPUtils reportError:error WithMessage:@"login failed facebook" FromOperation:(AFJSONRequestOperation *)operation];
+//
+//             [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+             failure(error);
+         }];
+}
+
+- (void)authenticateUserWithParameters:(NSDictionary *)parameters withSuccessBlock:(NPAuthenticationSuccessBlock)success failureBlock:(NPAuthenticationFailBlock)failure
+{
+    [[NPAnalytics sharedAnalytics] trackEvent:@"login attempted"];
+    [[NPAPIClient sharedClient] postPath:@"users/login" parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NPUser *user = [NPUser userWithObject:[responseObject valueForKey:@"data"]];
+             NSString *token = [[responseObject objectForKey:@"data"] valueForKey:@"token"];
+             [[Mixpanel sharedInstance] track:@"login succeeded"];
+             success(user, token);
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             NSString *msg = [NPUtils reportError:error WithMessage:@"login failed" FromOperation:(AFJSONRequestOperation *)operation];
+//             [SVProgressHUD dismiss];
+//
+//             [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+             failure(error);
+         }];
+}
+
+- (void)createUserWithParameters:(NSDictionary *)parameters withSuccessBlock:(NPAuthenticationSuccessBlock)success failureBlock:(NPAuthenticationFailBlock)failure
+{
+    [[NPAnalytics sharedAnalytics] trackEvent:@"signup attempted"];
+    [[NPAPIClient sharedClient] postPath:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+         NPUser *user = [NPUser userWithObject:[responseObject valueForKey:@"data"]];
+         NSString *token = [[responseObject objectForKey:@"data"] valueForKey:@"token"];
+         [[Mixpanel sharedInstance] track:@"signup succeeded"];
+         success(user, token);
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//         NSString *msg = [NPUtils reportError:error WithMessage:@"signup failed" FromOperation:(AFJSONRequestOperation *)operation];
+//         [SVProgressHUD dismiss];
+//         
+//         [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+         failure(error);
+     }];
 }
 
 @end

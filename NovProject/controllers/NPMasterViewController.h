@@ -8,8 +8,7 @@
 
 #import "NPWorkoutCell.h"
 #import "NPSubmitResultsViewController.h"
-#import "NPLoginViewController.h"
 
-@interface NPMasterViewController : UITableViewController <NPWorkoutCellDelegate, NPResultsSubmitDelegate, NPLoginViewDelegate>
+@interface NPMasterViewController : UITableViewController <NPWorkoutCellDelegate, NPResultsSubmitDelegate>
 
 @end
