@@ -1,6 +1,6 @@
 #import "NPResult+Fixture.h"
 
-SpecBegin(NPResult)
+SPEC_BEGIN(NPResultSpec)
 
 describe(@"NPResult model", ^{
     __block NSDictionary *resultJSON;
@@ -11,8 +11,8 @@ describe(@"NPResult model", ^{
     
     it(@"should create result model from JSON data", ^{
         NPResult *result = [NPResult resultWithObject:resultJSON];
-        expect(result.objectId).to.equal([resultJSON valueForKey:@"_id"]);
+        [[result.objectId should] equal:[resultJSON valueForKey:@"_id"]];
     });
 });
 
-SpecEnd
+SPEC_END

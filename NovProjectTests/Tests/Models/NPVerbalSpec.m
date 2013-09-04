@@ -1,6 +1,6 @@
 #import "NPVerbal+Fixture.h"
 
-SpecBegin(NPVerbal)
+SPEC_BEGIN(NPVerbalSpec)
 
 describe(@"NPVerbal model", ^{
     __block NSDictionary *verbalJSON;
@@ -11,8 +11,8 @@ describe(@"NPVerbal model", ^{
     
     it(@"should create Verbal model from JSON data", ^{
         NPVerbal *verbal = [NPVerbal verbalWithObject:verbalJSON];
-        expect(verbal.objectId).to.equal([verbalJSON valueForKey:@"_id"]);
+        [[verbal.objectId should] equal:[verbalJSON valueForKey:@"_id"]];
     });
 });
 
-SpecEnd
+SPEC_END

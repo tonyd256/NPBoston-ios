@@ -1,6 +1,6 @@
 #import "NPUser+Fixture.h"
 
-SpecBegin(NPUser)
+SPEC_BEGIN(NPUserSpec)
 
 describe(@"NPUser model", ^{
     __block NSDictionary *userJSON;
@@ -11,8 +11,8 @@ describe(@"NPUser model", ^{
     
     it(@"should create user model from JSON", ^{
         NPUser *user = [NPUser userWithObject:userJSON];
-        expect(user.objectId).to.equal([userJSON valueForKey:@"_id"]);
+        [[user.objectId should] equal:[userJSON valueForKey:@"_id"]];
     });
 });
 
-SpecEnd
+SPEC_END

@@ -1,45 +1,42 @@
 #import "NPCacheManager.h"
 #import "NPAPIClient+StubExtentions.h"
-#import "NSObject+MethodSwizzling.h"
 
-SpecBegin(NPCacheManager)
+SPEC_BEGIN(NPCacheManagerSpec)
 
-describe(@"NPCacheManager", ^{    
+describe(@"NPCacheManager", ^{
     describe(@"Workout Types cacheing", ^{
-        __block id userDefaults;
-        __block OCMockObject *clientMock;
+        __block id userDefaultsMock;
+        __block id clientMock;
         __block NSArray *workoutTypesJSON;
-        
+
         beforeAll(^{
             workoutTypesJSON = @[@{@"type": @"Stadium"},
                                  @{@"type": @"Hills"}];
-
-            clientMock = [OCMockObject mockForClass:[NPAPIClient class]];
-            [NPAPIClient swizzleSingletonWithMockObject:clientMock];
         });
-        
+
         beforeEach(^{
-            userDefaults = [OCMockObject niceMockForClass:[NSUserDefaults class]];
-            [NPCacheManager sharedManager].userDefaults = userDefaults;
+            userDefaultsMock = [NSUserDefaults mock];
+            [NSUserDefaults stub:@selector(standardUserDefaults) andReturn:userDefaultsMock];
 
-            [[[clientMock stub] andDo:^(NSInvocation *invocation) {
-                void (^passedBlock)(NSArray *);
-                [invocation getArgument:&passedBlock atIndex:2];
-                passedBlock(workoutTypesJSON);
-            }] fetchWorkoutTypesWithSuccessBlock:OCMOCK_ANY];
+            clientMock = [NPAPIClient mock];
+            [NPAPIClient stub:@selector(sharedClient) andReturn:clientMock];
         });
-        
+
         it(@"should cache the workout types into the user defaults", ^{
-            [[userDefaults expect] setObject:workoutTypesJSON forKey:kWorkoutTypesCache];
+            KWCaptureSpy *spy = [clientMock captureArgument:@selector(fetchWorkoutTypesWithSuccessBlock:) atIndex:0];
+            [[[userDefaultsMock should] receive] setObject:workoutTypesJSON forKey:kWorkoutTypesCache];
+            [[[userDefaultsMock should] receive] synchronize];
             [[NPCacheManager sharedManager] refreshWorkoutTypes];
-            [userDefaults verify];
+
+            NPCollectionSuccessBlock block = spy.argument;
+            block(workoutTypesJSON);
         });
-        
-        it(@"should retreive the workout types from the user defaults", ^{
-            [[[userDefaults stub] andReturn:workoutTypesJSON] objectForKey:kWorkoutTypesCache];
-            expect([[NPCacheManager sharedManager] workoutTypes]).to.equal(workoutTypesJSON);
+
+        it(@"should retrieve the workout types from the user defaults", ^{
+            [[userDefaultsMock stubAndReturn:workoutTypesJSON] objectForKey:kWorkoutTypesCache];
+            [[[[NPCacheManager sharedManager] workoutTypes] should] equal:workoutTypesJSON];
         });
     });
 });
 
-SpecEnd
+SPEC_END

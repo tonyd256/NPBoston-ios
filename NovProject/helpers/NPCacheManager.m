@@ -23,26 +23,17 @@ NSString * const kWorkoutTypesCache = @"workoutTypesCache";
     return manager;
 }
 
-- (NSUserDefaults *)userDefaults
-{
-    if (!_userDefaults) {
-        _userDefaults = [NSUserDefaults standardUserDefaults];
-    }
-
-    return _userDefaults;
-}
-
 - (void)refreshWorkoutTypes
 {
     [[NPAPIClient sharedClient] fetchWorkoutTypesWithSuccessBlock:^(NSArray *workoutTypes) {
-        [self.userDefaults setObject:workoutTypes forKey:kWorkoutTypesCache];
-        [self.userDefaults synchronize];
+        [[NSUserDefaults standardUserDefaults] setObject:workoutTypes forKey:kWorkoutTypesCache];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }];
 }
 
 - (NSArray *)workoutTypes
 {
-    return [self.userDefaults objectForKey:kWorkoutTypesCache];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kWorkoutTypesCache];
 }
 
 @end

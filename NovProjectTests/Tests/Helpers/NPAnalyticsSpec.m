@@ -1,22 +1,13 @@
 #import "NPAnalytics.h"
-#import "NSObject+MethodSwizzling.h"
 #import "NPUser+Fixture.h"
 
-SpecBegin(NPAnalytics)
+SPEC_BEGIN(NPAnalyticsSpec)
 
 describe(@"NPAnalytics", ^{
-    __block OCMockObject *mixpanelMock;
-
-    beforeEach(^{
-        mixpanelMock = [OCMockObject niceMockForClass:[Mixpanel class]];
-        [Mixpanel swizzleSingletonWithMockObject:mixpanelMock];
-    });
-
     describe(@"analytics setup", ^{
         it(@"should setup mixpanel with phone properties", ^{
-            [[mixpanelMock expect] registerSuperProperties:OCMOCK_ANY];
+            [[[[Mixpanel sharedInstance] should] receive] registerSuperProperties:any()];
             [[NPAnalytics sharedAnalytics] setup];
-            [mixpanelMock verify];
         });
     });
 
@@ -28,25 +19,22 @@ describe(@"NPAnalytics", ^{
         });
 
         it(@"should set a user for mixpanel", ^{
-            [[mixpanelMock expect] identify:user.objectId];
+            [[[[Mixpanel sharedInstance] should] receive]identify:user.objectId];
             [[NPAnalytics sharedAnalytics] setUser:user];
-            [mixpanelMock verify];
         });
     });    
 
     describe(@"analytics event tracking", ^{
         it(@"should track an event with mixpanel", ^{
-            [[mixpanelMock expect] track:@"TestEvent"];
+            [[[[Mixpanel sharedInstance] should] receive] track:@"TestEvent"];
             [[NPAnalytics sharedAnalytics] trackEvent:@"TestEvent"];
-            [mixpanelMock verify];
         });
 
         it(@"should track an event with properties with mixpanel", ^{
-            [[mixpanelMock expect] track:@"TestEvent" properties:@{@"test": @"testing"}];
+            [[[[Mixpanel sharedInstance] should] receive] track:@"TestEvent" properties:@{@"test": @"testing"}];
             [[NPAnalytics sharedAnalytics] trackEvent:@"TestEvent" withProperties:@{@"test": @"testing"}];
-            [mixpanelMock verify];
         });
     });
 });
 
-SpecEnd
+SPEC_END

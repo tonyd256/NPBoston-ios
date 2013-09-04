@@ -52,7 +52,6 @@
 		EAC72E8017C29346007E6F0E /* NPDateFormatterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E7F17C29346007E6F0E /* NPDateFormatterSpec.m */; };
 		EAC72E8217C2B229007E6F0E /* NPCacheManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E8117C2B229007E6F0E /* NPCacheManagerSpec.m */; };
 		EAC72E8917C2B793007E6F0E /* NPCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E8817C2B793007E6F0E /* NPCacheManager.m */; };
-		EAC72E8C17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E8B17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m */; };
 		EAC72E8F17C3E7AE007E6F0E /* NPAPIClient+StubExtentions.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E8E17C3E7AE007E6F0E /* NPAPIClient+StubExtentions.m */; };
 		EAC72E9117C40F17007E6F0E /* NPAPIClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E9017C40F17007E6F0E /* NPAPIClientSpec.m */; };
 		EAC72E9717C515DE007E6F0E /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E9617C515DE007E6F0E /* NSString+Extensions.m */; };
@@ -157,7 +156,7 @@
 		EAC72E7217BC0A83007E6F0E /* NPResult+Fixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NPResult+Fixture.m"; sourceTree = "<group>"; };
 		EAC72E7417BC1592007E6F0E /* NPResultSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPResultSpec.m; sourceTree = "<group>"; };
 		EAC72E7617BC165D007E6F0E /* NPVerbalSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPVerbalSpec.m; sourceTree = "<group>"; };
-		EAC72E7817BC16B7007E6F0E /* NPUtilsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPUtilsSpec.m; sourceTree = "<group>"; };
+		EAC72E7817BC16B7007E6F0E /* NPUtilsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPUtilsSpec.m; path = Models/NPUtilsSpec.m; sourceTree = "<group>"; };
 		EAC72E7A17BE7B4A007E6F0E /* NPFixtureProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NPFixtureProtocol.h; sourceTree = "<group>"; };
 		EAC72E7B17C28A32007E6F0E /* NPDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPDateFormatter.h; sourceTree = "<group>"; };
 		EAC72E7C17C28A32007E6F0E /* NPDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPDateFormatter.m; sourceTree = "<group>"; };
@@ -165,8 +164,6 @@
 		EAC72E8117C2B229007E6F0E /* NPCacheManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPCacheManagerSpec.m; path = Helpers/NPCacheManagerSpec.m; sourceTree = "<group>"; };
 		EAC72E8717C2B793007E6F0E /* NPCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPCacheManager.h; sourceTree = "<group>"; };
 		EAC72E8817C2B793007E6F0E /* NPCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPCacheManager.m; sourceTree = "<group>"; };
-		EAC72E8A17C3E1D7007E6F0E /* NSObject+MethodSwizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+MethodSwizzling.h"; path = "Stubs/NSObject+MethodSwizzling.h"; sourceTree = "<group>"; };
-		EAC72E8B17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+MethodSwizzling.m"; path = "Stubs/NSObject+MethodSwizzling.m"; sourceTree = "<group>"; };
 		EAC72E8D17C3E7AD007E6F0E /* NPAPIClient+StubExtentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NPAPIClient+StubExtentions.h"; path = "Stubs/NPAPIClient+StubExtentions.h"; sourceTree = "<group>"; };
 		EAC72E8E17C3E7AE007E6F0E /* NPAPIClient+StubExtentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NPAPIClient+StubExtentions.m"; path = "Stubs/NPAPIClient+StubExtentions.m"; sourceTree = "<group>"; };
 		EAC72E9017C40F17007E6F0E /* NPAPIClientSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPAPIClientSpec.m; path = Helpers/NPAPIClientSpec.m; sourceTree = "<group>"; };
@@ -423,7 +420,6 @@
 				EAC72E6317BBFE82007E6F0E /* NPWorkoutSpec.m */,
 				EAC72E7417BC1592007E6F0E /* NPResultSpec.m */,
 				EAC72E7617BC165D007E6F0E /* NPVerbalSpec.m */,
-				EAC72E7817BC16B7007E6F0E /* NPUtilsSpec.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -453,6 +449,7 @@
 				EAC72E8117C2B229007E6F0E /* NPCacheManagerSpec.m */,
 				EAC72E9017C40F17007E6F0E /* NPAPIClientSpec.m */,
 				EAC72EA617C5574E007E6F0E /* NPAnalyticsSpec.m */,
+				EAC72E7817BC16B7007E6F0E /* NPUtilsSpec.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -460,8 +457,6 @@
 		EAC72E8317C2B651007E6F0E /* Stubs */ = {
 			isa = PBXGroup;
 			children = (
-				EAC72E8A17C3E1D7007E6F0E /* NSObject+MethodSwizzling.h */,
-				EAC72E8B17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m */,
 				EAC72E8D17C3E7AD007E6F0E /* NPAPIClient+StubExtentions.h */,
 				EAC72E8E17C3E7AE007E6F0E /* NPAPIClient+StubExtentions.m */,
 			);
@@ -791,7 +786,6 @@
 				EAC72E7917BC16B7007E6F0E /* NPUtilsSpec.m in Sources */,
 				EAC72E8017C29346007E6F0E /* NPDateFormatterSpec.m in Sources */,
 				EAC72E8217C2B229007E6F0E /* NPCacheManagerSpec.m in Sources */,
-				EAC72E8C17C3E1D7007E6F0E /* NSObject+MethodSwizzling.m in Sources */,
 				EAC72E8F17C3E7AE007E6F0E /* NPAPIClient+StubExtentions.m in Sources */,
 				EAC72E9117C40F17007E6F0E /* NPAPIClientSpec.m in Sources */,
 				EAC72EA717C5574E007E6F0E /* NPAnalyticsSpec.m in Sources */,

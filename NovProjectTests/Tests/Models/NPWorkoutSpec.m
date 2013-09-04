@@ -1,6 +1,8 @@
 #import "NPWorkout+Fixture.h"
+#import "NPVerbal+Fixture.h"
+#import "NPResult+Fixture.h"
 
-SpecBegin(NPWorkout)
+SPEC_BEGIN(NPWorkoutSpec)
 
 describe(@"NPWorkout model", ^{
     __block NSDictionary *workoutJSON;
@@ -11,18 +13,18 @@ describe(@"NPWorkout model", ^{
     
     it(@"should create a workout model from JSON", ^{
         NPWorkout *workout = [NPWorkout workoutWithObject:workoutJSON];
-        expect(workout.objectId).to.equal([workoutJSON valueForKey:@"_id"]);
+        [[workout.objectId should] equal:[workoutJSON valueForKey:@"_id"]];
     });
     
     it(@"should create one verbal model as the verbal property", ^{
         NPWorkout *workout = [NPWorkout workoutWithObject:workoutJSON];
-        expect(workout.verbal).toNot.beNil();
+        [[workout.verbal shouldNot] beNil];
     });
     
     it(@"should create one result model as the result property", ^{
         NPWorkout *workout = [NPWorkout workoutWithObject:workoutJSON];
-        expect(workout.result).toNot.beNil();
+        [[workout.result shouldNot] beNil];
     });
 });
 
-SpecEnd
+SPEC_END
