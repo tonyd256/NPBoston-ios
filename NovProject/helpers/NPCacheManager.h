@@ -10,8 +10,6 @@ extern NSString * const kWorkoutTypesCache;
 
 @interface NPCacheManager : NSObject
 
-@property (strong, nonatomic) NSUserDefaults *userDefaults;
-
 + (NPCacheManager *)sharedManager;
 
 - (void)refreshWorkoutTypes;

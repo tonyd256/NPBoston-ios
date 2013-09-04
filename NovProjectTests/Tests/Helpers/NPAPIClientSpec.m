@@ -1,7 +1,7 @@
 #import "NPAPIClient+StubExtentions.h"
 #import "NPWorkout+Fixture.h"
 
-SpecBegin(NPAPIClient)
+SPEC_BEGIN(NPAPIClientSpec)
 
 describe(@"NPAPIClient", ^{    
     describe(@"workout types request", ^{
@@ -23,7 +23,7 @@ describe(@"NPAPIClient", ^{
             [[NPAPIClient sharedClient] fetchWorkoutTypesWithSuccessBlock:^(NSArray *workoutTypes) {
                 returnedWorkoutTypes = workoutTypes;
             }];
-            expect(returnedWorkoutTypes).will.equal([workoutTypesResponse objectForKey:@"data"]);
+            [[returnedWorkoutTypes shouldEventually] equal:[workoutTypesResponse objectForKey:@"data"]];
         });
 
         afterEach(^{
@@ -48,7 +48,7 @@ describe(@"NPAPIClient", ^{
             [[NPAPIClient sharedClient] fetchWorkoutsForLocation:@"BOS" withSuccessBlock:^(NSArray *workouts) {
                 returnedWorkouts = workouts;
             }];
-            expect(returnedWorkouts.count).will.equal(2);
+            [[expectFutureValue(theValue(returnedWorkouts.count)) shouldEventually] equal:theValue(2)];
         });
 
         afterEach(^{
@@ -57,4 +57,4 @@ describe(@"NPAPIClient", ^{
     });
 });
 
-SpecEnd
+SPEC_END

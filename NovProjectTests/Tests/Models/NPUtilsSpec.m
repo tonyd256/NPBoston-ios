@@ -1,6 +1,6 @@
 #import "NPUtils.h"
 
-SpecBegin(NPUtils)
+SPEC_BEGIN(NPUtilsSpec)
 
 describe(@"NPUtils helper", ^{
     __block NSNumber *timeNumber;
@@ -13,13 +13,13 @@ describe(@"NPUtils helper", ^{
     
     it(@"should convert time number to string", ^{
         NSString *str = [NPUtils timeToString:timeNumber];
-        expect(str).to.equal(timeString);
+        [[str should] equal:timeString];
     });
     
     it(@"should convert time string to number", ^{
         NSNumber *num = [NPUtils stringToTime:timeString];
-        expect(num).to.equal(timeNumber);
+        [[num should] equal:timeNumber];
     });
 });
 
-SpecEnd
+SPEC_END

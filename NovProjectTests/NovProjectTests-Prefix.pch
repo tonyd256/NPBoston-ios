@@ -4,9 +4,6 @@
 #import "NovProject-Prefix.pch"
 
 #ifdef __OBJC__
-    #define EXP_SHORTHAND
-    #import "Specta.h"
-    #import "Expecta.h"
-    #import "OCMock.h"
+    #import "Kiwi.h"
     #import "OHHttpStubs.h"
 #endif
