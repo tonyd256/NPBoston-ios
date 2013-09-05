@@ -60,8 +60,6 @@
 		EAC72EA217C5552C007E6F0E /* NPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72EA117C5552B007E6F0E /* NPColors.m */; };
 		EAC72EA517C556F0007E6F0E /* NPAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72EA417C556EF007E6F0E /* NPAnalytics.m */; };
 		EAC72EA717C5574E007E6F0E /* NPAnalyticsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72EA617C5574E007E6F0E /* NPAnalyticsSpec.m */; };
-		EAD314C7179F050800F59885 /* NPSimpleResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */; };
-		EAD314CA179F0CDF00F59885 /* NPSimpleResultsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */; };
 		EAD314F917A5E28C00F59885 /* NPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D017A5E28B00F59885 /* NPLoginViewController.m */; };
 		EAD314FA17A5E28C00F59885 /* NPMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D217A5E28B00F59885 /* NPMapViewController.m */; };
 		EAD314FB17A5E28C00F59885 /* NPMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD314D417A5E28B00F59885 /* NPMasterViewController.m */; };
@@ -176,10 +174,6 @@
 		EAC72EA317C556EF007E6F0E /* NPAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPAnalytics.h; sourceTree = "<group>"; };
 		EAC72EA417C556EF007E6F0E /* NPAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPAnalytics.m; sourceTree = "<group>"; };
 		EAC72EA617C5574E007E6F0E /* NPAnalyticsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPAnalyticsSpec.m; path = Helpers/NPAnalyticsSpec.m; sourceTree = "<group>"; };
-		EAD314C5179F050800F59885 /* NPSimpleResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsViewController.h; path = simple/NPSimpleResultsViewController.h; sourceTree = "<group>"; };
-		EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPSimpleResultsViewController.m; path = simple/NPSimpleResultsViewController.m; sourceTree = "<group>"; };
-		EAD314C8179F0CDF00F59885 /* NPSimpleResultsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NPSimpleResultsCell.h; path = simple/NPSimpleResultsCell.h; sourceTree = "<group>"; };
-		EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPSimpleResultsCell.m; path = simple/NPSimpleResultsCell.m; sourceTree = "<group>"; };
 		EAD314CF17A5E28B00F59885 /* NPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPLoginViewController.h; sourceTree = "<group>"; };
 		EAD314D017A5E28B00F59885 /* NPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPLoginViewController.m; sourceTree = "<group>"; };
 		EAD314D117A5E28B00F59885 /* NPMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPMapViewController.h; sourceTree = "<group>"; };
@@ -356,7 +350,6 @@
 				EAAC3949171F6B1400EE670B /* NPAppDelegate.h */,
 				EAAC394A171F6B1400EE670B /* NPAppDelegate.m */,
 				EAAC3952171F6B1400EE670B /* MainStoryboard.storyboard */,
-				EAD314C4179F04AD00F59885 /* Simple Flow */,
 				EAAC3941171F6B1400EE670B /* Supporting Files */,
 			);
 			path = NovProject;
@@ -470,17 +463,6 @@
 				EAC72E9B17C5305D007E6F0E /* workouts.json */,
 			);
 			name = JSON;
-			sourceTree = "<group>";
-		};
-		EAD314C4179F04AD00F59885 /* Simple Flow */ = {
-			isa = PBXGroup;
-			children = (
-				EAD314C5179F050800F59885 /* NPSimpleResultsViewController.h */,
-				EAD314C6179F050800F59885 /* NPSimpleResultsViewController.m */,
-				EAD314C8179F0CDF00F59885 /* NPSimpleResultsCell.h */,
-				EAD314C9179F0CDF00F59885 /* NPSimpleResultsCell.m */,
-			);
-			name = "Simple Flow";
 			sourceTree = "<group>";
 		};
 		EAD314CE17A5E28B00F59885 /* controllers */ = {
@@ -799,8 +781,6 @@
 			files = (
 				EAAC3947171F6B1400EE670B /* main.m in Sources */,
 				EAAC394B171F6B1400EE670B /* NPAppDelegate.m in Sources */,
-				EAD314C7179F050800F59885 /* NPSimpleResultsViewController.m in Sources */,
-				EAD314CA179F0CDF00F59885 /* NPSimpleResultsCell.m in Sources */,
 				EAD314F917A5E28C00F59885 /* NPLoginViewController.m in Sources */,
 				EAD314FA17A5E28C00F59885 /* NPMapViewController.m in Sources */,
 				EAD314FB17A5E28C00F59885 /* NPMasterViewController.m in Sources */,
