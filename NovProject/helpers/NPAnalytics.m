@@ -13,16 +13,6 @@
 
 @implementation NPAnalytics
 
-//+ (NPAnalytics *)sharedAnalytics
-//{
-//    static NPAnalytics *analytics = nil;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        analytics = [[NPAnalytics alloc] init];
-//    });
-//    return analytics;
-//}
-
 + (void)setup
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"private" ofType:@"plist"];

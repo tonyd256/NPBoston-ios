@@ -10,8 +10,6 @@
 
 @interface NPAnalytics : NSObject
 
-//+ (NPAnalytics *)sharedAnalytics;
-
 + (void)setup;
 + (void)setUser:(NPUser *)user;
 
