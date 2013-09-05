@@ -15,5 +15,7 @@
 - (void)setUser:(NPUser *)user;
 - (void)trackEvent:(NSString *)event;
 - (void)trackEvent:(NSString *)event withProperties:(NSDictionary *)properties;
+- (void)track:(NSString *)event;
+- (void)track:(NSString *)event properties:(NSDictionary *)properties;
 
 @end

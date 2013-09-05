@@ -52,14 +52,14 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
 
 - (void)fetchWorkoutTypesWithSuccessBlock:(NPCollectionSuccessBlock)block
 {
-    [[NPAnalytics sharedAnalytics] trackEvent:@"workout types request attempted"];
+    [[NPAnalytics sharedAnalytics] track:@"workout types request attempted"];
 
     [self getPath:@"workout_types" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         NSArray *types = [responseObject objectForKey:@"data"];
         block(types);
 
-        [[NPAnalytics sharedAnalytics] trackEvent:@"workout types request succeeded"];
+        [[NPAnalytics sharedAnalytics] track:@"workout types request succeeded"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        [NPUtils reportError:error WithMessage:@"workout types request failed" FromOperation:(AFJSONRequestOperation *)operation];
     }];
@@ -67,7 +67,7 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
 
 - (void)fetchWorkoutsForLocation:(NSString *)location withSuccessBlock:(NPCollectionSuccessBlock)block
 {
-    [[NPAnalytics sharedAnalytics] trackEvent:@"workouts request attempted"];
+    [[NPAnalytics sharedAnalytics] track:@"workouts request attempted"];
     [self getPath:@"workouts" parameters:@{@"location": location} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *data = [responseObject valueForKey:@"data"];
         NSMutableArray *workouts = [[NSMutableArray alloc] initWithCapacity:data.count];
@@ -76,7 +76,7 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
             [workouts addObject:[NPWorkout workoutWithObject:object]];
         }
 
-        [[NPAnalytics sharedAnalytics] trackEvent:@"workouts request succeeded"];
+        [[NPAnalytics sharedAnalytics] track:@"workouts request succeeded"];
         block([NSArray arrayWithArray:workouts]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        NSString *msg = [NPUtils reportError:error WithMessage:@"workouts request failed" FromOperation:(AFJSONRequestOperation *)operation];
@@ -86,14 +86,14 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
 
 - (void)fetchUserForFacebookAccessToken:(NSString *)accessToken withSuccessBlock:(NPAuthenticationSuccessBlock)block failureBlock:(NPAuthenticationFailBlock)failure
 {
-    [[NPAnalytics sharedAnalytics] trackEvent:@"login attempted facebook"];
+    [[NPAnalytics sharedAnalytics] track:@"login attempted facebook"];
     [self postPath:@"users/facebook" parameters:@{@"access_token": accessToken}
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NPUser *user = [NPUser userWithObject:[responseObject objectForKey:@"data"]];
 
              NSString *token = [[responseObject objectForKey:@"data"] valueForKey:@"token"];
 
-             [[Mixpanel sharedInstance] track:@"login succeeded facebook"];
+             [[NPAnalytics sharedAnalytics] track:@"login succeeded facebook"];
              block(user, token);
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //             NSString *msg = [NPUtils reportError:error WithMessage:@"login failed facebook" FromOperation:(AFJSONRequestOperation *)operation];
@@ -105,12 +105,12 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
 
 - (void)authenticateUserWithParameters:(NSDictionary *)parameters withSuccessBlock:(NPAuthenticationSuccessBlock)success failureBlock:(NPAuthenticationFailBlock)failure
 {
-    [[NPAnalytics sharedAnalytics] trackEvent:@"login attempted"];
+    [[NPAnalytics sharedAnalytics] track:@"login attempted"];
     [[NPAPIClient sharedClient] postPath:@"users/login" parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NPUser *user = [NPUser userWithObject:[responseObject valueForKey:@"data"]];
              NSString *token = [[responseObject objectForKey:@"data"] valueForKey:@"token"];
-             [[Mixpanel sharedInstance] track:@"login succeeded"];
+             [[NPAnalytics sharedAnalytics] track:@"login succeeded"];
              success(user, token);
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //             NSString *msg = [NPUtils reportError:error WithMessage:@"login failed" FromOperation:(AFJSONRequestOperation *)operation];
@@ -123,11 +123,11 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
 
 - (void)createUserWithParameters:(NSDictionary *)parameters withSuccessBlock:(NPAuthenticationSuccessBlock)success failureBlock:(NPAuthenticationFailBlock)failure
 {
-    [[NPAnalytics sharedAnalytics] trackEvent:@"signup attempted"];
+    [[NPAnalytics sharedAnalytics] track:@"signup attempted"];
     [[NPAPIClient sharedClient] postPath:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
          NPUser *user = [NPUser userWithObject:[responseObject valueForKey:@"data"]];
          NSString *token = [[responseObject objectForKey:@"data"] valueForKey:@"token"];
-         [[Mixpanel sharedInstance] track:@"signup succeeded"];
+         [[NPAnalytics sharedAnalytics] track:@"signup succeeded"];
          success(user, token);
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //         NSString *msg = [NPUtils reportError:error WithMessage:@"signup failed" FromOperation:(AFJSONRequestOperation *)operation];

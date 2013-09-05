@@ -21,7 +21,7 @@
     if ([operation responseJSON] && [[operation responseJSON] objectForKey:@"error"]) {
         errorMessage = [[operation responseJSON] valueForKey:@"error"];
         NSLog(@"Error: %@", errorMessage);
-        [[Mixpanel sharedInstance] track:message properties:@{@"error": errorMessage}];
+        [[NPAnalytics sharedAnalytics] track:message properties:@{@"error": errorMessage}];
         return errorMessage;
     } else {
         return [self reportError:error WithMessage:message];
@@ -30,7 +30,7 @@
 
 + (NSString *)reportError:(NSError *)error WithMessage:(NSString *)message{
     NSLog(@"Error: %@", error.localizedDescription);
-    [[Mixpanel sharedInstance] track:message properties:@{@"error": error.localizedDescription}];
+    [[NPAnalytics sharedAnalytics] track:message properties:@{@"error": error.localizedDescription}];
     return error.localizedDescription;
 }
 

@@ -54,4 +54,14 @@
     [[Mixpanel sharedInstance] track:event properties:properties];
 }
 
+- (void)track:(NSString *)event
+{
+    [self trackEvent:event];
+}
+
+- (void)track:(NSString *)event properties:(NSDictionary *)properties
+{
+    [self trackEvent:event withProperties:properties];
+}
+
 @end

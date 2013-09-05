@@ -45,7 +45,7 @@
     
     if (!self.workoutTypes) {
         [SVProgressHUD showWithStatus:@"Loading..."];
-        [[Mixpanel sharedInstance] track:@"workout types request attempted"];
+        [[NPAnalytics sharedAnalytics] track:@"workout types request attempted"];
         [[NPAPIClient sharedClient] getPath:@"workout_types" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             self.workoutTypes = [responseObject objectForKey:@"data"];
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -58,7 +58,7 @@
             
             [defaults setObject:self.workoutTypes forKey:@"types"];
             [defaults synchronize];
-            [[Mixpanel sharedInstance] track:@"workout types request succeeded"];
+            [[NPAnalytics sharedAnalytics] track:@"workout types request succeeded"];
             [SVProgressHUD dismiss];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [NPUtils reportError:error WithMessage:@"workout types request failed" FromOperation:(AFJSONRequestOperation *)operation];
@@ -91,7 +91,7 @@
     [self.picker selectRow:[[times objectAtIndex:1] integerValue] inComponent:1 animated:NO];
     [self.picker selectRow:[[times objectAtIndex:2] integerValue] inComponent:2 animated:NO];
     
-    [[Mixpanel sharedInstance] track:@"result save view loaded"];
+    [[NPAnalytics sharedAnalytics] track:@"result save view loaded"];
 }
 
 - (void)viewDidUnload
@@ -244,7 +244,7 @@
             
             [ActionSheetStringPicker showPickerWithTitle:@"Workout Type" rows:self.types initialSelection:self.selectedTypeIndex doneBlock:done cancelBlock:nil origin:tableView];
             
-            [[Mixpanel sharedInstance] track:@"result type tapped"];
+            [[NPAnalytics sharedAnalytics] track:@"result type tapped"];
             break;
         }
             
@@ -253,7 +253,7 @@
             //open action view with time picker
             [self.sheet showInView:self.view];
             [self.sheet setBounds:CGRectMake(0, 0, 320, 490)];
-            [[Mixpanel sharedInstance] track:@"result time tapped"];
+            [[NPAnalytics sharedAnalytics] track:@"result time tapped"];
             break;
         }
             
@@ -262,7 +262,7 @@
             //open dialog to pick amount?
             [self.amountText becomeFirstResponder];
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            [[Mixpanel sharedInstance] track:@"result amount tapped"];
+            [[NPAnalytics sharedAnalytics] track:@"result amount tapped"];
             break;
         }
             
@@ -274,14 +274,14 @@
                 self.prCell.detailTextLabel.text = @"No";
             }
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            [[Mixpanel sharedInstance] track:@"result pr tapped"];
+            [[NPAnalytics sharedAnalytics] track:@"result pr tapped"];
             break;
             
         case 4:
             //open text edit dialog
             [self.commentText becomeFirstResponder];
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            [[Mixpanel sharedInstance] track:@"result comment tapped"];
+            [[NPAnalytics sharedAnalytics] track:@"result comment tapped"];
             break;
             
         default:
@@ -389,14 +389,14 @@
 - (void)submitCancelled:(id)sender
 {
     //close modal
-    [[Mixpanel sharedInstance] track:@"result save cancelled"];
+    [[NPAnalytics sharedAnalytics] track:@"result save cancelled"];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)resultSave:(id)sender
 {
     [SVProgressHUD showWithStatus:@"Saving..."];
-    [[Mixpanel sharedInstance] track:@"result save attempted"];
+    [[NPAnalytics sharedAnalytics] track:@"result save attempted"];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NPUser *user = [defaults objectForKey:@"user"];
@@ -411,7 +411,7 @@
     
     if (self.workout.result) {
         [[NPAPIClient sharedClient] putPath:[NSString stringWithFormat:@"workouts/%@/results/%@", self.workout.objectId, self.workout.result.objectId] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [[Mixpanel sharedInstance] track:@"result save succeeded"];
+            [[NPAnalytics sharedAnalytics] track:@"result save succeeded"];
             
             self.workout.result = [NPResult resultWithObject:[responseObject objectForKey:@"data"]];
             if (self.delegate)
@@ -427,7 +427,7 @@
         }];
     } else {
         [[NPAPIClient sharedClient] postPath:[NSString stringWithFormat:@"workouts/%@/results", self.workout.objectId] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [[Mixpanel sharedInstance] track:@"result save succeeded"];
+            [[NPAnalytics sharedAnalytics] track:@"result save succeeded"];
             
             self.workout.result = [NPResult resultWithObject:[responseObject objectForKey:@"data"]];
             if (self.delegate)

@@ -42,7 +42,7 @@
     [self.map setRegion:region];
     [self.map setShowsUserLocation:YES];
     
-    [[Mixpanel sharedInstance] track:@"map view loaded"];
+    [[NPAnalytics sharedAnalytics] track:@"map view loaded"];
 }
 
 - (void)viewDidUnload
