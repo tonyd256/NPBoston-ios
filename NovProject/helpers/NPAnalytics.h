@@ -10,10 +10,10 @@
 
 @interface NPAnalytics : NSObject
 
-+ (NPAnalytics *)sharedAnalytics;
-- (void)setup;
-- (void)setUser:(NPUser *)user;
-- (void)trackEvent:(NSString *)event;
-- (void)trackEvent:(NSString *)event withProperties:(NSDictionary *)properties;
++ (void)setup;
++ (void)setUser:(NPUser *)user;
+
++ (void)track:(NSString *)event;
++ (void)track:(NSString *)event properties:(NSDictionary *)properties;
 
 @end

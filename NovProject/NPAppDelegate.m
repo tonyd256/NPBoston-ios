@@ -1,6 +1,6 @@
 //
 //  NPAppDelegate.m
-//  NPBoston
+//  NovProject
 //
 //  Created by Tony DiPasquale on 4/17/13.
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
@@ -24,7 +24,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[NPAnalytics sharedAnalytics] setup];
+    [NPAnalytics setup];
 
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 

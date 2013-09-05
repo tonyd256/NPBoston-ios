@@ -1,6 +1,6 @@
 //
 //  NPVerbalViewController.m
-//  NPBoston
+//  NovProject
 //
 //  Created by Tony DiPasquale on 4/29/13.
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
@@ -29,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[Mixpanel sharedInstance] track:@"verbal view loaded"];
+    [NPAnalytics track:@"verbal view loaded"];
     self.verbals = [[NSMutableArray alloc] init];
     
     // get verbals
@@ -42,7 +42,7 @@
 {
     if (!self.workout || !self.workout.objectId) return;
     
-    [[Mixpanel sharedInstance] track:@"verbals request attempted"];
+    [NPAnalytics track:@"verbals request attempted"];
     [SVProgressHUD showWithStatus:@"Loading..."];
     [[NPAPIClient sharedClient] getPath:[NSString stringWithFormat:@"workouts/%@/verbals", self.workout.objectId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *data = [responseObject valueForKey:@"data"];
@@ -54,7 +54,7 @@
         }
         
         [self.tableView reloadData];
-        [[Mixpanel sharedInstance] track:@"verbals request succeeded"];
+        [NPAnalytics track:@"verbals request succeeded"];
         [SVProgressHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *msg = [NPUtils reportError:error WithMessage:@"verbals request failed" FromOperation:(AFJSONRequestOperation *)operation];
@@ -92,7 +92,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[Mixpanel sharedInstance] track:@"verbal row tapped"];
+    [NPAnalytics track:@"verbal row tapped"];
 }
 
 @end

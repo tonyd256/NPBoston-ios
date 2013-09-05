@@ -1,6 +1,6 @@
 //
 //  NPWorkoutCell.m
-//  NPBoston
+//  NovProject
 //
 //  Created by Tony DiPasquale on 4/18/13.
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
@@ -57,7 +57,7 @@
             if (buttonIndex == 0) {
                 if (self.delegate)
                     [self.delegate submitResultsWithIndexPath:[(UITableView *)self.superview indexPathForCell:self]];
-                [[Mixpanel sharedInstance] track:@"result post early attempted"];
+                [NPAnalytics track:@"result post early attempted"];
             }
         } cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
     } else {
@@ -74,11 +74,11 @@
         if ([self.verbalButton.titleLabel.textColor isEqual:[UIColor grayColor]]) {
             self.verbalButton.titleLabel.textColor = [UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1];
             
-            [[Mixpanel sharedInstance] track:@"verbal attempted"];
+            [NPAnalytics track:@"verbal attempted"];
             
             NSString *url = [NSString stringWithFormat:@"workouts/%@/verbal", self.workout.objectId];
             [[NPAPIClient sharedClient] postPath:url parameters:@{@"uid": self.userID, @"name": self.userName} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                [[Mixpanel sharedInstance] track:@"verbal succeeded"];
+                [NPAnalytics track:@"verbal succeeded"];
                 self.workout.verbal = [NPVerbal verbalWithObject:[responseObject objectForKey:@"data"]];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSString *msg = [NPUtils reportError:error WithMessage:@"verbals request failed" FromOperation:(AFJSONRequestOperation *)operation];
@@ -88,11 +88,11 @@
         } else if ([[NSDate date] timeIntervalSince1970] < ([self.workout.date timeIntervalSince1970] - 32400)) {
             self.verbalButton.titleLabel.textColor = [UIColor grayColor];
             
-            [[Mixpanel sharedInstance] track:@"verbal removal attempted"];
+            [NPAnalytics track:@"verbal removal attempted"];
             
             NSString *url = [NSString stringWithFormat:@"workouts/%@/verbal", self.workout.objectId];
             [[NPAPIClient sharedClient] deletePath:url parameters:@{@"uid": self.userID} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                [[Mixpanel sharedInstance] track:@"verbal removal succeeded"];
+                [NPAnalytics track:@"verbal removal succeeded"];
                 self.workout.verbal = nil;
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSString *msg = [NPUtils reportError:error WithMessage:@"verbals request failed" FromOperation:(AFJSONRequestOperation *)operation];
@@ -109,21 +109,21 @@
 
 - (IBAction)viewResultsAction:(id)sender
 {
-    [[Mixpanel sharedInstance] track:@"results tapped"];
+    [NPAnalytics track:@"results tapped"];
     if (self.delegate)
         [self.delegate showResultsWithWorkout:self.workout];
 }
 
 - (IBAction)viewVerbalsAction:(id)sender
 {
-    [[Mixpanel sharedInstance] track:@"verbals tapped"];
+    [NPAnalytics track:@"verbals tapped"];
     if (self.delegate)
         [self.delegate showVerbalsWithWorkout:self.workout];
 }
 
 - (void)mapTapped:(UITapGestureRecognizer *)sender
 {
-    [[Mixpanel sharedInstance] track:@"map tapped"];
+    [NPAnalytics track:@"map tapped"];
     if (self.delegate)
         [self.delegate showMapWithWorkout:self.workout];
 }

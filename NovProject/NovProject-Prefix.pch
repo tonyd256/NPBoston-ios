@@ -1,17 +1,16 @@
 //
-// Prefix header for all source files of the 'NPBoston' target in the 'NPBoston' project
+// Prefix header for all source files of the 'NovProject' target in the 'NovProject' project
 //
 
 #import <Availability.h>
 
-#ifndef __IPHONE_5_0
-#warning "This project uses features only available in iOS SDK 5.0 and later."
+#ifndef __IPHONE_6_0
+#warning "This project uses features only available in iOS SDK 6.0 and later."
 #endif
 
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
-    #import "Mixpanel.h"
     #import "NPAnalytics.h"
 
     #import <SystemConfiguration/SystemConfiguration.h>

@@ -1,6 +1,6 @@
 //
 //  NPMapViewController.m
-//  NPBoston
+//  NovProject
 //
 //  Created by Tony DiPasquale on 4/29/13.
 //  Copyright (c) 2013 Tony DiPasquale. All rights reserved.
@@ -42,7 +42,7 @@
     [self.map setRegion:region];
     [self.map setShowsUserLocation:YES];
     
-    [[Mixpanel sharedInstance] track:@"map view loaded"];
+    [NPAnalytics track:@"map view loaded"];
 }
 
 - (void)viewDidUnload

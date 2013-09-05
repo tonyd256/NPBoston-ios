@@ -13,17 +13,7 @@
 
 @implementation NPAnalytics
 
-+ (NPAnalytics *)sharedAnalytics
-{
-    static NPAnalytics *analytics = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        analytics = [[NPAnalytics alloc] init];
-    });
-    return analytics;
-}
-
-- (void)setup
++ (void)setup
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"private" ofType:@"plist"];
     NSDictionary *private = [NSDictionary dictionaryWithContentsOfFile:path];
@@ -38,18 +28,18 @@
      }];
 }
 
-- (void)setUser:(NPUser *)user
++ (void)setUser:(NPUser *)user
 {
     [[Mixpanel sharedInstance] identify:user.objectId];
     [[[Mixpanel sharedInstance] people] set:@"$name" to:user.name];
 }
 
-- (void)trackEvent:(NSString *)event
++ (void)track:(NSString *)event
 {
     [[Mixpanel sharedInstance] track:event];
 }
 
-- (void)trackEvent:(NSString *)event withProperties:(NSDictionary *)properties
++ (void)track:(NSString *)event properties:(NSDictionary *)properties
 {
     [[Mixpanel sharedInstance] track:event properties:properties];
 }
