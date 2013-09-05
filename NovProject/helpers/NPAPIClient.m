@@ -12,6 +12,7 @@
 #import "NPWorkout.h"
 #import "NPAnalytics.h"
 #import "NPUser.h"
+#import "NPErrorHandler.h"
 
 static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/api/v1/";
 
@@ -61,7 +62,7 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
 
         [NPAnalytics track:@"workout types request succeeded"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [NPUtils reportError:error WithMessage:@"workout types request failed" FromOperation:(AFJSONRequestOperation *)operation];
+        [NPErrorHandler reportError:error withAnalyticsEvent:@"workout types request failed" fromOperation:(AFJSONRequestOperation *)operation quiet:YES];
     }];
 }
 
@@ -79,8 +80,7 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
         [NPAnalytics track:@"workouts request succeeded"];
         block([NSArray arrayWithArray:workouts]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSString *msg = [NPUtils reportError:error WithMessage:@"workouts request failed" FromOperation:(AFJSONRequestOperation *)operation];
-//        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [NPErrorHandler reportError:error withAnalyticsEvent:@"workouts request failed" fromOperation:(AFJSONRequestOperation *)operation quiet:NO];
     }];
 }
 
@@ -96,10 +96,8 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
              [NPAnalytics track:@"login succeeded facebook"];
              block(user, token);
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             NSString *msg = [NPUtils reportError:error WithMessage:@"login failed facebook" FromOperation:(AFJSONRequestOperation *)operation];
-//
-//             [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-             failure(error);
+             [NPErrorHandler reportError:error withAnalyticsEvent:@"login failed facebook" fromOperation:(AFJSONRequestOperation *)operation quiet:NO];
+             failure();
          }];
 }
 
@@ -113,11 +111,8 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
              [NPAnalytics track:@"login succeeded"];
              success(user, token);
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             NSString *msg = [NPUtils reportError:error WithMessage:@"login failed" FromOperation:(AFJSONRequestOperation *)operation];
-//             [SVProgressHUD dismiss];
-//
-//             [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-             failure(error);
+             [NPErrorHandler reportError:error withAnalyticsEvent:@"login failed" fromOperation:(AFJSONRequestOperation *)operation quiet:NO];
+             failure();
          }];
 }
 
@@ -130,11 +125,8 @@ static NSString * const kAPIBaseURL = @"https://shielded-sea-7944.herokuapp.com/
          [NPAnalytics track:@"signup succeeded"];
          success(user, token);
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//         NSString *msg = [NPUtils reportError:error WithMessage:@"signup failed" FromOperation:(AFJSONRequestOperation *)operation];
-//         [SVProgressHUD dismiss];
-//         
-//         [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-         failure(error);
+         [NPErrorHandler reportError:error withAnalyticsEvent:@"signup failed" fromOperation:(AFJSONRequestOperation *)operation quiet:NO];
+         failure();
      }];
 }
 

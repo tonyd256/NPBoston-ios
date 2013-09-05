@@ -39,6 +39,7 @@
 		EAAC3999171FB47900EE670B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAC3998171FB47900EE670B /* MapKit.framework */; };
 		EAAC399C17217AA900EE670B /* tablecell_background.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC399A17217AA900EE670B /* tablecell_background.png */; };
 		EAAC399D17217AA900EE670B /* tablecell_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAAC399B17217AA900EE670B /* tablecell_background@2x.png */; };
+		EAB5DD9E17D8D86000D43C5A /* NPErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB5DD9D17D8D86000D43C5A /* NPErrorHandler.m */; };
 		EAB670D71728E60800342AA1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB670D61728E60800342AA1 /* QuartzCore.framework */; };
 		EAC72E6417BBFE82007E6F0E /* NPWorkoutSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E6317BBFE82007E6F0E /* NPWorkoutSpec.m */; };
 		EAC72E6A17BC09AA007E6F0E /* NPWorkout+Fixture.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC72E6917BC09AA007E6F0E /* NPWorkout+Fixture.m */; };
@@ -142,6 +143,8 @@
 		EAAC3998171FB47900EE670B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		EAAC399A17217AA900EE670B /* tablecell_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tablecell_background.png; sourceTree = "<group>"; };
 		EAAC399B17217AA900EE670B /* tablecell_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tablecell_background@2x.png"; sourceTree = "<group>"; };
+		EAB5DD9C17D8D86000D43C5A /* NPErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPErrorHandler.h; sourceTree = "<group>"; };
+		EAB5DD9D17D8D86000D43C5A /* NPErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPErrorHandler.m; sourceTree = "<group>"; };
 		EAB670D61728E60800342AA1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EAC72E6317BBFE82007E6F0E /* NPWorkoutSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPWorkoutSpec.m; sourceTree = "<group>"; };
 		EAC72E6817BC09AA007E6F0E /* NPWorkout+Fixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NPWorkout+Fixture.h"; sourceTree = "<group>"; };
@@ -507,6 +510,8 @@
 				EAEFFD7717D10C19004199E6 /* NPAuthenticator.m */,
 				EAEFFD7917D10DDC004199E6 /* NPFacebookHandler.h */,
 				EAEFFD7A17D10DDC004199E6 /* NPFacebookHandler.m */,
+				EAB5DD9C17D8D86000D43C5A /* NPErrorHandler.h */,
+				EAB5DD9D17D8D86000D43C5A /* NPErrorHandler.m */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -807,6 +812,7 @@
 				EA7C5A5C17CD84C700C38DB6 /* NPAppSession.m in Sources */,
 				EAEFFD7817D10C19004199E6 /* NPAuthenticator.m in Sources */,
 				EAEFFD7B17D10DDC004199E6 /* NPFacebookHandler.m in Sources */,
+				EAB5DD9E17D8D86000D43C5A /* NPErrorHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

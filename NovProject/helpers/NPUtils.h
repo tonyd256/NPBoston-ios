@@ -10,8 +10,8 @@
 
 @interface NPUtils : NSObject
 
-+ (NSString *)reportError:(NSError *)error WithMessage:(NSString *)message FromOperation:(AFJSONRequestOperation *)operation;
-+ (NSString *)reportError:(NSError *)error WithMessage:(NSString *)message;
+//+ (NSString *)reportError:(NSError *)error WithMessage:(NSString *)message FromOperation:(AFJSONRequestOperation *)operation;
+//+ (NSString *)reportError:(NSError *)error WithMessage:(NSString *)message;
 
 + (NSString *)timeToString:(NSNumber *)timeObj;
 + (NSNumber *)stringToTime:(NSString *)timeStr;

@@ -54,4 +54,9 @@
     [self trackEvent:event withProperties:properties];
 }
 
+- (void)trackError:(NSString *)event message:(NSString *)message
+{
+    [self track:event properties:@{@"error": message}];
+}
+
 @end
