@@ -58,7 +58,7 @@ typedef NS_ENUM(NSInteger, NPLocation) {
     self.signupSubmitButton.layer.cornerRadius = 3.0;
     self.cancelButton.layer.cornerRadius = 3.0;
 
-    [[NPAnalytics sharedAnalytics] track:@"login view loaded"];
+    [NPAnalytics track:@"login view loaded"];
 
     [self.loginView setAlpha:0.0];
 }
@@ -140,7 +140,7 @@ typedef NS_ENUM(NSInteger, NPLocation) {
 - (IBAction)fbLoginButtonAction:(id)sender
 {
     [SVProgressHUD showWithStatus:@"Authenticating..."];
-    [[NPAnalytics sharedAnalytics] track:@"login attempted facebook"];
+    [NPAnalytics track:@"login attempted facebook"];
     [NPFacebookHandler openFacebookSessionWithAllowLoginUI:YES];
 }
 
@@ -157,7 +157,7 @@ typedef NS_ENUM(NSInteger, NPLocation) {
     }
 
     [SVProgressHUD showWithStatus:@"Loging in..."];
-    [[NPAnalytics sharedAnalytics] track:@"login attempted"];
+    [NPAnalytics track:@"login attempted"];
 
     [NPAuthenticator authenticateUserWithEmail:self.emailText.text andPassword:self.passText.text];
 }

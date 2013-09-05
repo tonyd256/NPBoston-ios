@@ -42,7 +42,7 @@
     [self.map setRegion:region];
     [self.map setShowsUserLocation:YES];
     
-    [[NPAnalytics sharedAnalytics] track:@"map view loaded"];
+    [NPAnalytics track:@"map view loaded"];
 }
 
 - (void)viewDidUnload

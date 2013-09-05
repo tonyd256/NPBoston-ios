@@ -23,7 +23,7 @@
             if (error) {
                 [self handleError:error];
             } else {
-                [[NPAnalytics sharedAnalytics] track:@"login succeeded facbook"];
+                [NPAnalytics track:@"login succeeded facbook"];
                 [NPAuthenticator authenticateUserWithFacebookAccessToken:[FBSession activeSession].accessTokenData.accessToken];
             }
             break;
@@ -49,7 +49,7 @@
         alertMessage = error.fberrorUserMessage;
     } else if (error.fberrorCategory == FBErrorCategoryUserCancelled) {
         NSLog(@"User cancelled FB login");
-        [[NPAnalytics sharedAnalytics] track:@"login cancelled facebook"];
+        [NPAnalytics track:@"login cancelled facebook"];
     } else if (error.fberrorCategory == FBErrorCategoryAuthenticationReopenSession) {
         alertTitle = @"Session Error";
         alertMessage = @"Your current session is no longer valid. Please log in again.";
@@ -61,7 +61,7 @@
 
     if (alertMessage) {
         [[[UIAlertView alloc] initWithTitle:alertTitle message:alertMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        [[NPAnalytics sharedAnalytics] track:@"login error facebook" properties:@{@"error": error.localizedDescription}];
+        [NPAnalytics track:@"login error facebook" properties:@{@"error": error.localizedDescription}];
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:NPSessionAuthenticationFailedNotification object:nil];

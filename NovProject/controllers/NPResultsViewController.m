@@ -33,7 +33,7 @@
     self.results = [[NSMutableArray alloc] init];
     [self getResults];
     
-    [[NPAnalytics sharedAnalytics] track:@"results view loaded"];
+    [NPAnalytics track:@"results view loaded"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -48,7 +48,7 @@
 {
     if (!self.workout || !self.workout.objectId) return;
     
-    [[NPAnalytics sharedAnalytics] track:@"results request attempted"];
+    [NPAnalytics track:@"results request attempted"];
     [SVProgressHUD showWithStatus:@"Loading..."];
     [[NPAPIClient sharedClient] getPath:[NSString stringWithFormat:@"workouts/%@/results", self.workout.objectId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *data = [responseObject valueForKey:@"data"];
@@ -59,7 +59,7 @@
         }
         
         [self.tableView reloadData];
-        [[NPAnalytics sharedAnalytics] track:@"results request succeeded"];
+        [NPAnalytics track:@"results request succeeded"];
         [SVProgressHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *msg = [NPUtils reportError:error WithMessage:@"results request failed" FromOperation:(AFJSONRequestOperation *)operation];
@@ -153,7 +153,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[NPAnalytics sharedAnalytics] track:@"result row tapped"];
+    [NPAnalytics track:@"result row tapped"];
 }
 
 @end

@@ -50,7 +50,7 @@
 
     [[NPAppSession sharedSession] authenticate];
 
-    [[NPAnalytics sharedAnalytics] track:@"master view loaded"];
+    [NPAnalytics track:@"master view loaded"];
 }
 
 - (void)viewWillAppear:(BOOL)animated

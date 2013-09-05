@@ -24,7 +24,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[NPAnalytics sharedAnalytics] setup];
+    [NPAnalytics setup];
 
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 
