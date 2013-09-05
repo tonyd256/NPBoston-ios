@@ -7,7 +7,6 @@
 //
 
 #import "NPUtils.h"
-#import "Mixpanel.h"
 #import "NPAPIClient.h"
 
 @implementation NPUtils
