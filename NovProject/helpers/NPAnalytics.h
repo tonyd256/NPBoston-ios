@@ -16,4 +16,6 @@
 + (void)track:(NSString *)event;
 + (void)track:(NSString *)event properties:(NSDictionary *)properties;
 
++ (void)trackError:(NSString *)event message:(NSString *)message;
+
 @end

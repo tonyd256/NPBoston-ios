@@ -14,6 +14,7 @@
 #import "NPWorkout.h"
 #import "NPResult.h"
 #import "NPUtils.h"
+#import "NPErrorHandler.h"
 
 @interface NPSubmitResultsViewController ()
 
@@ -34,34 +35,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     [self makeToolBar];
     [self makeAmountTextField];
     [self makeTimePickerView];
     [self makeCommentTextView];
-    
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.workoutTypes = [defaults objectForKey:@"types"];
-    
+
     if (!self.workoutTypes) {
         [SVProgressHUD showWithStatus:@"Loading..."];
         [NPAnalytics track:@"workout types request attempted"];
         [[NPAPIClient sharedClient] getPath:@"workout_types" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             self.workoutTypes = [responseObject objectForKey:@"data"];
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            
+
             self.types = [[NSMutableArray alloc] init];
             for (id type in self.workoutTypes) {
                 [self.types addObject:[type valueForKey:@"type"]];
             }
             self.selectedTypeIndex = [self.types indexOfObject:self.workout.type];
-            
+
             [defaults setObject:self.workoutTypes forKey:@"types"];
             [defaults synchronize];
             [NPAnalytics track:@"workout types request succeeded"];
             [SVProgressHUD dismiss];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [NPUtils reportError:error WithMessage:@"workout types request failed" FromOperation:(AFJSONRequestOperation *)operation];
+            [NPErrorHandler reportError:error withAnalyticsEvent:@"workout types request failed" fromOperation:(AFJSONRequestOperation *)operation quiet:YES];
             [SVProgressHUD dismiss];
         }];
     } else {
@@ -71,7 +72,7 @@
         }
         self.selectedTypeIndex = [self.types indexOfObject:self.workout.type];
     }
-    
+
     if (self.workout.result) {
         //fill in stuff
         self.typeCell.detailTextLabel.text = self.workout.result.type;
@@ -85,12 +86,12 @@
         self.amountText.text = self.workout.amount == 0 ? @"0" : [self.workout.amount stringValue];
         self.prCell.detailTextLabel.text = @"No";
     }
-    
+
     NSArray *times = [self.timeCell.detailTextLabel.text componentsSeparatedByString:@":"];
     [self.picker selectRow:[[times objectAtIndex:0] integerValue] inComponent:0 animated:NO];
     [self.picker selectRow:[[times objectAtIndex:1] integerValue] inComponent:1 animated:NO];
     [self.picker selectRow:[[times objectAtIndex:2] integerValue] inComponent:2 animated:NO];
-    
+
     [NPAnalytics track:@"result save view loaded"];
 }
 
@@ -111,13 +112,13 @@
 {
     UIToolbar *bottomBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, 320, 44)];
     [bottomBar setBarStyle:UIBarStyleBlackOpaque];
-    
+
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(submitCancelled:)];
-    
+
     UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
+
     UIBarButtonItem *submitItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(resultSave:)];
-    
+
     [bottomBar setItems:@[cancelItem, flexItem, submitItem]];
     [self.view addSubview:bottomBar];
 }
@@ -127,20 +128,20 @@
     self.amountText = [[UITextField alloc] initWithFrame:CGRectMake(93, 12, 210, 19)];
     [self.amountText setFont:[UIFont boldSystemFontOfSize:15]];
     [self.amountText setBackgroundColor:[UIColor clearColor]];
-    
+
     UIToolbar *amountBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     amountBar.barStyle = UIBarStyleBlackOpaque;
     [amountBar sizeToFit];
-    
+
     UIBarButtonItem *flexspace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
+
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(amountDone:)];
-    
+
     [amountBar setItems:@[flexspace, doneButton]];
-    
+
     [self.amountText setInputAccessoryView:amountBar];
     [self.amountText setKeyboardType:UIKeyboardTypeNumberPad];
-    
+
     [self.amountCell addSubview:self.amountText];
     self.amountCell.detailTextLabel.hidden = YES;
 }
@@ -148,15 +149,15 @@
 - (void)makeTimePickerView
 {
     self.sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    
+
     [self.sheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
-    
+
     self.picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];
     [self.picker setDataSource:self];
     [self.picker setDelegate:self];
     [self.picker setShowsSelectionIndicator:YES];
     [self.sheet addSubview:self.picker];
-    
+
     UILabel *hl = [[UILabel alloc] initWithFrame:CGRectMake(49, 127, 70, 50)];
     hl.backgroundColor = [UIColor clearColor];
     hl.opaque = NO;
@@ -164,7 +165,7 @@
     hl.font = [UIFont boldSystemFontOfSize:20];
     hl.text = @"Hrs";
     [self.sheet addSubview:hl];
-    
+
     UILabel *ml = [[UILabel alloc] initWithFrame:CGRectMake(149, 127, 70, 50)];
     ml.backgroundColor = [UIColor clearColor];
     ml.opaque = NO;
@@ -172,7 +173,7 @@
     ml.font = [UIFont boldSystemFontOfSize:20];
     ml.text = @"Mins";
     [self.sheet addSubview:ml];
-    
+
     UILabel *sl = [[UILabel alloc] initWithFrame:CGRectMake(249, 127, 70, 50)];
     sl.backgroundColor = [UIColor clearColor];
     sl.opaque = NO;
@@ -180,19 +181,19 @@
     sl.font = [UIFont boldSystemFontOfSize:20];
     sl.text = @"Secs";
     [self.sheet addSubview:sl];
-    
+
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     toolbar.barStyle = UIBarStyleBlackOpaque;
     [toolbar sizeToFit];
-    
+
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(timePickerCancel:)];
-    
+
     UIBarButtonItem *flexspace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
+
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(timePickerDone:)];
-    
+
     [toolbar setItems:@[cancelButton, flexspace, doneButton]];
-    
+
     [self.sheet addSubview:toolbar];
 }
 
@@ -204,19 +205,19 @@
     [self.commentText setBackgroundColor:[UIColor clearColor]];
     [self.commentText addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     [self.commentText setDelegate:self];
-    
+
     UIToolbar *commentBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     commentBar.barStyle = UIBarStyleBlackOpaque;
     [commentBar sizeToFit];
-    
+
     UIBarButtonItem *flexspace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
+
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(commentDone:)];
-    
+
     [commentBar setItems:@[flexspace, doneButton]];
-    
+
     [self.commentText setInputAccessoryView:commentBar];
-    
+
     [self.commentCell addSubview:self.commentText];
     self.commentCell.detailTextLabel.hidden = YES;
 }
@@ -230,7 +231,7 @@
     } else if ([self.amountText isFirstResponder] && indexPath.row != 2) {
         [self.amountText resignFirstResponder];
     }
-    
+
     switch (indexPath.row) {
         case 0:
         {
@@ -241,13 +242,13 @@
                 [self.typeCell.detailTextLabel sizeToFit];
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
             };
-            
+
             [ActionSheetStringPicker showPickerWithTitle:@"Workout Type" rows:self.types initialSelection:self.selectedTypeIndex doneBlock:done cancelBlock:nil origin:tableView];
-            
+
             [NPAnalytics track:@"result type tapped"];
             break;
         }
-            
+
         case 1:
         {
             //open action view with time picker
@@ -256,7 +257,7 @@
             [NPAnalytics track:@"result time tapped"];
             break;
         }
-            
+
         case 2:
         {
             //open dialog to pick amount?
@@ -265,7 +266,7 @@
             [NPAnalytics track:@"result amount tapped"];
             break;
         }
-            
+
         case 3:
             //toggle label to Yes or No
             if ([self.prCell.detailTextLabel.text isEqual:@"No"]) {
@@ -276,14 +277,14 @@
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             [NPAnalytics track:@"result pr tapped"];
             break;
-            
+
         case 4:
             //open text edit dialog
             [self.commentText becomeFirstResponder];
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             [NPAnalytics track:@"result comment tapped"];
             break;
-            
+
         default:
             break;
     }
@@ -298,17 +299,17 @@
         time = [time stringByAppendingString:@"0"];
     }
     time = [time stringByAppendingFormat:@"%d:", [self.picker selectedRowInComponent:0]];
-    
+
     if ([self.picker selectedRowInComponent:1] < 10) {
         time = [time stringByAppendingString:@"0"];
     }
     time = [time stringByAppendingFormat:@"%d:", [self.picker selectedRowInComponent:1]];
-    
+
     if ([self.picker selectedRowInComponent:2] < 10) {
         time = [time stringByAppendingString:@"0"];
     }
     time = [time stringByAppendingFormat:@"%d", [self.picker selectedRowInComponent:2]];
-    
+
     self.timeCell.detailTextLabel.text = time;
     [self.sheet dismissWithClickedButtonIndex:0 animated:YES];
     [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0] animated:YES];
@@ -335,13 +336,13 @@
     switch (component) {
         case 0:
             return 24;
-            
+
         case 1:
             return 60;
-            
+
         case 2:
             return 60;
-            
+
         default:
             return 60;
     }
@@ -397,10 +398,10 @@
 {
     [SVProgressHUD showWithStatus:@"Saving..."];
     [NPAnalytics track:@"result save attempted"];
-    
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NPUser *user = [defaults objectForKey:@"user"];
-    
+
     NSDictionary *params = @{@"uid": user.objectId,
                              @"wid": self.workout.objectId,
                              @"type": [[self.workoutTypes objectAtIndex:self.selectedTypeIndex] valueForKey:@"_id"],
@@ -408,38 +409,34 @@
                              @"amount": self.amountText.text,
                              @"pr": self.prCell.detailTextLabel.text,
                              @"comment": self.commentText.text};
-    
+
     if (self.workout.result) {
         [[NPAPIClient sharedClient] putPath:[NSString stringWithFormat:@"workouts/%@/results/%@", self.workout.objectId, self.workout.result.objectId] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [NPAnalytics track:@"result save succeeded"];
-            
+
             self.workout.result = [NPResult resultWithObject:[responseObject objectForKey:@"data"]];
             if (self.delegate)
                 [self.delegate resultsSaved];
-            
+
             [SVProgressHUD dismiss];
             [self dismissViewControllerAnimated:YES completion:nil];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSString *msg = [NPUtils reportError:error WithMessage:@"result save failed" FromOperation:(AFJSONRequestOperation *)operation];
-            
+            [NPErrorHandler reportError:error withAnalyticsEvent:@"result save failed" fromOperation:(AFJSONRequestOperation *)operation quiet:NO];
             [SVProgressHUD dismiss];
-            [[[UIAlertView alloc] initWithTitle:@"Error!" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }];
     } else {
         [[NPAPIClient sharedClient] postPath:[NSString stringWithFormat:@"workouts/%@/results", self.workout.objectId] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [NPAnalytics track:@"result save succeeded"];
-            
+
             self.workout.result = [NPResult resultWithObject:[responseObject objectForKey:@"data"]];
             if (self.delegate)
                 [self.delegate resultsSaved];
-            
+
             [SVProgressHUD dismiss];
             [self dismissViewControllerAnimated:YES completion:nil];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSString *msg = [NPUtils reportError:error WithMessage:@"result save failed" FromOperation:(AFJSONRequestOperation *)operation];
-            
+            [NPErrorHandler reportError:error withAnalyticsEvent:@"result save failed" fromOperation:(AFJSONRequestOperation *)operation quiet:NO];
             [SVProgressHUD dismiss];
-            [[[UIAlertView alloc] initWithTitle:@"Error!" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }];
     }
 }

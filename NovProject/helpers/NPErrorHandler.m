@@ -21,7 +21,7 @@
 
 + (void)reportError:(NSError *)error withAnalyticsEvent:(NSString *)event quiet:(BOOL)quiet
 {
-    [[NPAnalytics sharedAnalytics] trackError:event message:error.localizedDescription];
+    [NPAnalytics trackError:event message:error.localizedDescription];
     [self reportError:error quiet:quiet];
 }
 
@@ -32,7 +32,7 @@
     
     NSString *errorMessage = [[operation responseJSON] valueForKey:@"error"];
     NSLog(@"Error: %@", errorMessage);
-    [[NPAnalytics sharedAnalytics] trackError:event message:errorMessage];
+    [NPAnalytics trackError:event message:errorMessage];
     
     if (!quiet) [self alertUserWithTitle:@"An Error Occured" message:errorMessage];
 }

@@ -15,6 +15,7 @@
 		EA50386F17BBD8DB003DBBAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA50386D17BBD8DB003DBBAE /* InfoPlist.strings */; };
 		EA50387817BBDD37003DBBAE /* NPUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EA50387717BBDD37003DBBAE /* NPUserSpec.m */; };
 		EA7C5A5C17CD84C700C38DB6 /* NPAppSession.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7C5A5B17CD84C700C38DB6 /* NPAppSession.m */; };
+		EA8BADA617DA12FF002D2DC5 /* NPErrorHandlerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8BADA517DA12FF002D2DC5 /* NPErrorHandlerSpec.m */; };
 		EA8DBBA21734A39C002DD7CC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8DBBA11734A39C002DD7CC /* Security.framework */; };
 		EAAC393B171F6B1400EE670B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAC393A171F6B1400EE670B /* UIKit.framework */; };
 		EAAC393D171F6B1400EE670B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAC393C171F6B1400EE670B /* Foundation.framework */; };
@@ -115,6 +116,7 @@
 		EA50387717BBDD37003DBBAE /* NPUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPUserSpec.m; sourceTree = "<group>"; };
 		EA7C5A5A17CD84C700C38DB6 /* NPAppSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPAppSession.h; sourceTree = "<group>"; };
 		EA7C5A5B17CD84C700C38DB6 /* NPAppSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPAppSession.m; sourceTree = "<group>"; };
+		EA8BADA517DA12FF002D2DC5 /* NPErrorHandlerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NPErrorHandlerSpec.m; path = Helpers/NPErrorHandlerSpec.m; sourceTree = "<group>"; };
 		EA8DBBA11734A39C002DD7CC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		EAAC3937171F6B1400EE670B /* NovProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NovProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAAC393A171F6B1400EE670B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -446,6 +448,7 @@
 				EAC72E9017C40F17007E6F0E /* NPAPIClientSpec.m */,
 				EAC72EA617C5574E007E6F0E /* NPAnalyticsSpec.m */,
 				EAC72E7817BC16B7007E6F0E /* NPUtilsSpec.m */,
+				EA8BADA517DA12FF002D2DC5 /* NPErrorHandlerSpec.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -777,6 +780,7 @@
 				EAC72E9117C40F17007E6F0E /* NPAPIClientSpec.m in Sources */,
 				EAC72EA717C5574E007E6F0E /* NPAnalyticsSpec.m in Sources */,
 				EAEFFD8017D139DC004199E6 /* NSDate+Fixture.m in Sources */,
+				EA8BADA617DA12FF002D2DC5 /* NPErrorHandlerSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

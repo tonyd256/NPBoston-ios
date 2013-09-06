@@ -15,6 +15,7 @@
 #import "NPResultCell.h"
 #import "NPWorkout.h"
 #import "NPUtils.h"
+#import "NPErrorHandler.h"
 
 @interface NPResultsViewController ()
 
@@ -62,10 +63,8 @@
         [NPAnalytics track:@"results request succeeded"];
         [SVProgressHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *msg = [NPUtils reportError:error WithMessage:@"results request failed" FromOperation:(AFJSONRequestOperation *)operation];
+        [NPErrorHandler reportError:error withAnalyticsEvent:@"results request failed" fromOperation:(AFJSONRequestOperation *)operation quiet:NO];
         [SVProgressHUD dismiss];
-        
-        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
