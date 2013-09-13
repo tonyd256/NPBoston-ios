@@ -44,4 +44,9 @@
     [[Mixpanel sharedInstance] track:event properties:properties];
 }
 
++ (void)trackError:(NSString *)event message:(NSString *)message
+{
+    [self track:event properties:@{@"error": message}];
+}
+
 @end

@@ -20,7 +20,7 @@ void (^NPAuthenticationSuccessfulBlock)(NPUser *, NSString *) = ^(NPUser *user, 
     [[NSNotificationCenter defaultCenter] postNotificationName:NPSessionAuthenticationSucceededNotification object:nil];
 };
 
-void (^NPAuthenticationFailureBlock)(NSError *) = ^(NSError *error){
+void (^NPAuthenticationFailureBlock)() = ^{
     [NPAppSession sharedSession].user = nil;
     [NPAppSession sharedSession].token = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:NPSessionAuthenticationFailedNotification object:nil];

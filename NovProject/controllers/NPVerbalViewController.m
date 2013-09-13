@@ -14,7 +14,7 @@
 #import "NPAPIClient.h"
 #import "NPVerbal.h"
 #import "NPWorkout.h"
-#import "NPUtils.h"
+#import "NPErrorHandler.h"
 
 @interface NPVerbalViewController ()
 
@@ -31,7 +31,7 @@
     [super viewDidLoad];
     [NPAnalytics track:@"verbal view loaded"];
     self.verbals = [[NSMutableArray alloc] init];
-    
+
     // get verbals
     [self getVerbals];
 }
@@ -41,26 +41,24 @@
 - (void)getVerbals
 {
     if (!self.workout || !self.workout.objectId) return;
-    
+
     [NPAnalytics track:@"verbals request attempted"];
     [SVProgressHUD showWithStatus:@"Loading..."];
     [[NPAPIClient sharedClient] getPath:[NSString stringWithFormat:@"workouts/%@/verbals", self.workout.objectId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *data = [responseObject valueForKey:@"data"];
-        
+
         [self.verbals removeAllObjects];
-        
+
         for (id object in data) {
             [self.verbals addObject:[NPVerbal verbalWithObject:object]];
         }
-        
+
         [self.tableView reloadData];
         [NPAnalytics track:@"verbals request succeeded"];
         [SVProgressHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *msg = [NPUtils reportError:error WithMessage:@"verbals request failed" FromOperation:(AFJSONRequestOperation *)operation];
+        [NPErrorHandler reportError:error withAnalyticsEvent:@"verbals request failed" fromOperation:(AFJSONRequestOperation *)operation quiet:NO];
         [SVProgressHUD dismiss];
-        
-        [[[UIAlertView alloc] initWithTitle:@"Error Occured" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
@@ -81,10 +79,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NPVerbalCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VerbalCell" forIndexPath:indexPath];
-    
+
     cell.nameLabel.text = [(NPVerbal *)[self.verbals objectAtIndex:indexPath.row] name];
     cell.profilePic.profileID = [(NPVerbal *)[self.verbals objectAtIndex:indexPath.row] fid];
-    
+
     return cell;
 }
 

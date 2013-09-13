@@ -13,7 +13,7 @@
 
 typedef void (^NPCollectionSuccessBlock)(NSArray *);
 typedef void (^NPAuthenticationSuccessBlock)(NPUser *, NSString *);
-typedef void (^NPAuthenticationFailBlock)(NSError *);
+typedef void (^NPAuthenticationFailBlock)(void);
 
 @interface NPAPIClient : AFHTTPClient
 

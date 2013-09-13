@@ -7,31 +7,8 @@
 //
 
 #import "NPUtils.h"
-#import "NPAPIClient.h"
 
 @implementation NPUtils
-
-#pragma mark - Error Handling
-
-+ (NSString *)reportError:(NSError *)error WithMessage:(NSString *)message FromOperation:(AFJSONRequestOperation *)operation {
-    
-    NSString *errorMessage;
-    
-    if ([operation responseJSON] && [[operation responseJSON] objectForKey:@"error"]) {
-        errorMessage = [[operation responseJSON] valueForKey:@"error"];
-        NSLog(@"Error: %@", errorMessage);
-        [NPAnalytics track:message properties:@{@"error": errorMessage}];
-        return errorMessage;
-    } else {
-        return [self reportError:error WithMessage:message];
-    }  
-}
-
-+ (NSString *)reportError:(NSError *)error WithMessage:(NSString *)message{
-    NSLog(@"Error: %@", error.localizedDescription);
-    [NPAnalytics track:message properties:@{@"error": error.localizedDescription}];
-    return error.localizedDescription;
-}
 
 #pragma mark - Time Formatting
 

@@ -15,7 +15,7 @@
 #import "WCAlertView.h"
 #import "NPWorkout.h"
 #import "NPVerbal.h"
-#import "NPUtils.h"
+#import "NPErrorHandler.h"
 
 @implementation NPWorkoutCell
 
@@ -81,9 +81,8 @@
                 [NPAnalytics track:@"verbal succeeded"];
                 self.workout.verbal = [NPVerbal verbalWithObject:[responseObject objectForKey:@"data"]];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSString *msg = [NPUtils reportError:error WithMessage:@"verbals request failed" FromOperation:(AFJSONRequestOperation *)operation];
+                [NPErrorHandler reportError:error withAnalyticsEvent:@"verbals request failed" fromOperation:(AFJSONRequestOperation *)operation quiet:NO];
                 self.verbalButton.titleLabel.textColor = [UIColor grayColor];
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }];
         } else if ([[NSDate date] timeIntervalSince1970] < ([self.workout.date timeIntervalSince1970] - 32400)) {
             self.verbalButton.titleLabel.textColor = [UIColor grayColor];
@@ -95,9 +94,8 @@
                 [NPAnalytics track:@"verbal removal succeeded"];
                 self.workout.verbal = nil;
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSString *msg = [NPUtils reportError:error WithMessage:@"verbals request failed" FromOperation:(AFJSONRequestOperation *)operation];
+                [NPErrorHandler reportError:error withAnalyticsEvent:@"verbals request failed" fromOperation:(AFJSONRequestOperation *)operation quiet:NO];
                 self.verbalButton.titleLabel.textColor = [UIColor colorWithRed:(28/255.0) green:(164/255.0) blue:(190/255.0) alpha:1];
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }];
         } else if ([[NSDate date] timeIntervalSince1970] > ([self.workout.date timeIntervalSince1970] - 21600) && [[NSDate date] timeIntervalSince1970] < [self.workout.date timeIntervalSince1970]) {
             [[[UIAlertView alloc] initWithTitle:@"Nice Try" message:@"You can't take back a verbal within 6 hours of the workout!" delegate:nil cancelButtonTitle:@"I'll Be There!" otherButtonTitles:nil] show];
